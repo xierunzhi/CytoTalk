@@ -4,24 +4,20 @@
 #' network (pathways from ligand-receptor pairs) between two cell types using
 #' single- cell transcriptomics data (scRNA-seq).
 #'
-#' @section Running CytoTalk:
+#' @section Running CytoTalk: The central wrapper function, `run_cytotalk`, is
+#' the main entry point to the package. Most users should start here. Check out
+#' its MAN page by executing `?run_cytotalk` in your R console.
 #'
-#' The central wrapper function, `run_cytotalk`, is the main entry point to the
-#' package. Most users should start here. Check out its MAN page by executing
-#' `?run_cytotalk` in your R console.
-#'
-#' @section Advanced Users:
-#'
-#' If you're willing to do some digging, CytoTalk is composed of many steps,
-#' some of which could be interchangeable with other computational methods. For
-#' example, let's say that you have a different idea for computing intra-
-#' cellular similarity (i.e. not a mutual information matrix). You could skip
-#' steps 1-3 and attempt to run from step 4 onward (simply execute
-#' `run_cytotalk` in your console to view the source code) with differently
-#' integrated data. Currently, doing so is not user-friendly, so this is
-#' recommended for developers only. However, it would be interesting to make
-#' the different components of the overall process more modular to compare sub
-#' processes.
+#' @section Advanced Users: If you're willing to do some digging, CytoTalk is
+#' composed of many steps, some of which could be interchangeable with other
+#' computational methods. For example, let's say that you have a different idea
+#' for computing intra- cellular similarity (i.e. not a mutual information
+#' matrix). You could skip steps 1-3 and attempt to run from step 4 onward
+#' (simply execute `run_cytotalk` in your console to view the source code) with
+#' differently integrated data. Currently, doing so is not user-friendly, so
+#' this is recommended for developers only. However, it would be interesting to
+#' make the different components of the overall process more modular to compare
+#' sub processes.
 #'
 #' @docType package
 #'

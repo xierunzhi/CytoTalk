@@ -14,17 +14,17 @@
 
 ## Table of Contents
 
-- [CytoTalk](#cytotalk)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Background](#background)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Getting Started](#getting-started)
-  - [Update Log](#update-log)
-  - [Citing CytoTalk](#citing-cytotalk)
-  - [Reference](#reference)
-  - [Contact](#contact)
+-   [CytoTalk](#cytotalk)
+    -   [Table of Contents](#table-of-contents)
+    -   [Overview](#overview)
+    -   [Background](#background)
+    -   [Prerequisites](#prerequisites)
+    -   [Installation](#installation)
+    -   [Getting Started](#getting-started)
+    -   [Update Log](#update-log)
+    -   [Citing CytoTalk](#citing-cytotalk)
+    -   [Reference](#reference)
+    -   [Contact](#contact)
 
 ## Overview
 
@@ -86,7 +86,7 @@ single-cell RNA sequencing (scRNASeq) datasets. Here’s an example
 directory structure:
 
 ``` txt
-── scRNAseq-data
+── data
    ├─ scRNAseq_BasalCells.csv
    ├─ scRNAseq_BCells.csv
    ├─ scRNAseq_EndothelialCells.csv
