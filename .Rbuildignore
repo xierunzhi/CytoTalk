@@ -1,0 +1,8 @@
+^cytotalk\.Rproj$
+^\.Rproj\.user$
+^data-raw$
+^docs$
+ 
+^README\.Rmd$
+^LICENSE\.md$
+^package_guide.R$

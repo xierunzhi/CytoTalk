@@ -1,0 +1,34 @@
+Package: cytotalk
+Title: Construct signal transduction networks from scRNAseq data
+Version: 4.0.0
+Authors@R: c(
+    person("Yuxuan", "Hu",
+		   role = c("aut"),
+		   comment = c(ORCID = "0000-0002-8830-6893")),
+    person("Shane", "Drabing",
+		   role = c("aut")),
+    person("Kai", "Tai",
+		   role = c("cre"),
+	       email = "tank1@email.chop.edu",
+		   comment = c(ORCID = "0000-0002-9104-5567")))
+Description: Perform de novo construction of signal transduction networks using
+    single-cell transcriptomic data (scRNA-seq). The CytoTalk process constructs
+    an integrated network of intracellular and intercellular functional gene
+    interactions, generating useful graphical output for investigation of cell-
+    cell communication within and between cell types.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Depends: R (>= 3.5.0)
+Imports:
+    corpcor,
+	doParallel,
+	entropy,
+	foreach,
+	infotheo,
+	parmigene,
+	reticulate,
+	tibble,
+	vroom
