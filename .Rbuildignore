@@ -1,8 +1,9 @@
 ^cytotalk\.Rproj$
 ^\.Rproj\.user$
-^data-raw$
-^docs$
  
 ^README\.Rmd$
 ^LICENSE\.md$
+
+^docs$
+^scRNAseq-data$
 ^package_guide.R$

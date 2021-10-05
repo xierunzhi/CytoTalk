@@ -14,17 +14,17 @@
 
 ## Table of Contents
 
--   [CytoTalk](#cytotalk)
-    -   [Table of Contents](#table-of-contents)
-    -   [Overview](#overview)
-    -   [Background](#background)
-    -   [Prerequisites](#prerequisites)
-    -   [Installation](#installation)
-    -   [Getting Started](#getting-started)
-    -   [Update Log](#update-log)
-    -   [Citing CytoTalk](#citing-cytotalk)
-    -   [Reference](#reference)
-    -   [Contact](#contact)
+- [CytoTalk](#cytotalk)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Background](#background)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Getting Started](#getting-started)
+  - [Update Log](#update-log)
+  - [Citing CytoTalk](#citing-cytotalk)
+  - [Reference](#reference)
+  - [Contact](#contact)
 
 ## Overview
 
@@ -76,16 +76,17 @@ If you have `devtools` installed, you can use the `install_github`
 function directly on this repository:
 
 ``` r
-devtools::install_github("shanedrabing/cytotalk")
+devtools::install_github("tanlabcode/cytotalk")
 ```
 
 ## Getting Started
 
-Let’s assume we have a folder called “data”, filled with single-cell RNA
-sequencing (scRNASeq) datasets. Here’s an example directory structure:
+Let’s assume we have a folder called “scRNAseq-data”, filled with
+single-cell RNA sequencing (scRNASeq) datasets. Here’s an example
+directory structure:
 
 ``` txt
-── data
+── scRNAseq-data
    ├─ scRNAseq_BasalCells.csv
    ├─ scRNAseq_BCells.csv
    ├─ scRNAseq_EndothelialCells.csv
@@ -103,7 +104,7 @@ replicate it with your filenames. If you want to make sure your names
 are valid, use the following function:
 
 ``` r
-dir_in <- "data"
+dir_in <- "scRNAseq-data"
 cytotalk::check_valid_names(dir_in)
 #> [1] "BasalCells"             "BCells"                 "EndothelialCells"      
 #> [4] "Fibroblasts"            "LuminalEpithelialCells" "Macrophages"           
@@ -138,7 +139,7 @@ ado, let’s run CytoTalk!
 
 ``` r
 # set required parameters
-dir_in <- "data"
+dir_in <- "scRNAseq-data"
 type_a <- "BCells"
 type_b <- "TCells"
 

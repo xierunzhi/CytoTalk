@@ -11,6 +11,6 @@ A large character vector
 pcg_mouse
 }
 \description{
-Containts the names of mouse protein-coding genes
+Contains the names of mouse protein-coding genes
 }
 \keyword{datasets}

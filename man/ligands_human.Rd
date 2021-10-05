@@ -11,6 +11,6 @@ A data frame with two variables: \code{ligand} and \code{receptor}
 ligands_human
 }
 \description{
-Contians the names of human ligand-receptor pairs
+Contains the names of human ligand-receptor pairs
 }
 \keyword{datasets}

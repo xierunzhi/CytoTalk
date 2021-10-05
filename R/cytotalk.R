@@ -4,22 +4,28 @@
 #' network (pathways from ligand-receptor pairs) between two cell types using
 #' single- cell transcriptomics data (scRNA-seq).
 #'
-#' @section Running CytoTalk: The central wrapper function, `run_cytotalk`, is
-#' the main entry point to the package. Most users should start here. Check out
-#' its MAN page by executing `?run_cytotalk` in your R console.
+#' @section Running CytoTalk:
 #'
-#' @section Advanced Users: If you're willing to do some digging, CytoTalk is
-#' composed of many steps, some of which could be interchangeable with other
-#' computational methods. For example, let's say that you have a different idea
-#' for computing intra- cellular similarity (i.e. not a mutual information
-#' matrix). You could skip steps 1-3 and attempt to run from step 4 onward
-#' (simply execute `run_cytotalk` in your console to view the source code) with
-#' differently integrated data. Currently, doing so is not user-friendly, so
-#' this is recommended for developers only. However, it would be interesting to
-#' make the different components of the overall process more modular to compare
-#' sub processes.
+#' The central wrapper function, `run_cytotalk`, is the main entry point to the
+#' package. Most users should start here. Check out its MAN page by executing
+#' `?run_cytotalk` in your R console.
 #'
-#' @docType package @name cytotalk
+#' @section Advanced Users:
+#'
+#' If you're willing to do some digging, CytoTalk is composed of many steps,
+#' some of which could be interchangeable with other computational methods. For
+#' example, let's say that you have a different idea for computing intra-
+#' cellular similarity (i.e. not a mutual information matrix). You could skip
+#' steps 1-3 and attempt to run from step 4 onward (simply execute
+#' `run_cytotalk` in your console to view the source code) with differently
+#' integrated data. Currently, doing so is not user-friendly, so this is
+#' recommended for developers only. However, it would be interesting to make
+#' the different components of the overall process more modular to compare sub
+#' processes.
+#'
+#' @docType package
+#'
+#' @name cytotalk
 NULL
 
 #' Run CytoTalk Process
@@ -54,30 +60,54 @@ NULL
 #' }
 #'
 #' @param type_a Name of cell type A that matches scRNA-seq file; for example,
-#' `"BCells"` @param type_b Name of cell type B that matches scRNA-seq file;
-#' for example, `"TCells"` @param dir_in Folder containing scRNA-seq data
+#' `"BCells"`
+#'
+#' @param type_b Name of cell type B that matches scRNA-seq file; for example,
+#' `"TCells"` 
+#'
+#' @param dir_in Folder containing scRNA-seq data
+#'
+#'
 #' @param dir_out Folder used for output; if not specified, a "cytotalk-output"
-#' folder will be generated @param proteins A character vector, contains the
-#' names of protein coding genes; by default, uses the `pcg_mouse` data. This
-#' package also includes `pcg_human`, but you can also use your own data @param
-#' ligands A dataframe or matrix object with two columns, ligands names and the
-#' names of their receptors; by default, uses the `ligands_mouse` data. This
-#' package also includes `ligands_human`, but you can also use your own data
+#' folder will be generated 
+#'
+#' @param proteins A character vector, contains the names of protein coding
+#' genes; by default, uses the `pcg_mouse` data. This package also includes
+#' `pcg_human`, but you can also use your own data 
+#'
+#' @param ligands A dataframe or matrix object with two columns, ligands names
+#' and the names of their receptors; by default, uses the `ligands_mouse` data.
+#' This package also includes `ligands_human`, but you can also use your own
+#' data
+#'
+#'
 #' @param cutoff_a Proportional threshold for lowly expressed genes in cell
 #' type A (range of \[0-1\]); for example, 0.1 means genes with some expression
-#' in at least 10% of cells are retained @param cutoff_b Proportional
-#' expression threshold for cell type B (range of \[0-1\]) @param beta_max
-#' Upper limit of the test values of the PCSF objective function parameter
-#' $I^2$, which is inversely proportional to the total number of genes in a
-#' given cell-type pair; suggested to be 100 (default) if the total number of
-#' genes in a given cell-type pair is above 10,000; if the total number of
-#' genes is below 5,000, increase to 500 @param omega_min Start point of omega
-#' range; omega represents the edge cost of the artificial network, but has
-#' been found to be less significant than beta. Recommended minimum of `0.5`.
+#' in at least 10% of cells are retained 
+#'
+#' @param cutoff_b Proportional expression threshold for cell type B (range of
+#' \[0-1\]) 
+#'
+#' @param beta_max Upper limit of the test values of the PCSF objective
+#' function parameter $I^2$, which is inversely proportional to the total
+#' number of genes in a given cell-type pair; suggested to be 100 (default) if
+#' the total number of genes in a given cell-type pair is above 10,000; if the
+#' total number of genes is below 5,000, increase to 500 
+#'
+#' @param omega_min Start point of omega range; omega represents the edge cost
+#' of the artificial network, but has been found to be less significant than
+#' beta. Recommended minimum of `0.5`.
+#'
+#'
 #' @param omega_max End point of range between `omega_min` and `omega_max`,
-#' step size of `0.1`. Recommended maximum of `1.5`. @param depth Starting at
-#' each ligand-receptor pair in the resultant network, how many steps out from
-#' that pair should be taken to generate each neighborhood? @return NULL
+#' step size of `0.1`. Recommended maximum of `1.5`. 
+#'
+#' @param depth Starting at each ligand-receptor pair in the resultant network,
+#' how many steps out from that pair should be taken to generate each
+#' neighborhood?
+#'
+#' @return NULL
+#'
 #' @export
 run_cytotalk <- function(type_a, type_b, dir_in,
                          dir_out="cytotalk-output",

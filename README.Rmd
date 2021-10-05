@@ -12,10 +12,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-
-knitr::opts_knit$set(
-  root.dir = "/Users/Shane/Work/CytoTalk/package-time"
-)
 ```
 
 # CytoTalk
@@ -89,12 +85,12 @@ If you have `devtools` installed, you can use the `install_github` function
 directly on this repository:
 
 ``` {r install, eval=FALSE}
-devtools::install_github("shanedrabing/cytotalk")
+devtools::install_github("tanlabcode/cytotalk")
 ```
 
 ## Getting Started
 
-Let's assume we have a folder called "data", filled with single-cell RNA
+Let's assume we have a folder called "scRNAseq-data", filled with single-cell RNA
 sequencing (scRNASeq) datasets. Here's an example directory structure:
 
 ``` txt
@@ -116,7 +112,7 @@ your filenames. If you want to make sure your names are valid, use the following
 function:
 
 ``` {r valid_names}
-dir_in <- "data"
+dir_in <- "scRNAseq-data"
 cytotalk::check_valid_names(dir_in)
 ```
 
@@ -147,7 +143,7 @@ run CytoTalk!
 
 ``` {r basic_run, eval = FALSE}
 # set required parameters
-dir_in <- "data"
+dir_in <- "scRNAseq-data"
 type_a <- "BCells"
 type_b <- "TCells"
 
