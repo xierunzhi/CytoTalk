@@ -1,6 +1,6 @@
 ---
 title: "CytoTalk Guide"
-author: "Yuxuan Hu,/nShane Drabing,/nKai Tan"
+author: "Yuxuan Hu, Shane Drabing, Kai Tan (PI)"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{CytoTalk Guide}

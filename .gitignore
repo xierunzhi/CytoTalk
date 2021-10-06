@@ -1,6 +1,7 @@
 .Rproj.user
 package_guide.R
-scRNAseq-data
 inst/doc
+
+/scRNAseq-data/
 /doc/
 /Meta/
