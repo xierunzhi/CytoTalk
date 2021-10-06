@@ -57,8 +57,6 @@ pathways and interactions among them.
 
 ### Prerequisites
 
-⚠ **IMPORTANT** ⚠
-
 CytoTalk requires a Python module to operate correctly. To install the
 [`pcst_fast` module](https://github.com/fraenkel-lab/pcst_fast), please
 run this command *before* using CytoTalk:
