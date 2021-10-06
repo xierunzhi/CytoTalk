@@ -17,13 +17,15 @@
 -   [CytoTalk](#cytotalk)
     -   [Table of Contents](#table-of-contents)
     -   [Overview](#overview)
-    -   [Background](#background)
-    -   [Prerequisites](#prerequisites)
-    -   [Installation](#installation)
+        -   [Background](#background)
     -   [Getting Started](#getting-started)
+        -   [Prerequisites](#prerequisites)
+        -   [Installation](#installation)
+        -   [Preparation](#preparation)
+        -   [Running CytoTalk](#running-cytotalk)
     -   [Update Log](#update-log)
     -   [Citing CytoTalk](#citing-cytotalk)
-    -   [Reference](#reference)
+    -   [References](#references)
     -   [Contact](#contact)
 
 ## Overview
@@ -41,7 +43,7 @@ find an optimal subnetwork in the integrated network that includes genes
 with high levels of cell-type-specific expression and close connection
 to highly active ligand-receptor pairs.
 
-## Background
+### Background
 
 Signal transduction is the primary mechanism for cell-cell
 communication. scRNA- seq technology holds great promise for studying
@@ -51,7 +53,9 @@ two features, simply examining expression levels of ligand and receptor
 genes cannot reliably capture the overall activities of signaling
 pathways and interactions among them.
 
-## Prerequisites
+## Getting Started
+
+### Prerequisites
 
 ⚠ **IMPORTANT** ⚠
 
@@ -70,7 +74,7 @@ render portable SVG files correctly, you’ll have to have Graphviz
 installed and the `dot` executable on your PATH. See the [Cytoscape
 downloads page](https://graphviz.org/download/) for more information.
 
-## Installation
+### Installation
 
 If you have `devtools` installed, you can use the `install_github`
 function directly on this repository:
@@ -79,7 +83,7 @@ function directly on this repository:
 devtools::install_github("tanlabcode/cytotalk", build_vignettes = TRUE)
 ```
 
-## Preparation
+### Preparation
 
 Let’s assume we have a folder called “scRNAseq-data”, filled with
 single-cell RNA sequencing (scRNASeq) datasets. Here’s an example
@@ -140,7 +144,7 @@ Tcea1, 0,                         0
 
 Notice the first column has no header, this is fine.
 
-## Running CytoTalk
+### Running CytoTalk
 
 Without further ado, let’s run CytoTalk!
 
