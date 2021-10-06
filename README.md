@@ -79,14 +79,14 @@ function directly on this repository:
 devtools::install_github("tanlabcode/cytotalk")
 ```
 
-## Getting Started
+## Preparation
 
 Let’s assume we have a folder called “scRNAseq-data”, filled with
 single-cell RNA sequencing (scRNASeq) datasets. Here’s an example
 directory structure:
 
 ``` txt
-── data
+── scRNAseq-data
    ├─ scRNAseq_BasalCells.csv
    ├─ scRNAseq_BCells.csv
    ├─ scRNAseq_EndothelialCells.csv
@@ -95,6 +95,8 @@ directory structure:
    ├─ scRNAseq_Macrophages.csv
    └─ scRNAseq_TCells.csv
 ```
+
+<br />
 
 ⚠ **IMPORTANT** ⚠
 
@@ -113,6 +115,8 @@ cytotalk::check_valid_names(dir_in)
 
 The outputted names are all the cell types we can choose to run CytoTalk
 against. We’ll come back to this.
+
+<br />
 
 ⚠ **IMPORTANT** ⚠
 
@@ -134,8 +138,11 @@ Lypla1,0,                         0
 Tcea1, 0,                         0
 ```
 
-Notice the first column has no header, this is fine. Without further
-ado, let’s run CytoTalk!
+Notice the first column has no header, this is fine.
+
+## Running CytoTalk
+
+Without further ado, let’s run CytoTalk!
 
 ``` r
 # set required parameters
@@ -272,7 +279,7 @@ to the user manual inside the package.
 
     <https://www.biorxiv.org/content/10.1101/2020.03.29.014464v1>
 
-## Reference
+## References
 
 -   Shannon P, et al. Cytoscape: a software environment for integrated
     models of biomolecular interaction networks. *Genome Research*,
