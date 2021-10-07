@@ -96,7 +96,7 @@ compute_gene_relevance_type <- function(ligands, dir_in, dir_out, type) {
 
     names_lig <- unique(as.vector(df_lig))
     names_net <- toupper(names(df_net))
-    vec_lig <- as.integer(sapply(names_net, "%in%", names_lig))
+    vec_lig <- vapply(names_net, "%in%", integer(1), names_lig)
 
     # compute gene relevance value,
     # random walk with restart

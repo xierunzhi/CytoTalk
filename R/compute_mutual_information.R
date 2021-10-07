@@ -20,9 +20,9 @@ mi_matrix_fast <- function(mat) {
     # use already caculated columns for mutual information
     res <- foreach::`%dopar%`(foreach::foreach(i = seq_len(n)), {
         ent_i <- ent[i]
-        vec <- sapply(i:n, function(j) {
+        vec <- vapply(i:n, function(j) {
             ent_i + ent[j] - entropy_mm(data.frame(mat[, i], mat[, j]))
-        })
+        }, numeric(1))
         vec[vec < 0] <- 0
         vec
     })

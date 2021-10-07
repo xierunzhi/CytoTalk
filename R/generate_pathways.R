@@ -75,7 +75,7 @@ extract_best_network <- function(type_a, type_b, dir_out) {
 
     # process network cfg
     lst_net <- strsplit(readLines(fpath_net), "\t")
-    lengths <- sapply(lst_net, length)
+    lengths <- vapply(lst_net, length, integer(1))
     df_net_nodes <- as.data.frame(do.call(rbind, lst_net[lengths == 2]))
     df_net_edges <- as.data.frame(do.call(rbind, lst_net[lengths == 3]))
     names(df_net_edges) <- c("node1", "node2", "cost")
@@ -114,8 +114,8 @@ extract_best_network <- function(type_a, type_b, dir_out) {
     f <- function(x) {
         ifelse(rev(unlist(strsplit(x, "")))[1] == "A", type_a, type_b)
     }
-    df_net$node1_type <- sapply(df_net$node1, f)
-    df_net$node2_type <- sapply(df_net$node2, f)
+    df_net$node1_type <- vapply(df_net$node1, f, character(1))
+    df_net$node2_type <- vapply(df_net$node2, f, character(1))
 
     # simplify names
     f <- function(x) gsub("_TypA", "", gsub("_TypB", "_", x))

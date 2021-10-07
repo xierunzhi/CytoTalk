@@ -29,7 +29,7 @@ run_pcst <- function(dir_out, beta_max, omega_min, omega_max) {
 
     # read in network file
     lines <- strsplit(readLines(fpath_net), "\t")
-    lengths <- sapply(lines, length)
+    lengths <- vapply(lines, length, integer(1))
 
     # form data frames
     df_nodes <- as.data.frame(do.call(rbind, lines[lengths == 2]))
