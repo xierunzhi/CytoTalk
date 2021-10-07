@@ -1,4 +1,6 @@
 .Rproj.user
+.Rhistory
+cytotalk.Rproj
 package_guide.R
 inst/doc
 
