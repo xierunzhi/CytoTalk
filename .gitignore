@@ -1,9 +1,8 @@
-.Rproj.user
 .Rhistory
 cytotalk.Rproj
 package_guide.R
-inst/doc
 
+/inst/doc/
 /scRNAseq-data/
 /doc/
 /Meta/
