@@ -109,7 +109,7 @@ are valid, use the following function:
 
 ``` r
 dir_in <- "scRNAseq-data"
-cytotalk::check_valid_names(dir_in)
+CytoTalk::check_valid_names(dir_in)
 #> [1] "BasalCells"             "BCells"                 "EndothelialCells"      
 #> [4] "Fibroblasts"            "LuminalEpithelialCells" "Macrophages"           
 #> [7] "TCells"
@@ -153,7 +153,7 @@ type_a <- "BCells"
 type_b <- "TCells"
 
 # run CytoTalk process
-cytotalk::run_cytotalk(type_a, type_b, dir_in)
+CytoTalk::run_cytotalk(type_a, type_b, dir_in)
 ```
 
 We selected cell types “BCells” and “TCells”, specified our input

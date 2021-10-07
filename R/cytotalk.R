@@ -107,8 +107,8 @@ NULL
 #' @export
 run_cytotalk <- function(type_a, type_b, dir_in,
                          dir_out="cytotalk-output",
-                         proteins=cytotalk::pcg_mouse,
-                         ligands=cytotalk::ligands_mouse,
+                         proteins=CytoTalk::pcg_mouse,
+                         ligands=CytoTalk::ligands_mouse,
                          cutoff_a=0.1, cutoff_b=0.1,
                          beta_max=100, omega_min=0.5, omega_max=0.5,
                          depth=3) {

@@ -1,4 +1,4 @@
-Package: cytotalk
+Package: CytoTalk
 Title: Construct signal transduction networks from scRNAseq data
 Version: 4.0.0
 Authors@R: c(
