@@ -1,9 +1,18 @@
 Package: CytoTalk
 =================
 
+[2021-10-07]
+
+The latest release "CytoTalk_v4.0.0" is a completely re-written R
+version of the program. Approximately half of the run time as been shaved off,
+the program is now cross-compatible with Windows and *NIX systems, the file
+space usage is down to roughly a tenth of what it was, and graphical outputs
+have been made easier to import or now produce portable SVG files with embedded
+hyperlinks.
+
 [2021-06-08]
 
-The latest release "CytoTalk_v3.1.0" is a major updated R version on the basis
+The release "CytoTalk_v3.1.0" is a major updated R version on the basis
 of v3.0.3. We have added a function to generate Cytoscape files for
 visualization of each ligand-receptor-associated pathway extracted from the
 predicted signaling network between the two given cell types. For each
