@@ -5,7 +5,8 @@
 #' @noRd
 extract_intracell_edges_type <- function(dir_out, type) {
     # format filepaths
-    fpath_in <- file.path(dir_out, sprintf("IntracellularNetwork_Type%s.txt", type))
+    fpath_in <- file.path(
+        dir_out, sprintf("IntracellularNetwork_Type%s.txt", type))
     fpath_out <- file.path(dir_out, sprintf("MI_Typ%s.txt", type))
 
     # stop if input file doesn't exist,
@@ -48,8 +49,13 @@ extract_intracell_edges_type <- function(dir_out, type) {
 #' From the mutual information matrix, extract all non-zero edges and save them
 #' in a data table.
 #'
+#' @examples \dontrun{
+#' dir_out <- "my-output"
+#' extract_intracell_edges(dir_out)
+#' }
+#'
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 extract_intracell_edges <- function(dir_out) {
     extract_intracell_edges_type(dir_out, "A")
@@ -64,7 +70,8 @@ extract_intracell_edges <- function(dir_out) {
 #' @noRd
 compute_gene_relevance_type <- function(ligands, dir_in, dir_out, type) {
     # create filepaths
-    fpath_in <- file.path(dir_out, sprintf("IntracellularNetwork_Type%s.txt", type))
+    fpath_in <- file.path(
+        dir_out, sprintf("IntracellularNetwork_Type%s.txt", type))
     fpath_out <- file.path(dir_out, sprintf("GeneRelevanceTyp%s.txt", type))
 
     # stop if input file doesn't exist,
@@ -128,10 +135,18 @@ compute_gene_relevance_type <- function(ligands, dir_in, dir_out, type) {
 #'
 #' Using a randomized walk with restart, compute gene relevance.
 #'
+#' @examples \dontrun{
+#' ligands <- CytoTalk::ligands_mouse
+#' dir_in <- "scRNA-data"
+#' dir_out <- "my-output"
+#'
+#' compute_gene_relevance(ligands, dir_in, dir_out)
+#' }
+#'
 #' @param ligands Character matrix of ligand-receptor pair names
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 compute_gene_relevance <- function(ligands, dir_in, dir_out) {
     compute_gene_relevance_type(ligands, dir_in, dir_out, "A")
@@ -146,7 +161,8 @@ compute_gene_relevance <- function(ligands, dir_in, dir_out) {
 #' @noRd
 compute_node_prize_type <- function(type, dir_out, letter) {
     # format filepaths
-    fpath_net <- file.path(dir_out, sprintf("IntracellularNetwork_Type%s.txt", letter))
+    fpath_net <- file.path(
+        dir_out, sprintf("IntracellularNetwork_Type%s.txt", letter))
     fpath_rel <- file.path(dir_out, sprintf("GeneRelevanceTyp%s.txt", letter))
     fpath_pem <- file.path(dir_out, "GeneCellTypeSpecific.txt")
     fpath_out <- file.path(dir_out, sprintf("GeneNodePrize%s.txt", letter))
@@ -196,10 +212,18 @@ compute_node_prize_type <- function(type, dir_out, letter) {
 #' For each cell type, compute overall node prize (integrate gene relevance and
 #' PEM scores).
 #'
+#' @examples \dontrun{
+#' type_a <- "BCells"
+#' type_b <- "TCells"
+#' dir_out <- "my-output"
+#'
+#' compute_node_prize(type_a, type_b, dir_out)
+#' }
+#'
 #' @param type_a Cell type A
 #' @param type_b Cell type B
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 compute_node_prize <- function(type_a, type_b, dir_out) {
     compute_node_prize_type(type_a, dir_out, "A")
@@ -215,10 +239,18 @@ compute_node_prize <- function(type_a, type_b, dir_out) {
 #'
 #' Compute cross-talk scores between cell type ligand-receptor pairs.
 #'
+#' @examples \dontrun{
+#' type_a <- "BCells"
+#' type_b <- "TCells"
+#' dir_out <- "my-output"
+#'
+#' compute_crosstalk(type_a, type_b, dir_out)
+#' }
+#'
 #' @param type_a Cell type A
 #' @param type_b Cell type B
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 compute_crosstalk <- function(type_a, type_b, dir_out) {
     # "nst": non-self talk
@@ -331,8 +363,13 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
 #' Uses node prize and edge cost data previously generated to write out a final
 #' network configuration that can be processed by the PCST algorithm.
 #'
+#' @examples \dontrun{
+#' dir_out <- "my-output"
+#' write_integrated_net(dir_out)
+#' }
+#'
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 write_integrated_net <- function(dir_out) {
     # format filepaths
@@ -345,8 +382,10 @@ write_integrated_net <- function(dir_out) {
 
     # stop if input file doesn't exist,
     # skip if output already generated
-    fpaths_in <- c(fpath_node_a, fpath_node_b,
-                   fpath_edge_a, fpath_edge_b, fpath_edge_ct)
+    fpaths_in <- c(
+        fpath_node_a, fpath_node_b,
+        fpath_edge_a, fpath_edge_b, fpath_edge_ct
+    )
     if (!all(file.exists(fpaths_in))) {
         stop("cannot find input file(s)")
     } else if (file.exists(fpath_out)) {
@@ -354,11 +393,14 @@ write_integrated_net <- function(dir_out) {
     }
 
     # load in files
-    df_node_a <- suppressMessages(vroom::vroom(fpath_node_a, progress = FALSE))
-    df_node_b <- suppressMessages(vroom::vroom(fpath_node_b, progress = FALSE))
-    df_edge_a <- suppressMessages(vroom::vroom(fpath_edge_a, progress = FALSE))
-    df_edge_b <- suppressMessages(vroom::vroom(fpath_edge_b, progress = FALSE))
-    df_edge_ct <- suppressMessages(vroom::vroom(fpath_edge_ct, progress = FALSE))
+    quietvroom <- function(fpath) {
+        suppressMessages(vroom::vroom(fpath, progress = FALSE))
+    }
+    df_node_a <- quietvroom(fpath_node_a)
+    df_node_b <- quietvroom(fpath_node_b)
+    df_edge_a <- quietvroom(fpath_edge_a)
+    df_edge_b <- quietvroom(fpath_edge_b)
+    df_edge_ct <- quietvroom(fpath_edge_ct)
 
     # column to rownames
     df_node_a <- tibble::column_to_rownames(df_node_a, names(df_node_a)[1])
@@ -418,12 +460,22 @@ write_integrated_net <- function(dir_out) {
 #' cross-talk score between cell types, and write out a configuration file to be
 #' processed by the PCST algorithm.
 #'
+#' @examples \dontrun{
+#' ligands <- CytoTalk::ligands_mouse
+#' type_a <- "BCells"
+#' type_b <- "TCells"
+#' dir_in <- "scRNA-data"
+#' dir_out <- "my-output"
+#'
+#' integrate_network(ligands, type_a, type_b, dir_in, dir_out)
+#' }
+#'
 #' @param ligands Character matrix of ligand-receptor pair names
 #' @param type_a Cell type A
 #' @param type_b Cell type B
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 integrate_network <- function(ligands, type_a, type_b, dir_in, dir_out) {
     # gene node prize

@@ -12,9 +12,18 @@ compute_pem(dir_in, dir_out)
 \item{dir_out}{Output directory}
 }
 \value{
-NIL
+None
 }
 \description{
 Using all cell types in the input folder, compute the PEM; this is done per
 gene, per cell type.
+}
+\examples{
+\dontrun{
+dir_in <- "scRNA-data"
+dir_out <- "my-output"
+
+compute_pem(dir_in, dir_out)
+}
+
 }

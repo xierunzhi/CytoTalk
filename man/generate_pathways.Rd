@@ -16,10 +16,21 @@ generate_pathways(type_a, type_b, dir_out, depth)
 \item{depth}{How many steps out to form neighborhood?}
 }
 \value{
-NIL
+None
 }
 \description{
 Starting at each ligand-receptor pair in the final network, generate small
 neighbor graphs around these pairs. Consider them to be subsets of the larger
 graph.
+}
+\examples{
+\dontrun{
+type_a <- "BCells"
+type_b <- "TCells"
+dir_out <- "my-output"
+depth <- 3
+
+generate_pathways(type_a, type_b, dir_out, depth)
+}
+
 }

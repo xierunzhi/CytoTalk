@@ -3,9 +3,16 @@
 #' Using all cell types in the input folder, compute the PEM; this is done per
 #' gene, per cell type.
 #'
+#' @examples \dontrun{
+#' dir_in <- "scRNA-data"
+#' dir_out <- "my-output"
+#'
+#' compute_pem(dir_in, dir_out)
+#' }
+#'
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 compute_pem <- function(dir_in, dir_out) {
     # format filepaths

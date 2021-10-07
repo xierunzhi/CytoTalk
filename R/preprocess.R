@@ -38,6 +38,20 @@ filter_file <- function(fpath_in, fpath_out, cutoff, proteins) {
 #' filter scRNAseq data so that only protein-coding genes with expression levels
 #' over the cutoff remain.
 #'
+#' @examples \dontrun{
+#' proteins <- CytoTalk::protein_mouse
+#' type_a <- "BCells"
+#' type_b <- "TCells"
+#' cutoff_a <- 0.1
+#' cutoff_b <- 0.1
+#' dir_in <- "scRNA-data"
+#' dir_out <- "my-output"
+#'
+#' compute_non_self_talk(
+#'     proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out
+#' )
+#' }
+#'
 #' @param proteins Character vector of protein-coding gene names
 #' @param type_a Cell type A
 #' @param type_b Cell type B
@@ -45,9 +59,11 @@ filter_file <- function(fpath_in, fpath_out, cutoff, proteins) {
 #' @param cutoff_b Minimum proportion of non-zero columns, per row, cell type B
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
-preprocess <- function(proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out) {
+preprocess <- function(
+    proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out) {
+    
     # casefold upper
     proteins <- toupper(proteins)
 

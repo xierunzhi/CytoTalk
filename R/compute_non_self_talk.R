@@ -82,12 +82,22 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
 #' Given cell types and the names of ligand-receptor pairs, compute the
 #' non-self-talk score (within each cell type).
 #'
+#' @examples \dontrun{
+#' ligands <- CytoTalk::ligands_mouse
+#' type_a <- "BCells"
+#' type_b <- "TCells"
+#' dir_in <- "scRNA-data"
+#' dir_out <- "my-output"
+#'
+#' compute_non_self_talk(ligands, type_a, type_b, dir_in, dir_out)
+#' }
+#'
 #' @param ligands Character matrix of ligand-receptor pair names
 #' @param type_a Cell type A
 #' @param type_b Cell type B
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 compute_non_self_talk <- function(ligands, type_a, type_b, dir_in, dir_out) {
     compute_non_self_talk_type(ligands, type_a, "A", dir_in, dir_out)

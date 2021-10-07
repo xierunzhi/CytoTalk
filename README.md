@@ -159,7 +159,7 @@ CytoTalk::run_cytotalk(type_a, type_b, dir_in)
 We selected cell types “BCells” and “TCells”, specified our input
 directory, and that’s all we need for a default run (recommended
 settings). CytoTalk will automatically create a new folder called
-“cytotalk-output” in our working directory, but we can set the `dir_out`
+“CytoTalk-output” in our working directory, but we can set the `dir_out`
 parameter to change this behavior. The most important optional
 parameters to look at are `cutoff_a`, `cutoff_b`, and `beta_max`;
 details on these can be found in the help page for the `run_cytotalk`
@@ -176,7 +176,7 @@ Here is what the resulting output directory structure looks like
 (abbreviated):
 
 ``` txt
-── cytotalk-output
+── CytoTalk-output
    ├─ cytoscape
    │  ├─ CytoscapeEdges.txt
    │  ├─ CytoscapeNetwork.sif

@@ -8,7 +8,7 @@ run_cytotalk(
   type_a,
   type_b,
   dir_in,
-  dir_out = "cytotalk-output",
+  dir_out = "CytoTalk-output",
   proteins = CytoTalk::pcg_mouse,
   ligands = CytoTalk::ligands_mouse,
   cutoff_a = 0.1,
@@ -28,7 +28,7 @@ run_cytotalk(
 
 \item{dir_in}{Folder containing scRNA-seq data}
 
-\item{dir_out}{Folder used for output; if not specified, a "cytotalk-output"
+\item{dir_out}{Folder used for output; if not specified, a "CytoTalk-output"
 folder will be generated}
 
 \item{proteins}{A character vector, contains the names of protein coding
@@ -65,7 +65,7 @@ how many steps out from that pair should be taken to generate each
 neighborhood?}
 }
 \value{
-NIL
+None
 }
 \description{
 Runs all sub processes of CytoTalk. At minimum, the folder that contains
@@ -82,17 +82,19 @@ particular output folder.
 \examples{
 \dontrun{
 # set location of data and output folder
-dir_in <- "scRNA-data" dir_out <- "my-output"
+dir_in <- "scRNA-data"
+dir_out <- "my-output"
 
 # examine if your filenames are correct
 check_valid_names(dir_in)
 
 # select which cell types to compare
-type_a <- "BCells" type_b <- "TCells"
+type_a <- "BCells"
+type_b <- "TCells"
 
 # if desired, run a small test with highly-expressed genes
-run_cytotalk(type_a, type_b, dir_in, dir_out = "my-test", cutoff_a = 0.75,
-             cutoff_b = 0.75)
+run_cytotalk(type_a, type_b, dir_in, dir_out = "my-test",
+             cutoff_a = 0.75, cutoff_b = 0.75)
 
 # finally, run the full process
 run_cytotalk(type_a, type_b, dir_in, dir_out)

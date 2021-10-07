@@ -18,11 +18,23 @@ integrate_network(ligands, type_a, type_b, dir_in, dir_out)
 \item{dir_out}{Output directory}
 }
 \value{
-NIL
+None
 }
 \description{
 Given cell types and the names of ligand-receptor pairs, generate node prizes
 from intracellular edges (gene relevance, mutual information), compute a
 cross-talk score between cell types, and write out a configuration file to be
 processed by the PCST algorithm.
+}
+\examples{
+\dontrun{
+ligands <- CytoTalk::ligands_mouse
+type_a <- "BCells"
+type_b <- "TCells"
+dir_in <- "scRNA-data"
+dir_out <- "my-output"
+
+integrate_network(ligands, type_a, type_b, dir_in, dir_out)
+}
+
 }

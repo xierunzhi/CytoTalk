@@ -14,8 +14,18 @@ compute_crosstalk(type_a, type_b, dir_out)
 \item{dir_out}{Output directory}
 }
 \value{
-NIL
+None
 }
 \description{
 Compute cross-talk scores between cell type ligand-receptor pairs.
+}
+\examples{
+\dontrun{
+type_a <- "BCells"
+type_b <- "TCells"
+dir_out <- "my-output"
+
+compute_crosstalk(type_a, type_b, dir_out)
+}
+
 }

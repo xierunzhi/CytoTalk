@@ -10,8 +10,15 @@ compute_mutual_information(dir_out)
 \item{dir_out}{Output directory}
 }
 \value{
-NIL
+None
 }
 \description{
 Within each cell type, compute intracellular mutual information.
+}
+\examples{
+\dontrun{
+dir_out <- "my-output"
+compute_mutual_information(dir_out)
+}
+
 }

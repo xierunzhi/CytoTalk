@@ -4,11 +4,13 @@
 #' network (pathways from ligand-receptor pairs) between two cell types using
 #' single- cell transcriptomics data (scRNA-seq).
 #'
-#' @section Running CytoTalk: The central wrapper function, `run_cytotalk`, is
+#' @section Running CytoTalk:
+#' The central wrapper function, `run_cytotalk`, is
 #' the main entry point to the package. Most users should start here. Check out
 #' its MAN page by executing `?run_cytotalk` in your R console.
 #'
-#' @section Advanced Users: If you're willing to do some digging, CytoTalk is
+#' @section Advanced Users:
+#' If you're willing to do some digging, CytoTalk is
 #' composed of many steps, some of which could be interchangeable with other
 #' computational methods. For example, let's say that you have a different idea
 #' for computing intra- cellular similarity (i.e. not a mutual information
@@ -39,17 +41,19 @@ NULL
 #'
 #' @examples \dontrun{
 #' # set location of data and output folder
-#' dir_in <- "scRNA-data" dir_out <- "my-output"
+#' dir_in <- "scRNA-data"
+#' dir_out <- "my-output"
 #'
 #' # examine if your filenames are correct
 #' check_valid_names(dir_in)
 #'
 #' # select which cell types to compare
-#' type_a <- "BCells" type_b <- "TCells"
+#' type_a <- "BCells"
+#' type_b <- "TCells"
 #'
 #' # if desired, run a small test with highly-expressed genes
-#' run_cytotalk(type_a, type_b, dir_in, dir_out = "my-test", cutoff_a = 0.75,
-#'              cutoff_b = 0.75)
+#' run_cytotalk(type_a, type_b, dir_in, dir_out = "my-test",
+#'              cutoff_a = 0.75, cutoff_b = 0.75)
 #'
 #' # finally, run the full process
 #' run_cytotalk(type_a, type_b, dir_in, dir_out)
@@ -64,7 +68,7 @@ NULL
 #' @param dir_in Folder containing scRNA-seq data
 #'
 #'
-#' @param dir_out Folder used for output; if not specified, a "cytotalk-output"
+#' @param dir_out Folder used for output; if not specified, a "CytoTalk-output"
 #' folder will be generated 
 #'
 #' @param proteins A character vector, contains the names of protein coding
@@ -75,7 +79,6 @@ NULL
 #' and the names of their receptors; by default, uses the `ligands_mouse` data.
 #' This package also includes `ligands_human`, but you can also use your own
 #' data
-#'
 #'
 #' @param cutoff_a Proportional threshold for lowly expressed genes in cell
 #' type A (range of \[0-1\]); for example, 0.1 means genes with some expression
@@ -94,7 +97,6 @@ NULL
 #' of the artificial network, but has been found to be less significant than
 #' beta. Recommended minimum of `0.5`.
 #'
-#'
 #' @param omega_max End point of range between `omega_min` and `omega_max`,
 #' step size of `0.1`. Recommended maximum of `1.5`. 
 #'
@@ -102,12 +104,12 @@ NULL
 #' how many steps out from that pair should be taken to generate each
 #' neighborhood?
 #'
-#' @return NIL
+#' @return None
 #'
 #' @export
 run_cytotalk <- function(
     type_a, type_b, dir_in,
-    dir_out="cytotalk-output",
+    dir_out="CytoTalk-output",
     proteins=CytoTalk::pcg_mouse,
     ligands=CytoTalk::ligands_mouse,
     cutoff_a=0.1, cutoff_b=0.1,

@@ -19,6 +19,11 @@ minmax <- function(x, ...) {
 #' filtering out invalid filenames, and finally returning a list of valid cell
 #' types.
 #'
+#' @examples \dontrun{
+#' dir_in <- "scRNA-data"
+#' check_valid_names(dir_in)
+#' }
+#'
 #' @param dir_in Input directory, contains scRNAseq files
 #' @return A character vector, includes only valid scRNAseq cell types
 #' @export

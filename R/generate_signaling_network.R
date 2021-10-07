@@ -95,8 +95,13 @@ compute_kolmogorov_smirnov <- function(dir_out) {
 #' From PCST runs, find the "best" choice for a network based on how unlikely
 #' their distribution of edge counts is (higher the better).
 #'
+#' @examples \dontrun{
+#' dir_out <- "my-output"
+#' generate_signaling_network(dir_out)
+#' }
+#'
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 generate_signaling_network <- function(dir_out) {
     generate_summary(dir_out)

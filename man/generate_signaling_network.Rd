@@ -10,9 +10,16 @@ generate_signaling_network(dir_out)
 \item{dir_out}{Output directory}
 }
 \value{
-NIL
+None
 }
 \description{
 From PCST runs, find the "best" choice for a network based on how unlikely
 their distribution of edge counts is (higher the better).
+}
+\examples{
+\dontrun{
+dir_out <- "my-output"
+generate_signaling_network(dir_out)
+}
+
 }

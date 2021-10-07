@@ -243,7 +243,8 @@ write_neighborhood_gv <- function(row, df_net_sub, dir_out, sub=TRUE) {
     size <-  0.75 + 3.25 * (1 - df_net_sub$cost)^2
     size <- ifelse(df_net_sub$is_ct_edge, 2, 1) * size
     style <- ifelse(df_net_sub$is_ct_edge, "dashed", "solid")
-    edges <- sprintf(FORM_EDGE, df_net_sub$node1, df_net_sub$node2, c1, c2, size, style)
+    edges <- sprintf(
+        FORM_EDGE, df_net_sub$node1, df_net_sub$node2, c1, c2, size, style)
 
     # cell type names
     type_a <- df_node[!ew(df_node$node), "type"][1]
@@ -282,8 +283,9 @@ write_neighborhood_gv <- function(row, df_net_sub, dir_out, sub=TRUE) {
 
 render_gv <- function(fpath) {
     clean <- gsub("\\.gv", "", fpath)
-    system(sprintf("dot %s -Tsvg -o %s.svg", fpath, clean), ignore.stderr = TRUE)
-    system(sprintf("dot %s -Tpng -o %s.png", fpath, clean), ignore.stderr = TRUE)
+    syscmd <- function(cmd) { system(cmd, ignore.stderr = TRUE) }
+    syscmd(sprintf("dot %s -Tsvg -o %s.svg", fpath, clean))
+    syscmd(sprintf("dot %s -Tpng -o %s.png", fpath, clean))
 }
 
 #' @noRd
@@ -345,11 +347,20 @@ write_pathways_gv <- function(dir_out, depth) {
 #' neighbor graphs around these pairs. Consider them to be subsets of the larger
 #' graph.
 #'
+#' @examples \dontrun{
+#' type_a <- "BCells"
+#' type_b <- "TCells"
+#' dir_out <- "my-output"
+#' depth <- 3
+#'
+#' generate_pathways(type_a, type_b, dir_out, depth)
+#' }
+#'
 #' @param type_a Cell type A
 #' @param type_b Cell type B
 #' @param dir_out Output directory
 #' @param depth How many steps out to form neighborhood?
-#' @return NIL
+#' @return None
 #' @export
 generate_pathways <- function(type_a, type_b, dir_out, depth) {
     extract_best_network(type_a, type_b, dir_out)

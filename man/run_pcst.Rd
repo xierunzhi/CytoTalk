@@ -11,19 +11,33 @@ run_pcst(dir_out, beta_max, omega_min, omega_max)
 
 \item{beta_max}{End point of the range 1-\code{beta_max}, default 100.}
 
-\item{omega_min}{Start point of the range \code{omega_min}-\code{omega_max}, default 0.5.}
+\item{omega_min}{Start point of the range \code{omega_min}-\code{omega_max},
+default 0.5.}
 
-\item{omega_max}{Start point of the range \code{omega_min}-\code{omega_max}, default 0.5. Could increase to 1.5.}
+\item{omega_max}{Start point of the range \code{omega_min}-\code{omega_max},
+default 0.5. Could increase to 1.5.}
 }
 \value{
-NIL
+None
 }
 \description{
 Much thanks to The Fraenkel Lab at MIT, for providing this wonderful
-implementation of the PCST algorithm. You can view their repository \href{https://github.com/fraenkel-lab/pcst_fast}{here}.
+implementation of the PCST algorithm. You can view their repository
+\href{https://github.com/fraenkel-lab/pcst_fast}{here}.
 }
 \details{
 Given the integrated network, run a factorial design over beta and omega
 values, generating pruned networks for each run. These networks will be
 compared to each other later.
+}
+\examples{
+\dontrun{
+dir_out <- "my-output"
+beta_max <- 100
+omega_min <- 0.5
+omega_max <- 0.5
+
+compute_non_self_talk(dir_out, beta_max, omega_min, omega_max)
+}
+
 }

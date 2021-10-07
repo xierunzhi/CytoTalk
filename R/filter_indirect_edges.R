@@ -38,8 +38,13 @@ filter_indirect_edges_type <- function(dir_out, type) {
 #'
 #' Using the ARACNE.M function, filter edges so that only direct edges remain.
 #'
+#' @examples \dontrun{
+#' dir_out <- "my-output"
+#' filter_indirect_edges(dir_out)
+#' }
+#'
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 filter_indirect_edges <- function(dir_out) {
     filter_indirect_edges_type(dir_out, "A")

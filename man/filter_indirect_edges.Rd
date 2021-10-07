@@ -10,8 +10,15 @@ filter_indirect_edges(dir_out)
 \item{dir_out}{Output directory}
 }
 \value{
-NIL
+None
 }
 \description{
 Using the ARACNE.M function, filter edges so that only direct edges remain.
+}
+\examples{
+\dontrun{
+dir_out <- "my-output"
+filter_indirect_edges(dir_out)
+}
+
 }

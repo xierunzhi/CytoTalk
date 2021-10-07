@@ -4,5 +4,6 @@ package_guide.R
 
 /inst/doc/
 /scRNAseq-data/
+/CytoTalk-output/
 /doc/
 /Meta/

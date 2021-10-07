@@ -10,13 +10,15 @@ network (pathways from ligand-receptor pairs) between two cell types using
 single- cell transcriptomics data (scRNA-seq).
 }
 \section{Running CytoTalk}{
- The central wrapper function, \code{run_cytotalk}, is
+
+The central wrapper function, \code{run_cytotalk}, is
 the main entry point to the package. Most users should start here. Check out
 its MAN page by executing \code{?run_cytotalk} in your R console.
 }
 
 \section{Advanced Users}{
- If you're willing to do some digging, CytoTalk is
+
+If you're willing to do some digging, CytoTalk is
 composed of many steps, some of which could be interchangeable with other
 computational methods. For example, let's say that you have a different idea
 for computing intra- cellular similarity (i.e. not a mutual information

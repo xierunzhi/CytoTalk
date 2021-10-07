@@ -72,8 +72,13 @@ compute_mutual_information_type <- function(dir_out, type) {
 #'
 #' Within each cell type, compute intracellular mutual information.
 #'
+#' @examples \dontrun{
+#' dir_out <- "my-output"
+#' compute_mutual_information(dir_out)
+#' }
+#'
 #' @param dir_out Output directory
-#' @return NIL
+#' @return None
 #' @export
 compute_mutual_information <- function(dir_out) {
     # register cores for parallel computation

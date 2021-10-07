@@ -22,10 +22,26 @@ preprocess(proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out)
 \item{dir_out}{Output directory}
 }
 \value{
-NIL
+None
 }
 \description{
 Given cell types, cutoff values, and the names of protein-coding genes,
 filter scRNAseq data so that only protein-coding genes with expression levels
 over the cutoff remain.
+}
+\examples{
+\dontrun{
+proteins <- CytoTalk::protein_mouse
+type_a <- "BCells"
+type_b <- "TCells"
+cutoff_a <- 0.1
+cutoff_b <- 0.1
+dir_in <- "scRNA-data"
+dir_out <- "my-output"
+
+compute_non_self_talk(
+    proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out
+)
+}
+
 }

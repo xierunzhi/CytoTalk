@@ -17,3 +17,10 @@ Searches input directory for a particular regular expression pattern,
 filtering out invalid filenames, and finally returning a list of valid cell
 types.
 }
+\examples{
+\dontrun{
+dir_in <- "scRNA-data"
+check_valid_names(dir_in)
+}
+
+}
