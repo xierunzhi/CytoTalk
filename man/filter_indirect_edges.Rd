@@ -16,8 +16,8 @@ None
 Using the ARACNE.M function, filter edges so that only direct edges remain.
 }
 \examples{
-\dontrun{
-dir_out <- "my-output"
+{
+dir_out <- "CytoTalk-output"
 filter_indirect_edges(dir_out)
 }
 

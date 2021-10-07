@@ -17,8 +17,8 @@ From the mutual information matrix, extract all non-zero edges and save them
 in a data table.
 }
 \examples{
-\dontrun{
-dir_out <- "my-output"
+{
+dir_out <- "CytoTalk-output"
 extract_intracell_edges(dir_out)
 }
 

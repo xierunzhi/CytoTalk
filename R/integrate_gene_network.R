@@ -49,8 +49,8 @@ extract_intracell_edges_type <- function(dir_out, type) {
 #' From the mutual information matrix, extract all non-zero edges and save them
 #' in a data table.
 #'
-#' @examples \dontrun{
-#' dir_out <- "my-output"
+#' @examples {
+#' dir_out <- "CytoTalk-output"
 #' extract_intracell_edges(dir_out)
 #' }
 #'
@@ -135,10 +135,10 @@ compute_gene_relevance_type <- function(ligands, dir_in, dir_out, type) {
 #'
 #' Using a randomized walk with restart, compute gene relevance.
 #'
-#' @examples \dontrun{
+#' @examples {
 #' ligands <- CytoTalk::ligands_mouse
-#' dir_in <- "scRNA-data"
-#' dir_out <- "my-output"
+#' dir_in <- "scRNAseq-data"
+#' dir_out <- "CytoTalk-output"
 #'
 #' compute_gene_relevance(ligands, dir_in, dir_out)
 #' }
@@ -212,10 +212,10 @@ compute_node_prize_type <- function(type, dir_out, letter) {
 #' For each cell type, compute overall node prize (integrate gene relevance and
 #' PEM scores).
 #'
-#' @examples \dontrun{
+#' @examples {
 #' type_a <- "BCells"
 #' type_b <- "TCells"
-#' dir_out <- "my-output"
+#' dir_out <- "CytoTalk-output"
 #'
 #' compute_node_prize(type_a, type_b, dir_out)
 #' }
@@ -239,10 +239,10 @@ compute_node_prize <- function(type_a, type_b, dir_out) {
 #'
 #' Compute cross-talk scores between cell type ligand-receptor pairs.
 #'
-#' @examples \dontrun{
+#' @examples {
 #' type_a <- "BCells"
 #' type_b <- "TCells"
-#' dir_out <- "my-output"
+#' dir_out <- "CytoTalk-output"
 #'
 #' compute_crosstalk(type_a, type_b, dir_out)
 #' }
@@ -363,8 +363,8 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
 #' Uses node prize and edge cost data previously generated to write out a final
 #' network configuration that can be processed by the PCST algorithm.
 #'
-#' @examples \dontrun{
-#' dir_out <- "my-output"
+#' @examples {
+#' dir_out <- "CytoTalk-output"
 #' write_integrated_net(dir_out)
 #' }
 #'
@@ -460,12 +460,12 @@ write_integrated_net <- function(dir_out) {
 #' cross-talk score between cell types, and write out a configuration file to be
 #' processed by the PCST algorithm.
 #'
-#' @examples \dontrun{
+#' @examples {
 #' ligands <- CytoTalk::ligands_mouse
 #' type_a <- "BCells"
 #' type_b <- "TCells"
-#' dir_in <- "scRNA-data"
-#' dir_out <- "my-output"
+#' dir_in <- "scRNAseq-data"
+#' dir_out <- "CytoTalk-output"
 #'
 #' integrate_network(ligands, type_a, type_b, dir_in, dir_out)
 #' }

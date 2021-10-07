@@ -21,10 +21,10 @@ For each cell type, compute overall node prize (integrate gene relevance and
 PEM scores).
 }
 \examples{
-\dontrun{
+{
 type_a <- "BCells"
 type_b <- "TCells"
-dir_out <- "my-output"
+dir_out <- "CytoTalk-output"
 
 compute_node_prize(type_a, type_b, dir_out)
 }

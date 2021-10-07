@@ -20,10 +20,10 @@ None
 Using a randomized walk with restart, compute gene relevance.
 }
 \examples{
-\dontrun{
+{
 ligands <- CytoTalk::ligands_mouse
-dir_in <- "scRNA-data"
-dir_out <- "my-output"
+dir_in <- "scRNAseq-data"
+dir_out <- "CytoTalk-output"
 
 compute_gene_relevance(ligands, dir_in, dir_out)
 }

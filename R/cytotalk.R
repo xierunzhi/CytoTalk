@@ -41,8 +41,8 @@ NULL
 #'
 #' @examples \dontrun{
 #' # set location of data and output folder
-#' dir_in <- "scRNA-data"
-#' dir_out <- "my-output"
+#' dir_in <- "scRNAseq-data"
+#' dir_out <- "CytoTalk-output"
 #'
 #' # examine if your filenames are correct
 #' check_valid_names(dir_in)
@@ -66,7 +66,6 @@ NULL
 #' `"TCells"` 
 #'
 #' @param dir_in Folder containing scRNA-seq data
-#'
 #'
 #' @param dir_out Folder used for output; if not specified, a "CytoTalk-output"
 #' folder will be generated 

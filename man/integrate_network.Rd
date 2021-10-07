@@ -27,12 +27,12 @@ cross-talk score between cell types, and write out a configuration file to be
 processed by the PCST algorithm.
 }
 \examples{
-\dontrun{
+{
 ligands <- CytoTalk::ligands_mouse
 type_a <- "BCells"
 type_b <- "TCells"
-dir_in <- "scRNA-data"
-dir_out <- "my-output"
+dir_in <- "scRNAseq-data"
+dir_out <- "CytoTalk-output"
 
 integrate_network(ligands, type_a, type_b, dir_in, dir_out)
 }

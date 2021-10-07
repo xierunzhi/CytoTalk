@@ -72,8 +72,8 @@ compute_mutual_information_type <- function(dir_out, type) {
 #'
 #' Within each cell type, compute intracellular mutual information.
 #'
-#' @examples \dontrun{
-#' dir_out <- "my-output"
+#' @examples {
+#' dir_out <- "CytoTalk-output"
 #' compute_mutual_information(dir_out)
 #' }
 #'

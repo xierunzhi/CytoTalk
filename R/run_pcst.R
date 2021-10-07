@@ -8,13 +8,13 @@
 #' values, generating pruned networks for each run. These networks will be
 #' compared to each other later.
 #'
-#' @examples \dontrun{
-#' dir_out <- "my-output"
+#' @examples {
+#' dir_out <- "CytoTalk-output"
 #' beta_max <- 100
 #' omega_min <- 0.5
 #' omega_max <- 0.5
 #'
-#' compute_non_self_talk(dir_out, beta_max, omega_min, omega_max)
+#' run_pcst(dir_out, beta_max, omega_min, omega_max)
 #' }
 #'
 #' @param dir_out Output directory

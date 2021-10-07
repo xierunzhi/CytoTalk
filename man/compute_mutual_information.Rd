@@ -16,8 +16,8 @@ None
 Within each cell type, compute intracellular mutual information.
 }
 \examples{
-\dontrun{
-dir_out <- "my-output"
+{
+dir_out <- "CytoTalk-output"
 compute_mutual_information(dir_out)
 }
 

@@ -17,8 +17,8 @@ Uses node prize and edge cost data previously generated to write out a final
 network configuration that can be processed by the PCST algorithm.
 }
 \examples{
-\dontrun{
-dir_out <- "my-output"
+{
+dir_out <- "CytoTalk-output"
 write_integrated_net(dir_out)
 }
 

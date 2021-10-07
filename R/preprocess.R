@@ -39,15 +39,15 @@ filter_file <- function(fpath_in, fpath_out, cutoff, proteins) {
 #' over the cutoff remain.
 #'
 #' @examples \dontrun{
-#' proteins <- CytoTalk::protein_mouse
+#' proteins <- CytoTalk::pcg_mouse
 #' type_a <- "BCells"
 #' type_b <- "TCells"
 #' cutoff_a <- 0.1
 #' cutoff_b <- 0.1
-#' dir_in <- "scRNA-data"
-#' dir_out <- "my-output"
+#' dir_in <- "scRNAseq-data"
+#' dir_out <- "CytoTalk-output"
 #'
-#' compute_non_self_talk(
+#' preprocess(
 #'     proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out
 #' )
 #' }
