@@ -13,6 +13,9 @@ compute_crosstalk(type_a, type_b, dir_out)
 
 \item{dir_out}{Output directory}
 }
+\value{
+NIL
+}
 \description{
 Compute cross-talk scores between cell type ligand-receptor pairs.
 }

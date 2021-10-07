@@ -12,12 +12,13 @@ mi_matrix_fast <- function(mat) {
     i <- NULL
 
     # calculate the entropy of each column first
-    ent <- foreach::`%dopar%`(foreach::foreach(i = 1:n, .combine = "c"), {
+    ent <- foreach::`%dopar%`(
+        foreach::foreach(i = seq_len(n), .combine = "c"), {
         entropy_mm(mat[, i])
     })
 
     # use already caculated columns for mutual information
-    res <- foreach::`%dopar%`(foreach::foreach(i = 1:n), {
+    res <- foreach::`%dopar%`(foreach::foreach(i = seq_len(n)), {
         ent_i <- ent[i]
         vec <- sapply(i:n, function(j) {
             ent_i + ent[j] - entropy_mm(data.frame(mat[, i], mat[, j]))
@@ -72,7 +73,7 @@ compute_mutual_information_type <- function(dir_out, type) {
 #' Within each cell type, compute intracellular mutual information.
 #'
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 compute_mutual_information <- function(dir_out) {
     # register cores for parallel computation

@@ -21,6 +21,9 @@ preprocess(proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out)
 
 \item{dir_out}{Output directory}
 }
+\value{
+NIL
+}
 \description{
 Given cell types, cutoff values, and the names of protein-coding genes,
 filter scRNAseq data so that only protein-coding genes with expression levels

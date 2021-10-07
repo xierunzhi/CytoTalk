@@ -102,16 +102,17 @@ NULL
 #' how many steps out from that pair should be taken to generate each
 #' neighborhood?
 #'
-#' @return NULL
+#' @return NIL
 #'
 #' @export
-run_cytotalk <- function(type_a, type_b, dir_in,
-                         dir_out="cytotalk-output",
-                         proteins=CytoTalk::pcg_mouse,
-                         ligands=CytoTalk::ligands_mouse,
-                         cutoff_a=0.1, cutoff_b=0.1,
-                         beta_max=100, omega_min=0.5, omega_max=0.5,
-                         depth=3) {
+run_cytotalk <- function(
+    type_a, type_b, dir_in,
+    dir_out="cytotalk-output",
+    proteins=CytoTalk::pcg_mouse,
+    ligands=CytoTalk::ligands_mouse,
+    cutoff_a=0.1, cutoff_b=0.1,
+    beta_max=100, omega_min=0.5, omega_max=0.5,
+    depth=3) {
 
     # must have valid data directory
     type_names <- check_valid_names(dir_in)

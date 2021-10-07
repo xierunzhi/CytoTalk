@@ -12,16 +12,21 @@ Authors@R: c(
 	       email = "tank1@email.chop.edu",
 		   comment = c(ORCID = "0000-0002-9104-5567")))
 Description: Perform de novo construction of signal transduction networks using
-    single-cell transcriptomic data (scRNA-seq). The CytoTalk process constructs
-    an integrated network of intracellular and intercellular functional gene
-    interactions, generating useful graphical output for investigation of cell-
-    cell communication within and between cell types.
+	single-cell transcriptomic data (scRNA-seq). The CytoTalk process
+	constructs an integrated network of intra- and inter-cellular functional
+	gene interactions, generating useful graphical output for investigation of
+	cell-cell communication within and between cell types. CytoTalk attempts to
+	find the optimal subnetwork in the integrated network that includes genes
+	with high levels of cell-type-specific expression and close connection to
+	highly active ligand-receptor pairs. It takes into account metrics like as
+	Preferential Expression Measure (PEM), mutual information between proteins,
+	gene relevance, and non-self-talk score.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.0)
 Imports:
     corpcor,
 	doParallel,
@@ -36,3 +41,8 @@ Suggests:
     rmarkdown,
     knitr
 VignetteBuilder: knitr
+biocViews:
+	Software,
+	SingleCell,
+	GeneExpression,
+	Network

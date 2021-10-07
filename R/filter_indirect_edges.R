@@ -2,7 +2,8 @@
 filter_indirect_edges_type <- function(dir_out, type) {
     # format file path
     fpath_in <- file.path(dir_out, sprintf("MutualInfo_Typ%s_Para.txt", type))
-    fpath_out <- file.path(dir_out, sprintf("IntracellularNetwork_Type%s.txt", type))
+    fpath_out <- file.path(
+        dir_out, sprintf("IntracellularNetwork_Type%s.txt", type))
 
     # stop if input file doesn't exist,
     # skip if output already generated
@@ -20,7 +21,7 @@ filter_indirect_edges_type <- function(dir_out, type) {
     mat <- as.matrix(mat)
 
     # zero out diagonal
-    for (i in 1:ncol(mat)) {
+    for (i in seq_len(ncol(mat))) {
         mat[i, i] <- 0
     }
 
@@ -38,7 +39,7 @@ filter_indirect_edges_type <- function(dir_out, type) {
 #' Using the ARACNE.M function, filter edges so that only direct edges remain.
 #'
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 filter_indirect_edges <- function(dir_out) {
     filter_indirect_edges_type(dir_out, "A")

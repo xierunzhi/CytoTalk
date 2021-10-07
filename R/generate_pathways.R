@@ -1,18 +1,18 @@
 # CONSTANTS
 
 
-HEX <- c(0:9, LETTERS[1:6])
+HEX <- c(0:9, LETTERS[seq_len(6)])
 URL_GENECARDS = "https://www.genecards.org/cgi-bin/carddisp.pl?gene="
 URL_WIKIPI = "https://hagrid.dbmi.pitt.edu/wiki-pi/index.php/search?q="
 FORM_NODE = paste0(
-    "\"%s\" [label = \"%s\", href = \"",
+    "\"%s\" [label = \"%s\" href = \"",
     URL_GENECARDS,
-    "%s\", width = %s, height = %s, fillcolor = \"%s\"];"
+    "%s\" width = %s height = %s fillcolor = \"%s\"];"
 )
 FORM_EDGE = paste0(
     "\"%s\" -> \"%s\" [href = \"",
     URL_WIKIPI,
-    "%s+%s\", penwidth = %s];"
+    "%s+%s\" penwidth = %s];"
 )
 FORM_GV = trimws("
 digraph {\n
@@ -22,8 +22,9 @@ labeljust = l;
 splines = true;
 overlap = false;
 outputorder = \"edgesfirst\";\n
-node [fontname = \"Arial\", fontsize = 10, style = filled, fixedsize = true, target=\"_blank\"];
-edge [arrowhead = none, constraint = false, target=\"_blank\"];\n
+node [fixedsize = true target=\"_blank\"];
+node [fontname = \"Arial\" fontsize = 10 style = filled];
+edge [arrowhead = none constraint = false target=\"_blank\"];\n
 subgraph cluster0 {\n
 rank = same;
 margin = 30;
@@ -47,7 +48,7 @@ node [shape = circle];\n
 // cluster external horizontal order
 %s
 // cluster external
-edge [color = limegreen, arrowhead = normal];
+edge [color = limegreen arrowhead = normal];
 %s\n
 }")
 
@@ -176,9 +177,11 @@ write_network_sif <- function(dir_out) {
     edges <- gsub("[()]", "", edge_names)
 
     # create node table
+    index1 <- c("node1", "node1_type", "node1_prize", "node1_pem")
+    index2 <- c("node2", "node2_type", "node2_prize", "node2_pem")
     df_node <- data.frame(rbind(
-        as.matrix(df_net[, c("node1", "node1_type", "node1_prize", "node1_pem")]),
-        as.matrix(df_net[, c("node2", "node2_type", "node2_prize", "node2_pem")])
+        as.matrix(df_net[, index1]),
+        as.matrix(df_net[, index2])
     ))
 
     # naming and type conversion
@@ -209,13 +212,15 @@ write_neighborhood_gv <- function(row, df_net_sub, dir_out, sub=TRUE) {
     }
 
     # format filepath
-    fname <- paste0(paste(gsub("_", "", row[1:2]), collapse = "_"), ".gv")
+    fname <- paste0(paste(gsub("_", "", row[c(1, 2)]), collapse = "_"), ".gv")
     fpath <- file.path(dir_out_gv, fname)
 
     # prepare nodes
+    index1 <- c("node1", "node1_type", "node1_prize", "node1_pem")
+    index2 <- c("node2", "node2_type", "node2_prize", "node2_pem")
     df_node <- data.frame(rbind(
-        as.matrix(df_net_sub[, c("node1", "node1_type", "node1_prize", "node1_pem")]),
-        as.matrix(df_net_sub[, c("node2", "node2_type", "node2_prize", "node2_pem")])
+        as.matrix(df_net_sub[, index1]),
+        as.matrix(df_net_sub[, index2])
     ))
 
     df_node <- df_node[!duplicated(df_node), ]
@@ -225,23 +230,20 @@ write_neighborhood_gv <- function(row, df_net_sub, dir_out, sub=TRUE) {
     # string format nodes
     ew <- function(x) endsWith(x, "_")
     index_nodes <- ew(df_node$node)
-    nodes <- with(df_node, {
-        clean <- trimws(node, whitespace = "_")
-        size <- 0.5 + 9.5 * prize^2
-        color <- hsv(ifelse(ew(node), 0.02, 0.55), (1 - pem), 1)
-        sprintf(FORM_NODE, node, clean, clean, size, size, color)
-    })
+    clean <- trimws(df_node$node, whitespace = "_")
+    size <- 0.5 + 9.5 * df_node$prize^2
+    color <- grDevices::hsv(
+        ifelse(ew(df_node$node), 0.02, 0.55), (1 - df_node$pem), 1)
+    nodes <- sprintf(FORM_NODE, df_node$node, clean, clean, size, size, color)
 
     # string format edges
-    index_edges <- with(df_net_sub, ew(node1) + ew(node2))
-    edges <- with(df_net_sub, {
-        c1 <- trimws(node1, whitespace = "_")
-        c2 <- trimws(node2, whitespace = "_")
-        size <-  0.75 + 3.25 * (1 - cost)^2
-        size <- ifelse(is_ct_edge, 2, 1) * size
-        style <- ifelse(is_ct_edge, "dashed", "solid")
-        sprintf(FORM_EDGE, node1, node2, c1, c2, size, style)
-    })
+    index_edges <- ew(df_net_sub$node1) + ew(df_net_sub$node2)
+    c1 <- trimws(df_net_sub$node1, whitespace = "_")
+    c2 <- trimws(df_net_sub$node2, whitespace = "_")
+    size <-  0.75 + 3.25 * (1 - df_net_sub$cost)^2
+    size <- ifelse(df_net_sub$is_ct_edge, 2, 1) * size
+    style <- ifelse(df_net_sub$is_ct_edge, "dashed", "solid")
+    edges <- sprintf(FORM_EDGE, df_net_sub$node1, df_net_sub$node2, c1, c2, size, style)
 
     # cell type names
     type_a <- df_node[!ew(df_node$node), "type"][1]
@@ -317,13 +319,13 @@ write_pathways_gv <- function(dir_out, depth) {
 
     # loop through each
     apply(df_lig, 1, function(row) {
-        nodes_all <- unlist(df_net[, 1:2])
+        nodes_all <- unlist(df_net[, c(1, 2)])
         nodes_mat <- matrix(nodes_all, ncol = 2)
 
         nodes_sel <- c()
-        nodes_new <- unlist(row[1:2])
+        nodes_new <- unlist(row[c(1, 2)])
 
-        for (d in 1:depth) {
+        for (d in seq_len(depth)) {
             nodes_sel <- unique(c(nodes_sel, nodes_new))
             index <- rowSums(matrix(nodes_all %in% nodes_sel, ncol = 2)) != 0
             nodes_new <- as.vector(nodes_mat[index, ])
@@ -347,7 +349,7 @@ write_pathways_gv <- function(dir_out, depth) {
 #' @param type_b Cell type B
 #' @param dir_out Output directory
 #' @param depth How many steps out to form neighborhood?
-#' @return NULL
+#' @return NIL
 #' @export
 generate_pathways <- function(type_a, type_b, dir_out, depth) {
     extract_best_network(type_a, type_b, dir_out)

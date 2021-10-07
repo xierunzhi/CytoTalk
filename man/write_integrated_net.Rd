@@ -9,6 +9,9 @@ write_integrated_net(dir_out)
 \arguments{
 \item{dir_out}{Output directory}
 }
+\value{
+NIL
+}
 \description{
 Uses node prize and edge cost data previously generated to write out a final
 network configuration that can be processed by the PCST algorithm.

@@ -5,7 +5,7 @@
 #'
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 compute_pem <- function(dir_in, dir_out) {
     # format filepaths
@@ -21,7 +21,7 @@ compute_pem <- function(dir_in, dir_out) {
 
     # for all files
     lst <- list()
-    for (i in 1:length(fpaths_scRNA)) {
+    for (i in seq_len(length(fpaths_scRNA))) {
         # load in
         df <- suppressMessages(vroom::vroom(fpaths_scRNA[i], progress = FALSE))
         df <- tibble::column_to_rownames(df, names(df)[1])
@@ -45,7 +45,7 @@ compute_pem <- function(dir_in, dir_out) {
 
     # for all files
     pem_out <- list()
-    for (i in 1:length(lst_rowmeans)) {
+    for (i in seq_len(length(lst_rowmeans))) {
         pem_out[[i]] <- vector()
 
         # what proportion of this cell type's rowmean sum
@@ -53,7 +53,7 @@ compute_pem <- function(dir_in, dir_out) {
         cell_type_prop <- lst_sums[[i]] / total_sum
 
         # for all genes
-        for (j in 1:length(vec_gene_sums)) {
+        for (j in seq_len(length(vec_gene_sums))) {
 
             # scale gene sum to cell type proportion
             gene_prop <- vec_gene_sums[j] * cell_type_prop

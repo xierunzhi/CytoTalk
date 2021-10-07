@@ -1,6 +1,6 @@
 #' @noRd
 noise <- function(n) {
-    rng <- 1:n
+    rng <- seq_len(n)
     (sample(rng, 1) == rng) * 1e-20
 }
 
@@ -48,7 +48,9 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
 
     # parallel loop for MI distances
     i <- NULL
-    score <- foreach::`%dopar%`(foreach::foreach(i = 1:nrow(index_valid), .combine = rbind), {
+    score <- foreach::`%dopar%`(
+        foreach::foreach(i = seq_len(nrow(index_valid)), .combine = rbind), {
+
         exp1 <- as.numeric(mat[index_valid[i, 1],])
         exp2 <- as.numeric(mat[index_valid[i, 2],])
 
@@ -85,7 +87,7 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
 #' @param type_b Cell type B
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 compute_non_self_talk <- function(ligands, type_a, type_b, dir_in, dir_out) {
     compute_non_self_talk_type(ligands, type_a, "A", dir_in, dir_out)

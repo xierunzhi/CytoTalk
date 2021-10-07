@@ -9,6 +9,9 @@ compute_mutual_information(dir_out)
 \arguments{
 \item{dir_out}{Output directory}
 }
+\value{
+NIL
+}
 \description{
 Within each cell type, compute intracellular mutual information.
 }

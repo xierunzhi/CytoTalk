@@ -45,7 +45,7 @@ filter_file <- function(fpath_in, fpath_out, cutoff, proteins) {
 #' @param cutoff_b Minimum proportion of non-zero columns, per row, cell type B
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 preprocess <- function(proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out) {
     # casefold upper

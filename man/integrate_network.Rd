@@ -17,6 +17,9 @@ integrate_network(ligands, type_a, type_b, dir_in, dir_out)
 
 \item{dir_out}{Output directory}
 }
+\value{
+NIL
+}
 \description{
 Given cell types and the names of ligand-receptor pairs, generate node prizes
 from intracellular edges (gene relevance, mutual information), compute a

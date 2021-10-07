@@ -49,7 +49,7 @@ extract_intracell_edges_type <- function(dir_out, type) {
 #' in a data table.
 #'
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 extract_intracell_edges <- function(dir_out) {
     extract_intracell_edges_type(dir_out, "A")
@@ -106,7 +106,7 @@ compute_gene_relevance_type <- function(ligands, dir_in, dir_out, type) {
     mat_relev <- as.matrix(vec_lig)
 
     vec_diff <- vector()
-    for (i in 1:n) {
+    for (i in seq_len(n)) {
         mat_old <- mat_relev
         mat_relev <- alpha * (mat_wnorm %*% mat_relev) + offset
 
@@ -131,7 +131,7 @@ compute_gene_relevance_type <- function(ligands, dir_in, dir_out, type) {
 #' @param ligands Character matrix of ligand-receptor pair names
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 compute_gene_relevance <- function(ligands, dir_in, dir_out) {
     compute_gene_relevance_type(ligands, dir_in, dir_out, "A")
@@ -199,7 +199,7 @@ compute_node_prize_type <- function(type, dir_out, letter) {
 #' @param type_a Cell type A
 #' @param type_b Cell type B
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 compute_node_prize <- function(type_a, type_b, dir_out) {
     compute_node_prize_type(type_a, dir_out, "A")
@@ -218,7 +218,7 @@ compute_node_prize <- function(type_a, type_b, dir_out) {
 #' @param type_a Cell type A
 #' @param type_b Cell type B
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 compute_crosstalk <- function(type_a, type_b, dir_out) {
     # "nst": non-self talk
@@ -255,15 +255,15 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
     vec_pem_b <- ifelse(vec_pem_b < 0 | is.na(vec_pem_b), 0, vec_pem_b)
 
     # find negatives and NAs for non-self-talk
-    index_a <- with(df_nst_a, mi_dist < 0 | is.na(mi_dist))
-    index_b <- with(df_nst_b, mi_dist < 0 | is.na(mi_dist))
+    index_a <- (df_nst_a$mi_dist < 0 | is.na(df_nst_a$mi_dist))
+    index_b <- (df_nst_b$mi_dist < 0 | is.na(df_nst_b$mi_dist))
 
     # zero them out
     df_nst_a$mi_dist[index_a] <- 0
     df_nst_b$mi_dist[index_b] <- 0
 
     # merge the non-self talk scores together
-    df_nst_a$index <- 1:nrow(df_nst_a)
+    df_nst_a$index <- seq_len(nrow(df_nst_a))
     df_nst <- merge(
         df_nst_a, df_nst_b, by = c("lig1" = "lig1", "lig2" = "lig2")
     )
@@ -276,7 +276,7 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
     mat_symbol <- matrix(NA, 0, 2)
 
     i <- 1
-    for (i in 1:nrow(df_nst)) {
+    for (i in seq_len(nrow(df_nst))) {
         lig_x <- df_nst[i, "lig1"]
         lig_y <- df_nst[i, "lig2"]
 
@@ -332,7 +332,7 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
 #' network configuration that can be processed by the PCST algorithm.
 #'
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 write_integrated_net <- function(dir_out) {
     # format filepaths
@@ -375,7 +375,7 @@ write_integrated_net <- function(dir_out) {
     node_names_full <- unique(c(node_names_a, node_names_b))
 
     # validate crosstalk edges
-    edge_names_ct <- as.matrix(df_edge_ct[, 1:2])
+    edge_names_ct <- as.matrix(df_edge_ct[, c(1, 2)])
     index <- rowSums(matrix(edge_names_ct %in% node_names_full, ncol = 2)) == 2
     edge_names_ct <- edge_names_ct[index, ]
 
@@ -423,7 +423,7 @@ write_integrated_net <- function(dir_out) {
 #' @param type_b Cell type B
 #' @param dir_in Input directory, contains scRNAseq files
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 integrate_network <- function(ligands, type_a, type_b, dir_in, dir_out) {
     # gene node prize

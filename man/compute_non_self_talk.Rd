@@ -17,6 +17,9 @@ compute_non_self_talk(ligands, type_a, type_b, dir_in, dir_out)
 
 \item{dir_out}{Output directory}
 }
+\value{
+NIL
+}
 \description{
 Given cell types and the names of ligand-receptor pairs, compute the
 non-self-talk score (within each cell type).

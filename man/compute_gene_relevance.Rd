@@ -13,6 +13,9 @@ compute_gene_relevance(ligands, dir_in, dir_out)
 
 \item{dir_out}{Output directory}
 }
+\value{
+NIL
+}
 \description{
 Using a randomized walk with restart, compute gene relevance.
 }

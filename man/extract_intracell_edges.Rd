@@ -9,6 +9,9 @@ extract_intracell_edges(dir_out)
 \arguments{
 \item{dir_out}{Output directory}
 }
+\value{
+NIL
+}
 \description{
 From the mutual information matrix, extract all non-zero edges and save them
 in a data table.

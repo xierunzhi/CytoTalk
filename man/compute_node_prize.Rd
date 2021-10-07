@@ -13,6 +13,9 @@ compute_node_prize(type_a, type_b, dir_out)
 
 \item{dir_out}{Output directory}
 }
+\value{
+NIL
+}
 \description{
 For each cell type, compute overall node prize (integrate gene relevance and
 PEM scores).

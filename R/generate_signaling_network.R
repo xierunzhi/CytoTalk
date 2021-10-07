@@ -67,8 +67,12 @@ compute_kolmogorov_smirnov <- function(dir_out) {
 
     # parallel loop for Kolmogorov-Smirnov test
     i <- NULL
-    vec_pval <- foreach::`%dopar%`(foreach::foreach(i = 1:length(lst_counts), .combine = c), {
-        ks <- stats::ks.test(lst_counts[[i]], unlist(lst_counts[-i]), alternative = "less")
+    vec_pval <- foreach::`%dopar%`(
+        foreach::foreach(i = seq_len(length(lst_counts)), .combine = c), {
+        ks <- stats::ks.test(
+            lst_counts[[i]], unlist(lst_counts[-i]),
+            alternative = "less"
+        )
         ks$p.value
     })
 
@@ -92,7 +96,7 @@ compute_kolmogorov_smirnov <- function(dir_out) {
 #' their distribution of edge counts is (higher the better).
 #'
 #' @param dir_out Output directory
-#' @return NULL
+#' @return NIL
 #' @export
 generate_signaling_network <- function(dir_out) {
     generate_summary(dir_out)

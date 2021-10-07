@@ -15,6 +15,9 @@ run_pcst(dir_out, beta_max, omega_min, omega_max)
 
 \item{omega_max}{Start point of the range \code{omega_min}-\code{omega_max}, default 0.5. Could increase to 1.5.}
 }
+\value{
+NIL
+}
 \description{
 Much thanks to The Fraenkel Lab at MIT, for providing this wonderful
 implementation of the PCST algorithm. You can view their repository \href{https://github.com/fraenkel-lab/pcst_fast}{here}.

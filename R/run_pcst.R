@@ -11,7 +11,7 @@
 #' @param beta_max End point of the range 1-`beta_max`, default 100.
 #' @param omega_min Start point of the range `omega_min`-`omega_max`, default 0.5.
 #' @param omega_max Start point of the range `omega_min`-`omega_max`, default 0.5. Could increase to 1.5.
-#' @return NULL
+#' @return NIL
 #' @export
 run_pcst <- function(dir_out, beta_max, omega_min, omega_max) {
     # format filepaths
@@ -52,7 +52,7 @@ run_pcst <- function(dir_out, beta_max, omega_min, omega_max) {
     df_edges_tmp <- rbind(df_edges, df_edges_tmp)
 
     # find index-0 node indices
-    edge_inds <- apply(df_edges_tmp[, 1:2], 2, function(col) {
+    edge_inds <- apply(df_edges_tmp[, c(1, 2)], 2, function(col) {
         as.integer(match(col, df_nodes_tmp$node) - 1)
     })
 
@@ -61,7 +61,7 @@ run_pcst <- function(dir_out, beta_max, omega_min, omega_max) {
 
     # for each beta
     lst_beta <- list()
-    for (beta in 1:beta_max) {
+    for (beta in seq_len(beta_max)) {
         # copy of template network
         df_nodes_spc <- df_nodes_tmp
         df_edges_spc <- df_edges_tmp

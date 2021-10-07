@@ -64,6 +64,9 @@ step size of \code{0.1}. Recommended maximum of \code{1.5}.}
 how many steps out from that pair should be taken to generate each
 neighborhood?}
 }
+\value{
+NIL
+}
 \description{
 Runs all sub processes of CytoTalk. At minimum, the folder that contains
 your scRNA-seq data, \code{dir_in}, and the two cell types corresponding to that
