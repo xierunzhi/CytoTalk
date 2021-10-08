@@ -1,6 +1,6 @@
 Package: CytoTalk
 Title: Construct signal transduction networks from scRNAseq data
-Version: 4.0.1
+Version: 4.0.2
 Authors@R: c(
     person("Yuxuan", "Hu",
 		   role = c("aut"),
@@ -23,10 +23,10 @@ Description: Perform de novo construction of signal transduction networks using
 	gene relevance, and non-self-talk score.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Depends: R (>= 4.0)
+BugReports: https://github.com/tanlabcode/CytoTalk/issues
 Imports:
     corpcor,
 	doParallel,
@@ -46,3 +46,7 @@ biocViews:
 	SingleCell,
 	GeneExpression,
 	Network
+SystemRequirements:
+	Cytoscape
+	Graphviz
+	pcst_fast
