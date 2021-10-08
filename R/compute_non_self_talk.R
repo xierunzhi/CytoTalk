@@ -86,8 +86,8 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
 #' ligands <- CytoTalk::ligands_mouse
 #' type_a <- "BCells"
 #' type_b <- "TCells"
-#' dir_in <- "scRNAseq-data"
-#' dir_out <- "CytoTalk-output"
+#' dir_in <- "~/scRNAseq-data"
+#' dir_out <- "~/CytoTalk-output"
 #'
 #' compute_non_self_talk(ligands, type_a, type_b, dir_in, dir_out)
 #' }

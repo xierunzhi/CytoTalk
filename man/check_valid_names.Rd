@@ -19,7 +19,7 @@ types.
 }
 \examples{
 {
-dir_in <- "scRNAseq-data"
+dir_in <- "~/scRNAseq-data"
 check_valid_names(dir_in)
 }
 

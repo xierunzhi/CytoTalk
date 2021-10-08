@@ -117,7 +117,7 @@ your filenames. If you want to make sure your names are valid, use the following
 function:
 
 ``` {r valid_names}
-dir_in <- "scRNAseq-data"
+dir_in <- "~/scRNAseq-data"
 CytoTalk::check_valid_names(dir_in)
 ```
 
@@ -153,7 +153,7 @@ Without further ado, let's run CytoTalk!
 
 ``` {r basic_run, eval = FALSE}
 # set required parameters
-dir_in <- "scRNAseq-data"
+dir_in <- "~/scRNAseq-data"
 type_a <- "BCells"
 type_b <- "TCells"
 

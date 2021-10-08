@@ -350,7 +350,7 @@ write_pathways_gv <- function(dir_out, depth) {
 #' @examples \dontrun{
 #' type_a <- "BCells"
 #' type_b <- "TCells"
-#' dir_out <- "CytoTalk-output"
+#' dir_out <- "~/CytoTalk-output"
 #' depth <- 3
 #'
 #' generate_pathways(type_a, type_b, dir_out, depth)

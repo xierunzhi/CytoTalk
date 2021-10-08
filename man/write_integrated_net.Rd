@@ -18,7 +18,7 @@ network configuration that can be processed by the PCST algorithm.
 }
 \examples{
 {
-dir_out <- "CytoTalk-output"
+dir_out <- "~/CytoTalk-output"
 write_integrated_net(dir_out)
 }
 

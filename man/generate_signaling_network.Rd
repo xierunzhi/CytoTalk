@@ -18,7 +18,7 @@ their distribution of edge counts is (higher the better).
 }
 \examples{
 {
-dir_out <- "CytoTalk-output"
+dir_out <- "~/CytoTalk-output"
 generate_signaling_network(dir_out)
 }
 

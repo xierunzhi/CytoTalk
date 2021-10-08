@@ -36,8 +36,8 @@ type_a <- "BCells"
 type_b <- "TCells"
 cutoff_a <- 0.1
 cutoff_b <- 0.1
-dir_in <- "scRNAseq-data"
-dir_out <- "CytoTalk-output"
+dir_in <- "~/scRNAseq-data"
+dir_out <- "~/CytoTalk-output"
 
 preprocess(
     proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out

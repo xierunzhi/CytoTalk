@@ -18,7 +18,7 @@ in a data table.
 }
 \examples{
 {
-dir_out <- "CytoTalk-output"
+dir_out <- "~/CytoTalk-output"
 extract_intracell_edges(dir_out)
 }
 

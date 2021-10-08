@@ -23,7 +23,7 @@ Compute cross-talk scores between cell type ligand-receptor pairs.
 {
 type_a <- "BCells"
 type_b <- "TCells"
-dir_out <- "CytoTalk-output"
+dir_out <- "~/CytoTalk-output"
 
 compute_crosstalk(type_a, type_b, dir_out)
 }

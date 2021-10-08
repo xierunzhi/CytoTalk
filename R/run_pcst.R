@@ -9,7 +9,7 @@
 #' compared to each other later.
 #'
 #' @examples {
-#' dir_out <- "CytoTalk-output"
+#' dir_out <- "~/CytoTalk-output"
 #' beta_max <- 100
 #' omega_min <- 0.5
 #' omega_max <- 0.5

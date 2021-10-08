@@ -31,8 +31,8 @@ processed by the PCST algorithm.
 ligands <- CytoTalk::ligands_mouse
 type_a <- "BCells"
 type_b <- "TCells"
-dir_in <- "scRNAseq-data"
-dir_out <- "CytoTalk-output"
+dir_in <- "~/scRNAseq-data"
+dir_out <- "~/CytoTalk-output"
 
 integrate_network(ligands, type_a, type_b, dir_in, dir_out)
 }

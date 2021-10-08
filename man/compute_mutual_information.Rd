@@ -4,10 +4,12 @@
 \alias{compute_mutual_information}
 \title{Compute Mutual Information Matrix}
 \usage{
-compute_mutual_information(dir_out)
+compute_mutual_information(dir_out, cores = NULL)
 }
 \arguments{
 \item{dir_out}{Output directory}
+
+\item{cores}{Sets the number of cores}
 }
 \value{
 None
@@ -17,8 +19,8 @@ Within each cell type, compute intracellular mutual information.
 }
 \examples{
 {
-dir_out <- "CytoTalk-output"
-compute_mutual_information(dir_out)
+dir_out <- "~/CytoTalk-output"
+compute_mutual_information(dir_out, cores = 2)
 }
 
 }

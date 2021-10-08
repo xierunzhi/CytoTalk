@@ -22,8 +22,8 @@ Using a randomized walk with restart, compute gene relevance.
 \examples{
 {
 ligands <- CytoTalk::ligands_mouse
-dir_in <- "scRNAseq-data"
-dir_out <- "CytoTalk-output"
+dir_in <- "~/scRNAseq-data"
+dir_out <- "~/CytoTalk-output"
 
 compute_gene_relevance(ligands, dir_in, dir_out)
 }

@@ -73,16 +73,21 @@ compute_mutual_information_type <- function(dir_out, type) {
 #' Within each cell type, compute intracellular mutual information.
 #'
 #' @examples {
-#' dir_out <- "CytoTalk-output"
-#' compute_mutual_information(dir_out)
+#' dir_out <- "~/CytoTalk-output"
+#' compute_mutual_information(dir_out, cores = 2)
 #' }
 #'
 #' @param dir_out Output directory
+#' @param cores Sets the number of cores
 #' @return None
 #' @export
-compute_mutual_information <- function(dir_out) {
+compute_mutual_information <- function(dir_out, cores=NULL) {
     # register cores for parallel computation
-    cores <- max(1, parallel::detectCores() - 2)
+    if (is.null(cores)) {
+        cores <- max(1, parallel::detectCores() - 2)
+    } else {
+        cores <- max(1, cores)
+    }
     doParallel::registerDoParallel(cores = cores)
 
     compute_mutual_information_type(dir_out, "A")

@@ -50,7 +50,7 @@ extract_intracell_edges_type <- function(dir_out, type) {
 #' in a data table.
 #'
 #' @examples {
-#' dir_out <- "CytoTalk-output"
+#' dir_out <- "~/CytoTalk-output"
 #' extract_intracell_edges(dir_out)
 #' }
 #'
@@ -137,8 +137,8 @@ compute_gene_relevance_type <- function(ligands, dir_in, dir_out, type) {
 #'
 #' @examples {
 #' ligands <- CytoTalk::ligands_mouse
-#' dir_in <- "scRNAseq-data"
-#' dir_out <- "CytoTalk-output"
+#' dir_in <- "~/scRNAseq-data"
+#' dir_out <- "~/CytoTalk-output"
 #'
 #' compute_gene_relevance(ligands, dir_in, dir_out)
 #' }
@@ -215,7 +215,7 @@ compute_node_prize_type <- function(type, dir_out, letter) {
 #' @examples {
 #' type_a <- "BCells"
 #' type_b <- "TCells"
-#' dir_out <- "CytoTalk-output"
+#' dir_out <- "~/CytoTalk-output"
 #'
 #' compute_node_prize(type_a, type_b, dir_out)
 #' }
@@ -242,7 +242,7 @@ compute_node_prize <- function(type_a, type_b, dir_out) {
 #' @examples {
 #' type_a <- "BCells"
 #' type_b <- "TCells"
-#' dir_out <- "CytoTalk-output"
+#' dir_out <- "~/CytoTalk-output"
 #'
 #' compute_crosstalk(type_a, type_b, dir_out)
 #' }
@@ -364,7 +364,7 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
 #' network configuration that can be processed by the PCST algorithm.
 #'
 #' @examples {
-#' dir_out <- "CytoTalk-output"
+#' dir_out <- "~/CytoTalk-output"
 #' write_integrated_net(dir_out)
 #' }
 #'
@@ -464,8 +464,8 @@ write_integrated_net <- function(dir_out) {
 #' ligands <- CytoTalk::ligands_mouse
 #' type_a <- "BCells"
 #' type_b <- "TCells"
-#' dir_in <- "scRNAseq-data"
-#' dir_out <- "CytoTalk-output"
+#' dir_in <- "~/scRNAseq-data"
+#' dir_out <- "~/CytoTalk-output"
 #'
 #' integrate_network(ligands, type_a, type_b, dir_in, dir_out)
 #' }

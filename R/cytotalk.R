@@ -41,8 +41,8 @@ NULL
 #'
 #' @examples \dontrun{
 #' # set location of data and output folder
-#' dir_in <- "scRNAseq-data"
-#' dir_out <- "CytoTalk-output"
+#' dir_in <- "~/scRNAseq-data"
+#' dir_out <- "~/CytoTalk-output"
 #'
 #' # examine if your filenames are correct
 #' check_valid_names(dir_in)

@@ -39,7 +39,7 @@ filter_indirect_edges_type <- function(dir_out, type) {
 #' Using the ARACNE.M function, filter edges so that only direct edges remain.
 #'
 #' @examples {
-#' dir_out <- "CytoTalk-output"
+#' dir_out <- "~/CytoTalk-output"
 #' filter_indirect_edges(dir_out)
 #' }
 #'

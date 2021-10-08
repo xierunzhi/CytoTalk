@@ -4,8 +4,8 @@
 #' gene, per cell type.
 #'
 #' @examples {
-#' dir_in <- "scRNAseq-data"
-#' dir_out <- "CytoTalk-output"
+#' dir_in <- "~/scRNAseq-data"
+#' dir_out <- "~/CytoTalk-output"
 #'
 #' compute_pem(dir_in, dir_out)
 #' }
