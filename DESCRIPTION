@@ -1,6 +1,6 @@
 Package: CytoTalk
 Title: Construct signal transduction networks from scRNAseq data
-Version: 4.0.0
+Version: 4.0.1
 Authors@R: c(
     person("Yuxuan", "Hu",
 		   role = c("aut"),
@@ -9,7 +9,7 @@ Authors@R: c(
 		   role = c("aut")),
     person("Kai", "Tai",
 		   role = c("cre"),
-	       email = "tank1@email.chop.edu",
+	       email = "tank1@chop.edu",
 		   comment = c(ORCID = "0000-0002-9104-5567")))
 Description: Perform de novo construction of signal transduction networks using
 	single-cell transcriptomic data (scRNA-seq). The CytoTalk process
