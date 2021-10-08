@@ -70,6 +70,7 @@ extract_best_network <- function(type_a, type_b, dir_out) {
     if (!all(file.exists(fpath_net, fpath_pval, fpath_edge, fpath_pem))) {
         stop(sprintf("cannot find input file(s)"))
     } else if (file.exists(fpath_out)) {
+        message(sprintf("file already exists, continuing: %s", fpath_out))
         return()
     }
 
@@ -165,6 +166,7 @@ write_network_sif <- function(dir_out) {
     if (!file.exists(fpath_net)) {
         stop(sprintf("cannot find input file: %s", fpath_net))
     } else if (all(file.exists(fpath_node, fpath_edge, fpath_sif))) {
+        message("files already exist, continuing")
         return()
     }
 
@@ -316,7 +318,8 @@ write_pathways_gv <- function(dir_out, depth) {
         render_gv(fpath)
 
         # halt
-        stop("no ligands found in the network!")
+        message("no ligands found in the network!")
+        return()
     }
 
     # loop through each

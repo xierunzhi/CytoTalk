@@ -14,6 +14,7 @@ extract_intracell_edges_type <- function(dir_out, type) {
     if (!file.exists(fpath_in)) {
         stop(sprintf("cannot find input file: %s", fpath_in))
     } else if (file.exists(fpath_out)) {
+        message(sprintf("file already exists, continuing: %s", fpath_out))
         return()
     }
 
@@ -79,6 +80,7 @@ compute_gene_relevance_type <- function(ligands, dir_in, dir_out, type) {
     if (!file.exists(fpath_in)) {
         stop(sprintf("cannot find input file: %s", fpath_in))
     } else if (file.exists(fpath_out)) {
+        message(sprintf("file already exists, continuing: %s", fpath_out))
         return()
     }
 
@@ -172,6 +174,7 @@ compute_node_prize_type <- function(type, dir_out, letter) {
     if (!all(file.exists(c(fpath_net, fpath_rel, fpath_pem)))) {
         stop("cannot find input file(s)")
     } else if (file.exists(fpath_out)) {
+        message(sprintf("file already exists, continuing: %s", fpath_out))
         return()
     }
 
@@ -266,6 +269,7 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
     if (!all(file.exists(c(fpath_pem, fpath_nst_a, fpath_nst_b)))) {
         stop("cannot find input file(s)")
     } else if (file.exists(fpath_out)) {
+        message(sprintf("file already exists, continuing: %s", fpath_out))
         return()
     }
 
@@ -389,6 +393,7 @@ write_integrated_net <- function(dir_out) {
     if (!all(file.exists(fpaths_in))) {
         stop("cannot find input file(s)")
     } else if (file.exists(fpath_out)) {
+        message(sprintf("file already exists, continuing: %s", fpath_out))
         return()
     }
 

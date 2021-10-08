@@ -36,6 +36,7 @@ run_pcst <- function(dir_out, beta_max, omega_min, omega_max) {
     if (!file.exists(fpath_net)) {
         stop(sprintf("cannot find input file: %s", fpath_net))
     } else if (all(file.exists(fpath_node, fpath_edge))) {
+        message("files already exist, continuing")
         return()
     }
 

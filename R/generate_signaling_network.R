@@ -9,6 +9,7 @@ generate_summary <- function(dir_out) {
     if (!file.exists(fpath_edge)) {
         stop(sprintf("cannot find input file: %s", fpath_edge))
     } else if (file.exists(fpath_summ)) {
+        message(sprintf("file already exists, continuing: %s", fpath_summ))
         return()
     }
 
@@ -45,6 +46,7 @@ compute_kolmogorov_smirnov <- function(dir_out) {
     if (!file.exists(fpath_edge)) {
         stop(sprintf("cannot find input file: %s", fpath_edge))
     } else if (file.exists(fpath_pval)) {
+        message(sprintf("file already exists, continuing: %s", fpath_pval))
         return()
     }
 

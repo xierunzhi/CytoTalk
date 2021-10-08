@@ -43,6 +43,7 @@ compute_mutual_information_type <- function(dir_out, type) {
     if (!file.exists(fpath_in)) {
         stop(sprintf("cannot find input file: %s", fpath_in))
     } else if (file.exists(fpath_out)) {
+        message(sprintf("file already exists, continuing: %s", fpath_out))
         return()
     }
 

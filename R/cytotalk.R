@@ -123,14 +123,14 @@ run_cytotalk <- function(
         stop("one of the cell types cannot be found in the input directory")
     }
 
+    # absolute paths to directories
+    dir_in <- normalizePath(dir_in)
+    dir_out <- normalizePath(dir_out)
+
     # make sure output directory exists
     if (!dir.exists(dir_out)) {
         dir.create(dir_out)
     }
-
-    # absolute paths to directories
-    dir_in <- file.path(getwd(), dir_in)
-    dir_out <- file.path(getwd(), dir_out)
 
     # TODO: could have a more robust check on input directory,
     # although errors will be determined in step 1 anyways...

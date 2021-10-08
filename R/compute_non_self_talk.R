@@ -15,6 +15,7 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
     if (!file.exists(fpath_scrna)) {
         stop(sprintf("cannot find input file: %s", fpath_scrna))
     } else if (file.exists(fpath_out)) {
+        message(sprintf("file already exists, continuing: %s", fpath_out))
         return()
     }
 
