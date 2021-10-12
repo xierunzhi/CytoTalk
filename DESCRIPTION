@@ -1,6 +1,6 @@
 Package: CytoTalk
 Title: Construct signal transduction networks from scRNAseq data
-Version: 4.0.2
+Version: 4.0.3
 Authors@R: c(
     person("Yuxuan", "Hu",
 		   role = c("aut"),
