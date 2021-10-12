@@ -311,7 +311,7 @@ write_pathways_gv <- function(dir_out, depth) {
     # subset to crosstalk edges
     df_lig <- df_net[df_net$is_ct_edge, ]
 
-    if (nrow(df_lig) == 0 || TRUE) {
+    if (nrow(df_lig) == 0) {
         # write out root network
         row <- c("ROOT", "ROOT")
         fpath <- write_neighborhood_gv(row, df_net, dir_out, FALSE)
