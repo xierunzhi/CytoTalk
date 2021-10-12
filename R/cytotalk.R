@@ -71,12 +71,12 @@ NULL
 #' folder will be generated 
 #'
 #' @param proteins A character vector, contains the names of protein coding
-#' genes; by default, uses the `pcg_mouse` data. This package also includes
-#' `pcg_human`, but you can also use your own data 
+#' genes; by default, uses the `pcg_human` data. This package also includes
+#' `pcg_mouse`, but you can also use your own data 
 #'
 #' @param ligands A dataframe or matrix object with two columns, ligands names
-#' and the names of their receptors; by default, uses the `ligands_mouse` data.
-#' This package also includes `ligands_human`, but you can also use your own
+#' and the names of their receptors; by default, uses the `ligands_human` data.
+#' This package also includes `ligands_mouse`, but you can also use your own
 #' data
 #'
 #' @param cutoff_a Proportional threshold for lowly expressed genes in cell
@@ -109,8 +109,8 @@ NULL
 run_cytotalk <- function(
     type_a, type_b, dir_in,
     dir_out="CytoTalk-output",
-    proteins=CytoTalk::pcg_mouse,
-    ligands=CytoTalk::ligands_mouse,
+    proteins=CytoTalk::pcg_human,
+    ligands=CytoTalk::ligands_human,
     cutoff_a=0.1, cutoff_b=0.1,
     beta_max=100, omega_min=0.5, omega_max=0.5,
     depth=3) {
