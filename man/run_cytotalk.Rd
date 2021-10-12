@@ -9,8 +9,8 @@ run_cytotalk(
   type_b,
   dir_in,
   dir_out = "CytoTalk-output",
-  proteins = CytoTalk::pcg_mouse,
-  ligands = CytoTalk::ligands_mouse,
+  proteins = CytoTalk::pcg_human,
+  ligands = CytoTalk::ligands_human,
   cutoff_a = 0.1,
   cutoff_b = 0.1,
   beta_max = 100,
@@ -32,12 +32,12 @@ run_cytotalk(
 folder will be generated}
 
 \item{proteins}{A character vector, contains the names of protein coding
-genes; by default, uses the \code{pcg_mouse} data. This package also includes
-\code{pcg_human}, but you can also use your own data}
+genes; by default, uses the \code{pcg_human} data. This package also includes
+\code{pcg_mouse}, but you can also use your own data}
 
 \item{ligands}{A dataframe or matrix object with two columns, ligands names
-and the names of their receptors; by default, uses the \code{ligands_mouse} data.
-This package also includes \code{ligands_human}, but you can also use your own
+and the names of their receptors; by default, uses the \code{ligands_human} data.
+This package also includes \code{ligands_mouse}, but you can also use your own
 data}
 
 \item{cutoff_a}{Proportional threshold for lowly expressed genes in cell
