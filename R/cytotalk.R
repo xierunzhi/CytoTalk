@@ -124,8 +124,8 @@ run_cytotalk <- function(
     }
 
     # absolute paths to directories
-    dir_in <- normalizePath(dir_in)
-    dir_out <- normalizePath(dir_out)
+    dir_in <- suppressWarnings(normalizePath(dir_in))
+    dir_out <- suppressWarnings(normalizePath(dir_out))
 
     # make sure output directory exists
     if (!dir.exists(dir_out)) {
