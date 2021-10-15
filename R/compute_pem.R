@@ -24,7 +24,7 @@ compute_pem <- function(dir_in, dir_out) {
     # skip if output already generated
     if (file.exists(fpath_out)) {
         message(sprintf("file already exists, continuing: %s", fpath_out))
-        return()
+        return(1)
     }
 
     # for all files
@@ -50,6 +50,12 @@ compute_pem <- function(dir_in, dir_out) {
     vec_gene_sums <- rowSums(do.call(cbind, lst_rowmeans))
     # overall sum of rowmeans
     total_sum <- sum(vec_gene_sums)
+
+    # will lead to bugs later, could check downstream
+    if (total_sum == Inf) {
+        message("Inf introduced into PEM score, is the data log1p tranformed?")
+        return(1)
+    }
 
     # for all files
     pem_out <- list()
@@ -84,5 +90,6 @@ compute_pem <- function(dir_in, dir_out) {
     # cleanup!
     rm(list = ls())
     gc()
-    NULL
+
+    return(0)
 }

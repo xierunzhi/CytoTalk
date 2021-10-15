@@ -141,7 +141,12 @@ run_cytotalk <- function(
     tick(1, "Preprocessing...")
     preprocess(proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out)
     compute_non_self_talk(ligands, type_a, type_b, dir_in, dir_out)
-    compute_pem(dir_in, dir_out)
+    status <- compute_pem(dir_in, dir_out)
+
+    # exit if bad PEM status
+    if (status != 0) {
+        return()
+    }
 
     # compute mutual information (within types)
     tick(2, "Mutual information matrix...")
