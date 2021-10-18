@@ -6,7 +6,7 @@ filter_file <- function(fpath_in, fpath_out, cutoff, proteins) {
         stop(sprintf("cannot find input file: %s", fpath_in))
     } else if (file.exists(fpath_out)) {
         message(sprintf("file already exists, continuing: %s", fpath_out))
-        return()
+        return(0)
     }
 
     # load in file

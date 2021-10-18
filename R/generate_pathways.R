@@ -97,7 +97,7 @@ extract_best_network <- function(type_a, type_b, dir_out) {
     df_edge <- df_edge[df_edge$node1 != "ARTI" & 0.5 <= df_edge$omega, ]
 
     # which has the best score?
-    index <- which(df_pval$pval == min(df_pval$pval))
+    index <- which(df_pval$pval == min(df_pval$pval))[1]
     opt_beta <- df_pval[[index, "beta"]]
     opt_omega <- df_pval[[index, "omega"]]
 

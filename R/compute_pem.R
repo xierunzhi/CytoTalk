@@ -24,7 +24,7 @@ compute_pem <- function(dir_in, dir_out) {
     # skip if output already generated
     if (file.exists(fpath_out)) {
         message(sprintf("file already exists, continuing: %s", fpath_out))
-        return(1)
+        return(0)
     }
 
     # for all files
