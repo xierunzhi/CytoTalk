@@ -88,7 +88,7 @@ If you have `devtools` installed, you can use the `install_github` function
 directly on this repository:
 
 ``` {r install, eval=FALSE}
-devtools::install_github("tanlabcode/CytoTalk", build_vignettes = TRUE)
+devtools::install_github("tanlabcode/CytoTalk")
 ```
 
 ### Preparation
