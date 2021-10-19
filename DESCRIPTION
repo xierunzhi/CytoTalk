@@ -39,8 +39,9 @@ Imports:
 	tibble,
 	vroom
 Suggests: 
-    rmarkdown,
-    knitr
+	markdown,
+    knitr,
+    rmarkdown
 VignetteBuilder: knitr
 biocViews:
 	Software,
