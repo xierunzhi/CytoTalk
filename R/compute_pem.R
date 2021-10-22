@@ -28,22 +28,28 @@ compute_pem <- function(dir_in, dir_out) {
     }
 
     # for all files
-    lst <- list()
+    lst_rowmeans <- list()
+    first_rownames <- NULL
     for (i in seq_len(length(fpaths_scRNA))) {
         # load in
         df <- suppressMessages(vroom::vroom(fpaths_scRNA[i], progress = FALSE))
         df <- tibble::column_to_rownames(df, names(df)[1])
 
+        # check rownames
+        if (i == 1) {
+            first_rownames <- rownames(df)
+        } else if (!identical(first_rownames, rownames(df))) {
+            stop("not all rownames are identical between input files")
+        }
+
         # exponentiate
         df <- expm1(df)
 
-        # store in list
-        lst[[i]] <- df
+        # rowmeans per scRNA file
+        lst_rowmeans[[i]] <- rowMeans(df)
     }
     df <- NULL
 
-    # rowmeans per scRNA file
-    lst_rowmeans <- lapply(lst, rowMeans)
     # sums of rowmeans, per scRNA file
     lst_sums <- lapply(lst_rowmeans, sum)
     # sums of rowmeans, per gene (combined scRNA files)
@@ -81,7 +87,7 @@ compute_pem <- function(dir_in, dir_out) {
 
     # extract valid type names, copy over rownames
     names(pem_out) <- gsub(pattern, "\\1", fnames_scRNA)
-    rownames(pem_out) <- rownames(lst[[1]])
+    rownames(pem_out) <- first_rownames
 
     # write out
     pem_out <- tibble::rownames_to_column(pem_out)

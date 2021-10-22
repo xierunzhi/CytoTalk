@@ -390,6 +390,9 @@ write_integrated_net <- function(dir_out) {
         fpath_node_a, fpath_node_b,
         fpath_edge_a, fpath_edge_b, fpath_edge_ct
     )
+
+    # wait a tad
+    Sys.sleep(0.25)
     if (!all(file.exists(fpaths_in))) {
         stop("cannot find input file(s)")
     } else if (file.exists(fpath_out)) {
