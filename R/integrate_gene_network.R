@@ -393,8 +393,10 @@ write_integrated_net <- function(dir_out) {
 
     # wait a tad
     Sys.sleep(0.25)
-    if (!all(file.exists(fpaths_in))) {
-        stop("cannot find input file(s)")
+    index <- !file.exists(fpaths_in)
+    if (any(index)) {
+        bad <- paste(fpaths_in[index], collapse = ", ")
+        stop(sprintf("cannot find input file(s): %s", bad))
     } else if (file.exists(fpath_out)) {
         message(sprintf("file already exists, continuing: %s", fpath_out))
         return()
