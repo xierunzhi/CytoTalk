@@ -5,7 +5,7 @@ now <- function() {
 
 #' @noRd
 tick <- function(step, msg) {
-    cat("[", step, " / 7] (", now(), ") ", msg, "\n", sep = "")
+    cat("[", step, " / 8] (", now(), ") ", msg, "\n", sep = "")
 }
 
 #' @noRd

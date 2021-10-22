@@ -166,7 +166,7 @@ write_network_sif <- function(dir_out) {
     if (!file.exists(fpath_net)) {
         stop(sprintf("cannot find input file: %s", fpath_net))
     } else if (all(file.exists(fpath_node, fpath_edge, fpath_sif))) {
-        message("files already exist, continuing")
+        message("files already exist, continuing [write_network_sif]")
         return()
     }
 
@@ -322,6 +322,14 @@ write_pathways_gv <- function(dir_out, depth) {
         return()
     }
 
+    # analysis folder
+    dir_out_ana <- file.path(dir_out, "analysis")
+    
+    # make sure it exists
+    if (!dir.exists(dir_out_ana)) {
+        dir.create(dir_out_ana)
+    }
+
     # loop through each
     apply(df_lig, 1, function(row) {
         nodes_all <- unlist(df_net[, c(1, 2)])
@@ -336,9 +344,16 @@ write_pathways_gv <- function(dir_out, depth) {
             nodes_new <- as.vector(nodes_mat[index, ])
         }
 
+        # render graphs
         df_net_sub <- df_net[index, ]
         fpath <- write_neighborhood_gv(row, df_net_sub, dir_out)
         render_gv(fpath)
+
+        # write out sub-table
+        fname <- paste(gsub("_", "", row[c(1, 2)]), collapse = "_")
+        fname <- paste0(fname, ".txt")
+        fpath <- file.path(dir_out_ana, fname)
+        vroom::vroom_write(df_net_sub, fpath, progress = FALSE)
     })
     NULL
 }

@@ -113,7 +113,7 @@ run_cytotalk <- function(
     ligands=CytoTalk::ligands_human,
     cutoff_a=0.1, cutoff_b=0.1,
     beta_max=100, omega_min=0.5, omega_max=0.5,
-    depth=3) {
+    depth=3, ntrial=1000) {
 
     # must have valid data directory
     type_names <- check_valid_names(dir_in)
@@ -172,6 +172,10 @@ run_cytotalk <- function(
     # generate SIF and SVG files
     tick(7, "Generate network output...")
     generate_pathways(type_a, type_b, dir_out, depth)
+
+    # generate SIF and SVG files
+    tick(8, "Analyze pathways...")
+    analyze_pathways(type_a, type_b, dir_out, depth, ntrial)
 
     # no output...
     NULL
