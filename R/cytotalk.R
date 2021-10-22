@@ -103,6 +103,9 @@ NULL
 #' how many steps out from that pair should be taken to generate each
 #' neighborhood?
 #'
+#' @param ntrial How many random network subsets shall be created to get an
+#' empirical p-value for node prize and edge cost?
+#'
 #' @return None
 #'
 #' @export

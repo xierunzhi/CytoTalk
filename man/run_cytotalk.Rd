@@ -16,7 +16,8 @@ run_cytotalk(
   beta_max = 100,
   omega_min = 0.5,
   omega_max = 0.5,
-  depth = 3
+  depth = 3,
+  ntrial = 1000
 )
 }
 \arguments{
@@ -63,6 +64,9 @@ step size of \code{0.1}. Recommended maximum of \code{1.5}.}
 \item{depth}{Starting at each ligand-receptor pair in the resultant network,
 how many steps out from that pair should be taken to generate each
 neighborhood?}
+
+\item{ntrial}{How many random network subsets shall be created to get an
+empirical p-value for node prize and edge cost?}
 }
 \value{
 None

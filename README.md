@@ -177,6 +177,10 @@ Here is what the resulting output directory structure looks like
 
 ``` txt
 ── CytoTalk-output
+   ├─ analysis
+   │  ├─ CD48_CD2.txt
+   │  ├─ PathwayScores.txt
+   │  └─ ...
    ├─ cytoscape
    │  ├─ CytoscapeEdges.txt
    │  ├─ CytoscapeNetwork.sif
@@ -224,6 +228,16 @@ node prize (side of each node), edge cost (inverse edge width),
 Preferential Expression Measure (intensity of each color), cell type
 (based on color, and shape in the Cytoscape output), and interaction
 type (dashed lines for crosstalk, solid for intracellular).
+
+If we want to be more formal with the pathway analysis, we can look at
+some scores for each neighborhood in the “analysis” folder. This folder
+provides extracted subnetworks, based on the “PCSF\_Network.txt” file.
+Additionally, the “PathwayScores.txt” file contains a summary of the
+neighborhood size for each pathway, along with empirical test values
+that are found by taking random subnetworks from the
+“IntegratedNetwork.cfg” configuration file, which is used as input to
+the PCSF algorithm. p-Values for node prizes (want to maximize) and edge
+costs (want to minimize) are calculated separately.
 
 Finally, we can take a look at some of the textual output. Most of the
 text files found in the output folder are used for intermediate

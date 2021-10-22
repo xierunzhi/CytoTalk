@@ -49,14 +49,20 @@ score_subnetwork <- function(df_node, df_edge) {
 #' graph.
 #'
 #' @examples {
+#' type_a <- "BCells"
+#' type_b <- "TCells"
 #' dir_out <- "~/CytoTalk-output"
 #' depth <- 3
+#' ntrial <- 1000
 #'
-#' analyze_pathways(dir_out, depth)
+#' analyze_pathways(type_a, type_b, dir_out, depth, ntrial)
 #' }
 #'
+#' @param type_a Cell type A
+#' @param type_b Cell type B
 #' @param dir_out Output directory
 #' @param depth How many steps out to form neighborhood?
+#' @param ntrial How many empirical simulations to run?
 #' @return None
 #' @export
 analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
@@ -90,7 +96,7 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     df_out <- NULL
     for (fname in fnames_sub) {
         fpath <- file.path(dir_out_ana, fname)
-        df_net_sub <- read.delim(fpath)
+        df_net_sub <- suppressMessages(vroom::vroom(fpath, progress = FALSE))
         n_edges <- nrow(df_net_sub)
         
         # prepare nodes
@@ -116,7 +122,7 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
         # calculate Z score
         zscore <- apply(scores, 2, scale)
         # calculate p-value
-        pscore <- apply(zscore, 2, pnorm)
+        pscore <- apply(zscore, 2, stats::pnorm)
 
         # extract node score
         pprize <- 1 - pscore[1, 1]
@@ -143,6 +149,6 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     df_out <- df_out[order(df_out$pval_cost), ]
 
     # write out
-    write.csv(df_out, fpath_out, row.names = FALSE, quote = FALSE)
+    vroom::vroom_write(df_out, fpath_out, progress = FALSE)
     NULL
 }
