@@ -1,25 +1,8 @@
 #' @noRd
-subsample_network <- function(df_node, df_edge, n_edges) {
-    edges_all <- df_edge[, c(1, 2)]
-    nodes_all <- unlist(edges_all)
-
-    edges_sel <- c()
-    edges_new <- sample(seq_len(nrow(edges_all)), 1)
-
-    for (i in 2:n_edges) {
-        edges_sel <- c(edges_sel, edges_new)
-        nodes_sel <- unique(unlist(edges_all[edges_sel, ]))
-        nodes_found <- matrix(nodes_all %in% nodes_sel, ncol = 2)
-        edges_new <- sample(which(rowSums(nodes_found) == 1), 1)
-    }
-
-    # final update
-    edges_sel <- c(edges_sel, edges_new)
-    nodes_sel <- unique(unlist(edges_all[edges_sel, ]))
-
-    list(
-        nodes = df_node[match(nodes_sel, df_node[, 1]), ],
-        edges = df_edge[edges_sel, ]
+score_subnetwork <- function(df_node, df_edge) {
+    c(
+        mean(as.numeric(df_node[, 2])),
+        mean(as.numeric(df_edge[, 3]))
     )
 }
 
@@ -35,10 +18,27 @@ subsample_network_simple <- function(df_node, df_edge, n_edges) {
 }
 
 #' @noRd
-score_subnetwork <- function(df_node, df_edge) {
-    c(
-        mean(as.numeric(df_node[, 2])),
-        mean(as.numeric(df_edge[, 3]))
+subsample_network <- function(df_node, df_edge, ct_edge, n_edges) {
+    edges_all <- df_edge[, c(1, 2)]
+    
+    # being selection
+    edges_sel <- new <- sample(ct_edge, 1)
+    nodes_sel <- unlist(edges_all[new, ])
+
+    for (i in 2:n_edges) {
+        nodes_found <- (
+            edges_all[, 1] %in% nodes_sel +
+            edges_all[, 2] %in% nodes_sel
+        )
+
+        new <- sample(which(nodes_found == 1), 1)
+        edges_sel <- c(edges_sel, new)
+        nodes_sel <- unique(c(nodes_sel, unlist(edges_all[new, ])))
+    }
+
+    list(
+        nodes = df_node[match(nodes_sel, df_node[, 1]), ],
+        edges = df_edge[edges_sel, ]
     )
 }
 
@@ -68,11 +68,17 @@ score_subnetwork <- function(df_node, df_edge) {
 analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     # analysis folder
     dir_out_ana <- file.path(dir_out, "analysis")
+    dir_out_ptw <- file.path(dir_out, "pathways")
+
+    # make sure it exists
+    if (!dir.exists(dir_out_ana)) {
+        dir.create(dir_out_ana)
+    }
 
     # format filepaths
     fpath_net <- file.path(dir_out, "IntegratedNetwork.cfg")
     fpath_out <- file.path(dir_out_ana, "PathwayScores.txt")
-    fnames_sub <- dir(dir_out_ana)
+    fnames_sub <- dir(dir_out_ptw)
 
     # stop if input file doesn't exist,
     # skip if output already generated
@@ -93,10 +99,15 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     names(df_net_nodes) <- c("node", "prize")
     names(df_net_edges) <- c("node1", "node2", "cost")
 
+    # start at ct edge
+    ct_edge <- apply(df_net_edges[, c(1, 2)], 2, endsWith, "A")
+    ct_edge <- which(rowSums(ct_edge) == 1)
+
     df_out <- NULL
     for (fname in fnames_sub) {
-        fpath <- file.path(dir_out_ana, fname)
+        fpath <- file.path(dir_out_ptw, fname)
         df_net_sub <- suppressMessages(vroom::vroom(fpath, progress = FALSE))
+        df_net_sub <- data.frame(df_net_sub)
         n_edges <- nrow(df_net_sub)
         
         # prepare nodes
@@ -113,8 +124,9 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
         scores <- score_subnetwork(df_node, df_edge)
 
         # simulate random subsets
-        for (i in seq_len(ntrial)) {  
-            lst <- subsample_network_simple(df_net_nodes, df_net_edges, n_edges)
+        for (i in seq_len(ntrial)) {
+            lst <- subsample_network(
+                df_net_nodes, df_net_edges, ct_edge, n_edges)
             score <- score_subnetwork(lst$nodes, lst$edges)
             scores <- rbind(scores, score)
         }
@@ -146,7 +158,7 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
 
     # order by edge pval
     df_out <- data.frame(df_out)
-    df_out <- df_out[order(df_out$pval_cost), ]
+    df_out <- df_out[order(df_out$pval_prize), ]
 
     # write out
     vroom::vroom_write(df_out, fpath_out, progress = FALSE)

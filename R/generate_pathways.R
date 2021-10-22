@@ -323,11 +323,11 @@ write_pathways_gv <- function(dir_out, depth) {
     }
 
     # analysis folder
-    dir_out_ana <- file.path(dir_out, "analysis")
+    dir_out_ptw <- file.path(dir_out, "pathways")
     
     # make sure it exists
-    if (!dir.exists(dir_out_ana)) {
-        dir.create(dir_out_ana)
+    if (!dir.exists(dir_out_ptw)) {
+        dir.create(dir_out_ptw)
     }
 
     # loop through each
@@ -352,7 +352,7 @@ write_pathways_gv <- function(dir_out, depth) {
         # write out sub-table
         fname <- paste(gsub("_", "", row[c(1, 2)]), collapse = "_")
         fname <- paste0(fname, ".txt")
-        fpath <- file.path(dir_out_ana, fname)
+        fpath <- file.path(dir_out_ptw, fname)
         vroom::vroom_write(df_net_sub, fpath, progress = FALSE)
     })
     NULL

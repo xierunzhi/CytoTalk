@@ -116,7 +116,7 @@ run_cytotalk <- function(
     ligands=CytoTalk::ligands_human,
     cutoff_a=0.1, cutoff_b=0.1,
     beta_max=100, omega_min=0.5, omega_max=0.5,
-    depth=3, ntrial=1000) {
+    depth=3, ntrial=100) {
 
     # must have valid data directory
     type_names <- check_valid_names(dir_in)

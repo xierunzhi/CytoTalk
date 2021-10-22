@@ -17,7 +17,7 @@ run_cytotalk(
   omega_min = 0.5,
   omega_max = 0.5,
   depth = 3,
-  ntrial = 1000
+  ntrial = 100
 )
 }
 \arguments{
