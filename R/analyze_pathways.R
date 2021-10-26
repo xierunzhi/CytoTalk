@@ -176,8 +176,8 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     }
 
     # add adjustments
-    df_out$pval_prize_adj <- p.adjust(df_out$pval_prize)
-    df_out$pval_cost_adj <- p.adjust(df_out$pval_cost)
+    df_out$pval_prize_adj <- stats::p.adjust(df_out$pval_prize)
+    df_out$pval_cost_adj <- stats::p.adjust(df_out$pval_cost)
 
     # write out
     vroom::vroom_write(df_out, fpath_out, progress = FALSE)
