@@ -64,10 +64,10 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
         norm <- min(c(H1, H2))
         mi_dist <- -log10(mi / norm)
 
-        lig1 <- ligands_valid[i, 1]
-        lig2 <- ligands_valid[i, 2]
+        ligand <- ligands_valid[i, 1]
+        receptor <- ligands_valid[i, 2]
 
-        data.frame(lig1, lig2, mi_dist)
+        data.frame(ligand, receptor, mi_dist)
     })
 
     # write out

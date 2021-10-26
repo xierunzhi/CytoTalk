@@ -109,6 +109,12 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
         df_net_sub <- suppressMessages(vroom::vroom(fpath, progress = FALSE))
         df_net_sub <- data.frame(df_net_sub)
         n_edges <- nrow(df_net_sub)
+
+        # extract information on LR pair
+        lrp <- strsplit(gsub("(.+?)_(.+?)\\.txt", "\\1 \\2", fname), " ")[[1]]
+        edges_plain <- apply(df_net_sub[, c(1, 2)], 2, function(x) gsub("_$", "", x))
+        index <- colSums(apply(edges_plain, 1, "==", lrp)) == 2
+        lrp_info <- df_net_sub[index, ]
         
         # prepare nodes
         df_node <- data.frame(rbind(
@@ -141,11 +147,18 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
         # extract edge score
         pcost <- pscore[1, 2]
 
+    # ligand_gene ligand_cell_type receptor_gene receptor_cell_type num_edges   num_nodes score pval_prize	pval_cost
+
         # new row of data
         row <- data.frame(
-            pathway = gsub("\\..+", "", fname),
-            num_edges = n_edges, num_nodes = nrow(df_node),
-            pval_prize = pprize, pval_cost = pcost
+            ligand = lrp[1],
+            ligand_cell_type = lrp_info$node1_type,
+            receptor = lrp[2],
+            receptor_cell_type = lrp_info$node2_type,
+            num_edges = n_edges,
+            num_nodes = nrow(df_node),
+            pval_prize = pprize,
+            pval_cost = pcost
         )
 
         # start or continue dataframe
@@ -158,7 +171,13 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
 
     # order by edge pval
     df_out <- data.frame(df_out)
-    df_out <- df_out[order(df_out$pval_prize), ]
+    if (0 < nrow(df_out)) {
+        df_out <- df_out[order(df_out$pval_prize), ]
+    }
+
+    # add adjustments
+    df_out$pval_prize_adj <- p.adjust(df_out$pval_prize)
+    df_out$pval_cost_adj <- p.adjust(df_out$pval_cost)
 
     # write out
     vroom::vroom_write(df_out, fpath_out, progress = FALSE)

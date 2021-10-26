@@ -301,7 +301,7 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
     # merge the non-self talk scores together
     df_nst_a$index <- seq_len(nrow(df_nst_a))
     df_nst <- merge(
-        df_nst_a, df_nst_b, by = c("lig1" = "lig1", "lig2" = "lig2")
+        df_nst_a, df_nst_b, by = c("ligand" = "ligand", "receptor" = "receptor")
     )
     df_nst <- df_nst[order(df_nst$index), ]
     df_nst$index <- NULL
@@ -313,8 +313,8 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
 
     i <- 1
     for (i in seq_len(nrow(df_nst))) {
-        lig_x <- df_nst[i, "lig1"]
-        lig_y <- df_nst[i, "lig2"]
+        lig_x <- df_nst[i, "ligand"]
+        lig_y <- df_nst[i, "receptor"]
 
         # from type A to B (always run)
         pair <- c(sprintf("%s_TypA", lig_x), sprintf("%s_TypB", lig_y))
@@ -351,7 +351,7 @@ compute_crosstalk <- function(type_a, type_b, dir_out) {
 
     # format output dataframe
     df_out <- as.data.frame(cbind(mat_symbol, crosstalk))
-    names(df_out) <- c("lig1", "lig2", "score")
+    names(df_out) <- c("ligand", "receptor", "score")
 
     # write out
     vroom::vroom_write(df_out, fpath_out, progress = FALSE)
