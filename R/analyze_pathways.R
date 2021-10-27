@@ -1,8 +1,10 @@
 #' @noRd
-score_subnetwork <- function(df_node, df_edge) {
+score_subnetwork <- function(df_node, df_edge, beta) {
+    node_prize <- as.numeric(df_node[, 2])
+    edge_cost <- as.numeric(df_edge[, 3])
     c(
-        mean(as.numeric(df_node[, 2])),
-        mean(as.numeric(df_edge[, 3]))
+        mean(node_prize), mean(edge_cost),
+        beta * sum(node_prize) - sum(edge_cost)
     )
 }
 
@@ -78,11 +80,12 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     # format filepaths
     fpath_net <- file.path(dir_out, "IntegratedNetwork.cfg")
     fpath_out <- file.path(dir_out_ana, "PathwayScores.txt")
+    fpath_pval <- file.path(dir_out, "PCSF_EdgeTestValues.txt")
     fnames_sub <- dir(dir_out_ptw)
 
     # stop if input file doesn't exist,
     # skip if output already generated
-    if (!file.exists(fpath_net)) {
+    if (!all(file.exists(fpath_net, fpath_pval))) {
         stop(sprintf("cannot find input file: %s", fpath_net))
     } else if (file.exists(fpath_out)) {
         message(sprintf("file already exists, continuing: %s", fpath_out))
@@ -94,6 +97,10 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     lengths <- vapply(lst_net, length, integer(1))
     df_net_nodes <- as.data.frame(do.call(rbind, lst_net[lengths == 2]))
     df_net_edges <- as.data.frame(do.call(rbind, lst_net[lengths == 3]))
+
+    # load in file
+    df_pval <- suppressMessages(vroom::vroom(fpath_pval, progress = FALSE))
+    beta <- df_pval[order(df_pval$pval)[1], "beta", drop=TRUE]
 
     # set column names
     names(df_net_nodes) <- c("node", "prize")
@@ -127,27 +134,29 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
         df_edge <- df_net_sub[, c("node1", "node2", "cost")]
 
         # begin scores
-        scores <- score_subnetwork(df_node, df_edge)
+        scores <- score_subnetwork(df_node, df_edge, beta)
 
         # simulate random subsets
         for (i in seq_len(ntrial)) {
             lst <- subsample_network(
                 df_net_nodes, df_net_edges, ct_edge, n_edges)
-            score <- score_subnetwork(lst$nodes, lst$edges)
+            score <- score_subnetwork(lst$nodes, lst$edges, beta)
             scores <- rbind(scores, score)
         }
 
         # calculate Z score
-        zscore <- apply(scores, 2, scale)
+        zscores <- apply(scores, 2, scale)
         # calculate p-value
-        pscore <- apply(zscore, 2, stats::pnorm)
+        pscores <- apply(scores, 2, function(x) {
+            stats::t.test(utils::tail(x, -1), mu=x[1])$p.value
+        })
 
         # extract node score
-        pprize <- 1 - pscore[1, 1]
+        pprize <- pscores[1]
         # extract edge score
-        pcost <- pscore[1, 2]
-
-    # ligand_gene ligand_cell_type receptor_gene receptor_cell_type num_edges   num_nodes score pval_prize	pval_cost
+        pcost <- pscores[2]
+        # extract potential score
+        ppot <- pscores[3]
 
         # new row of data
         row <- data.frame(
@@ -157,8 +166,12 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
             receptor_cell_type = lrp_info$node2_type,
             num_edges = n_edges,
             num_nodes = nrow(df_node),
+            mean_prize = scores[1, 1],
+            mean_cost = scores[1, 2],
+            potential = scores[1, 3],
             pval_prize = pprize,
-            pval_cost = pcost
+            pval_cost = pcost,
+            pval_potential = ppot
         )
 
         # start or continue dataframe
@@ -172,12 +185,13 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     # order by edge pval
     df_out <- data.frame(df_out)
     if (0 < nrow(df_out)) {
-        df_out <- df_out[order(df_out$pval_prize), ]
+        df_out <- df_out[order(df_out$pval_potential), ]
     }
 
     # add adjustments
     df_out$pval_prize_adj <- stats::p.adjust(df_out$pval_prize)
     df_out$pval_cost_adj <- stats::p.adjust(df_out$pval_cost)
+    df_out$pval_potential_adj <- stats::p.adjust(df_out$pval_potential)
 
     # write out
     vroom::vroom_write(df_out, fpath_out, progress = FALSE)
