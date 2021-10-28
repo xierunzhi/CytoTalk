@@ -8,6 +8,14 @@ score_subnetwork <- function(df_node, df_edge, beta) {
     )
 }
 
+score_subnetwork_shuffle <- function(node_prize, edge_cost, beta) {
+    c(
+        mean(node_prize),
+        mean(edge_cost),
+        beta * sum(node_prize) - sum(edge_cost)
+    )
+}
+
 #' @noRd
 subsample_network_simple <- function(df_node, df_edge, n_edges) {
     index_edge <- sample(seq_len(nrow(df_edge)), n_edges)
@@ -16,6 +24,14 @@ subsample_network_simple <- function(df_node, df_edge, n_edges) {
     list(
         nodes = df_node[index_node, ],
         edges = df_edge[index_edge, ]
+    )
+}
+
+#' @noRd
+subsample_network_shuffle <- function(node_prize, edge_cost, n_nodes, n_edges) {
+    list(
+        node_prize = as.numeric(sample(node_prize, n_nodes)),
+        edge_cost = as.numeric(sample(edge_cost, n_edges))
     )
 }
 
@@ -81,6 +97,7 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     fpath_net <- file.path(dir_out, "IntegratedNetwork.cfg")
     fpath_out <- file.path(dir_out_ana, "PathwayScores.txt")
     fpath_pval <- file.path(dir_out, "PCSF_EdgeTestValues.txt")
+    fpath_net <- file.path(dir_out, "PCSF_Network.txt")
     fnames_sub <- dir(dir_out_ptw)
 
     # stop if input file doesn't exist,
@@ -101,13 +118,29 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     # load in file
     df_pval <- suppressMessages(vroom::vroom(fpath_pval, progress = FALSE))
     beta <- df_pval[order(df_pval$pval)[1], "beta", drop=TRUE]
+    df_net <- suppressMessages(vroom::vroom(
+        fpath_net, progress = FALSE, na = c("", "NA", "-Inf")
+    ))
+
+    # create node table
+    df_net_nodes <- data.frame(rbind(
+        as.matrix(df_net[, c("node1", "node1_prize")]),
+        as.matrix(df_net[, c("node2", "node2_prize")])
+    ))
+
+    # create edge table
+    df_net_edges <- as.data.frame(df_net[, c("node1", "node2", "cost")])
 
     # set column names
     names(df_net_nodes) <- c("node", "prize")
     names(df_net_edges) <- c("node1", "node2", "cost")
 
+    # set columns numeric
+    df_net_nodes$prize <- as.numeric(df_net_nodes$prize)
+    df_net_edges$cost <- as.numeric(df_net_edges$cost)
+
     # start at ct edge
-    ct_edge <- apply(df_net_edges[, c(1, 2)], 2, endsWith, "A")
+    ct_edge <- apply(df_net_edges[, c(1, 2)], 2, endsWith, "_")
     ct_edge <- which(rowSums(ct_edge) == 1)
 
     df_out <- NULL
@@ -115,8 +148,7 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
         fpath <- file.path(dir_out_ptw, fname)
         df_net_sub <- suppressMessages(vroom::vroom(fpath, progress = FALSE))
         df_net_sub <- data.frame(df_net_sub)
-        n_edges <- nrow(df_net_sub)
-
+    
         # extract information on LR pair
         lrp <- strsplit(gsub("(.+?)_(.+?)\\.txt", "\\1 \\2", fname), " ")[[1]]
         edges_plain <- apply(df_net_sub[, c(1, 2)], 2, function(x) gsub("_$", "", x))
@@ -129,34 +161,35 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
             as.matrix(df_net_sub[, c("node2", "node2_prize")])
         ))
         df_node <- df_node[!duplicated(df_node[, 1]), ]
+        n_nodes <- nrow(df_node)
 
         # prepare edges
         df_edge <- df_net_sub[, c("node1", "node2", "cost")]
+        n_edges <- nrow(df_edge)
 
         # begin scores
         scores <- score_subnetwork(df_node, df_edge, beta)
 
         # simulate random subsets
         for (i in seq_len(ntrial)) {
-            lst <- subsample_network(
-                df_net_nodes, df_net_edges, ct_edge, n_edges)
-            score <- score_subnetwork(lst$nodes, lst$edges, beta)
+            lst <- subsample_network_shuffle(
+                df_net_nodes[, 2], df_net_edges[, 3], n_nodes, n_edges
+            )
+            score <- score_subnetwork_shuffle(lst$node_prize, lst$edge_cost, beta)
             scores <- rbind(scores, score)
         }
 
-        # calculate Z score
-        zscores <- apply(scores, 2, scale)
         # calculate p-value
         pscores <- apply(scores, 2, function(x) {
-            stats::t.test(utils::tail(x, -1), mu=x[1])$p.value
+            (match(x[1], sort(x)) - 1) / (length(x) - 1)
         })
-
+    
         # extract node score
-        pprize <- pscores[1]
+        pprize <- 1 - pscores[1]
         # extract edge score
         pcost <- pscores[2]
         # extract potential score
-        ppot <- pscores[3]
+        ppot <- 1 - pscores[3]
 
         # new row of data
         row <- data.frame(
