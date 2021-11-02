@@ -17,7 +17,7 @@ filter_file <- function(fpath_in, fpath_out, cutoff, proteins) {
     # calculate threshold
     thresh <- floor(ncol(df) * cutoff)
     # filter for number of zeros in a row
-    index1 <- rowSums(df != 0) > thresh
+    index1 <- thresh <= rowSums(df != 0)
     # filter for only protein-coding genes,
     # casefold upper
     index2 <- !is.na(match(toupper(rownames(df)), proteins))
