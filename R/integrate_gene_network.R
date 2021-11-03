@@ -392,7 +392,6 @@ write_integrated_net <- function(dir_out) {
     )
 
     # wait a tad
-    Sys.sleep(0.25)
     index <- !file.exists(fpaths_in)
     if (any(index)) {
         bad <- paste(fpaths_in[index], collapse = ", ")
