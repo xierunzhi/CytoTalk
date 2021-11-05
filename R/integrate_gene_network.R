@@ -440,6 +440,7 @@ write_integrated_net <- function(dir_out) {
 
     # normalize edge costs
     cost_norm <- unlist(lapply(cost, scale))
+    cost_norm[is.na(cost_norm)] <- 0
     cost_full <- 1 - minmax(cost_norm)
 
     # verify edge names belong to node names
