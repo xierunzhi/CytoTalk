@@ -8,6 +8,7 @@ score_subnetwork <- function(df_node, df_edge, beta) {
     )
 }
 
+#' @noRd
 score_subnetwork_shuffle <- function(node_prize, edge_cost, beta) {
     c(
         mean(node_prize),
@@ -60,6 +61,16 @@ subsample_network <- function(df_node, df_edge, ct_edge, n_edges) {
     )
 }
 
+#' @noRd
+gamma_score <- function(x, inverse=FALSE) {
+    if (inverse) { x <- (-x) }
+    x <- x - min(x)
+    v <- x[-1]
+    shape <- mean(v)^2 / stats::var(v)
+    scale <- stats::var(v) / mean(v)
+    stats::pgamma(x[1], shape, scale = scale, lower.tail = FALSE)
+}
+
 #' Analyze Network Pathways
 #'
 #' Starting at each ligand-receptor pair in the final network, analyze small
@@ -97,7 +108,7 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     fpath_net <- file.path(dir_out, "IntegratedNetwork.cfg")
     fpath_out <- file.path(dir_out_ana, "PathwayScores.txt")
     fpath_pval <- file.path(dir_out, "PCSF_EdgeTestValues.txt")
-    fpath_net <- file.path(dir_out, "PCSF_Network.txt")
+    # fpath_net <- file.path(dir_out, "PCSF_Network.txt")
     fnames_sub <- dir(dir_out_ptw)
 
     # stop if input file doesn't exist,
@@ -118,18 +129,18 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
     # load in file
     df_pval <- suppressMessages(vroom::vroom(fpath_pval, progress = FALSE))
     beta <- df_pval[order(df_pval$pval)[1], "beta", drop=TRUE]
-    df_net <- suppressMessages(vroom::vroom(
-        fpath_net, progress = FALSE, na = c("", "NA", "-Inf")
-    ))
+    # df_net <- suppressMessages(vroom::vroom(
+    #     fpath_net, progress = FALSE, na = c("", "NA", "-Inf")
+    # ))
 
     # create node table
-    df_net_nodes <- data.frame(rbind(
-        as.matrix(df_net[, c("node1", "node1_prize")]),
-        as.matrix(df_net[, c("node2", "node2_prize")])
-    ))
+    # df_net_nodes <- data.frame(rbind(
+    #     as.matrix(df_net[, c("node1", "node1_prize")]),
+    #     as.matrix(df_net[, c("node2", "node2_prize")])
+    # ))
 
     # create edge table
-    df_net_edges <- as.data.frame(df_net[, c("node1", "node2", "cost")])
+    # df_net_edges <- as.data.frame(df_net[, c("node1", "node2", "cost")])
 
     # set column names
     names(df_net_nodes) <- c("node", "prize")
@@ -180,16 +191,16 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
         }
 
         # calculate p-value
-        pscores <- apply(scores, 2, function(x) {
-            (match(x[1], sort(x)) - 1) / (length(x) - 1)
-        })
+        # pscores <- apply(scores, 2, function(x) {
+        #     (match(x[1], sort(x)) - 1) / (length(x) - 1)
+        # })
     
         # extract node score
-        pprize <- 1 - pscores[1]
+        # pprize <- 1 - pscores[1]
         # extract edge score
-        pcost <- pscores[2]
+        # pcost <- pscores[2]
         # extract potential score
-        ppot <- 1 - pscores[3]
+        # ppot <- 1 - pscores[3]
 
         # new row of data
         row <- data.frame(
@@ -202,9 +213,9 @@ analyze_pathways <- function(type_a, type_b, dir_out, depth, ntrial) {
             mean_prize = scores[1, 1],
             mean_cost = scores[1, 2],
             potential = scores[1, 3],
-            pval_prize = pprize,
-            pval_cost = pcost,
-            pval_potential = ppot
+            pval_prize = gamma_score(scores[, 1]),
+            pval_cost = gamma_score(-scores[, 2]),
+            pval_potential = gamma_score(scores[, 3])
         )
 
         # start or continue dataframe
