@@ -86,8 +86,9 @@ compute_mutual_information <- function(dir_out, cores=NULL) {
     # register cores for parallel computation
     if (is.null(cores)) {
         cores <- max(1, parallel::detectCores() - 2)
+        message(sprintf("Number of cores not specified, using %.0f.", cores))
     } else {
-        cores <- max(1, cores)
+        message(sprintf("Using %.0f specified cores.", cores))
     }
     doParallel::registerDoParallel(cores = cores)
 

@@ -43,10 +43,6 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
     index_valid <- index[valid,]
     ligands_valid <- ligands[valid,]
 
-    # detect and register cores
-    cores <- max(1, parallel::detectCores() - 2)
-    doParallel::registerDoParallel(cores = cores)
-
     # parallel loop for MI distances
     i <- NULL
     score <- foreach::`%dopar%`(
@@ -72,9 +68,6 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
 
     # write out
     vroom::vroom_write(score, fpath_out, progress = FALSE)
-
-    # unregister cores
-    doParallel::stopImplicitCluster()
     NULL
 }
 
@@ -100,8 +93,22 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
 #' @param dir_out Output directory
 #' @return None
 #' @export
-compute_non_self_talk <- function(ligands, type_a, type_b, dir_in, dir_out) {
+compute_non_self_talk <- function(
+    ligands, type_a, type_b, dir_in, dir_out, cores=NULL) {
+
+    # detect and register cores
+    if (is.null(cores)) {
+        cores <- max(1, parallel::detectCores() - 2)
+        message(sprintf("Number of cores not specified, using %.0f.", cores))
+    } else {
+        message(sprintf("Using %.0f specified cores.", cores))
+    }
+    doParallel::registerDoParallel(cores = cores)
+
     compute_non_self_talk_type(ligands, type_a, "A", dir_in, dir_out)
     compute_non_self_talk_type(ligands, type_b, "B", dir_in, dir_out)
+
+    # unregister cores
+    doParallel::stopImplicitCluster()
     NULL
 }

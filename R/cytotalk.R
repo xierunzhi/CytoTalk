@@ -116,7 +116,7 @@ run_cytotalk <- function(
     ligands=CytoTalk::ligands_human,
     cutoff_a=0.1, cutoff_b=0.1,
     beta_max=100, omega_min=0.5, omega_max=0.5,
-    depth=3, ntrial=10000) {
+    depth=3, ntrial=10000, cores=NULL) {
 
     # must have valid data directory
     type_names <- check_valid_names(dir_in)
@@ -143,7 +143,8 @@ run_cytotalk <- function(
     # compute preferential expression measure
     tick(1, "Preprocessing...")
     preprocess(proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out)
-    compute_non_self_talk(ligands, type_a, type_b, dir_in, dir_out)
+    compute_non_self_talk(
+        ligands, type_a, type_b, dir_in, dir_out, cores)
     status <- compute_pem(dir_in, dir_out)
 
     # exit if bad PEM status
@@ -153,7 +154,7 @@ run_cytotalk <- function(
 
     # compute mutual information (within types)
     tick(2, "Mutual information matrix...")
-    compute_mutual_information(dir_out)
+    compute_mutual_information(dir_out, cores)
 
     # use ARACNE.m to filter out indirect edges
     tick(3, "Indirect edge-filtered network...")
@@ -170,7 +171,7 @@ run_cytotalk <- function(
 
     # run Kolmogorov-Smirnov tests
     tick(6, "Determine best signaling network...")
-    generate_signaling_network(dir_out)
+    generate_signaling_network(dir_out, cores)
 
     # generate SIF and SVG files
     tick(7, "Generate network output...")
