@@ -21,7 +21,7 @@ setwd(getwd())
 <!-- badges: end -->
 
 <div align=center>
-<img src="docs/cytotalk_diagram.png" height="512px" />
+<img src="docs/cytotalk_diagram.png" height="480px" />
 </div>
 
 ## Table of Contents
@@ -218,7 +218,7 @@ graphics (also includes hyperlink support). Here is an example pathway
 neighborhood:
 
 <div align=center>
-<img src="docs/pathway.svg" height="512px" />
+<img src="docs/pathway.svg" height="480px" />
 </div>
 
 Note that the SVG files are interactive, with hyperlinks to GeneCards and
@@ -230,7 +230,7 @@ tables that can be attached to the network and used for styling. Here's an
 example of a styled Cytoscape network:
 
 <div align=center>
-<img src="docs/cytoscape_network.svg" height="512px" />
+<img src="docs/cytoscape_network.svg" height="480px" />
 </div>
 <br />
 
