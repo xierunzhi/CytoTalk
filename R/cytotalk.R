@@ -54,11 +54,11 @@
 #' @export
 run_cytotalk <- function(
     lst_scrna, cell_type_a, cell_type_b,
-    cutoff_a=0.2, cutoff_b=0.2,
+    dir_out=NULL, cutoff_a=0.2, cutoff_b=0.2,
     pcg=CytoTalk::pcg_human, lrp=CytoTalk::lrp_human,
     beta_max=100, omega_min=0.5, omega_max=0.5,
     depth=3, ntrial=1000,
-    cores=NULL, echo=TRUE, dir_out=NULL) {
+    cores=NULL, echo=TRUE) {
 
     # save numeric parameters
     params <- list(
