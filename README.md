@@ -87,7 +87,7 @@ Let’s assume we have a folder called “scRNAseq-data”, filled with
 single-cell RNA sequencing (scRNASeq) datasets. Here’s an example
 directory structure:
 
-``` txt
+``` console
 ── scRNAseq-data
    ├─ scRNAseq_BasalCells.csv
    ├─ scRNAseq_BCells.csv
@@ -110,7 +110,9 @@ replicate it with your filenames. Let’s try reading in the folder:
 dir_in <- "~/scRNAseq-data"
 lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
 table(lst_scrna$cell_types)
-#> 
+```
+
+``` console
 #>             BasalCells                 BCells       EndothelialCells 
 #>                    392                    743                    251 
 #>            Fibroblasts LuminalEpithelialCells            Macrophages 
@@ -136,7 +138,9 @@ fpath_mat <- "~/scRNAseq-data-cpdb/sample_counts.txt"
 fpath_meta <- "~/scRNAseq-data-cpdb/sample_meta.txt"
 lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
 table(lst_scrna$cell_types)
-#> 
+```
+
+``` console
 #>   Myeloid NKcells_0 NKcells_1    Tcells 
 #>         1         5         3         1
 ```
