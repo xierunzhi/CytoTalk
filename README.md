@@ -113,12 +113,12 @@ table(lst_scrna$cell_types)
 ```
 
 ``` console
-#>             BasalCells                 BCells       EndothelialCells 
-#>                    392                    743                    251 
-#>            Fibroblasts LuminalEpithelialCells            Macrophages 
-#>                    700                    459                    186 
-#>                 TCells 
-#>                   1750
+            BasalCells                 BCells       EndothelialCells 
+                   392                    743                    251 
+           Fibroblasts LuminalEpithelialCells            Macrophages 
+                   700                    459                    186 
+                TCells 
+                  1750
 ```
 
 The outputted names are all the cell types we can choose to run CytoTalk
@@ -141,8 +141,8 @@ table(lst_scrna$cell_types)
 ```
 
 ``` console
-#>   Myeloid NKcells_0 NKcells_1    Tcells 
-#>         1         5         3         1
+  Myeloid NKcells_0 NKcells_1    Tcells 
+        1         5         3         1
 ```
 
 Finally, you can compose your own input list quite easily, simply have a
@@ -157,8 +157,8 @@ table(lst_scrna$cell_types)
 ```
 
 ``` console
-#> TypeA TypeB 
-#>     2     1
+TypeA TypeB 
+    2     1
 ```
 
 ### Running CytoTalk
@@ -184,14 +184,14 @@ results <- CytoTalk::run_cytotalk(lst_scrna, type_a, type_b,
 ```
 
 ``` console
-#> [1 / 8] (11:15:28) Preprocessing...
-#> [2 / 8] (11:16:13) Mutual information matrix...
-#> [3 / 8] (11:20:19) Indirect edge-filtered network...
-#> [4 / 8] (11:20:37) Integrate network...
-#> [5 / 8] (11:21:44) PCSF...
-#> [6 / 8] (11:21:56) Determine best signaling network...
-#> [7 / 8] (11:21:58) Generate network output...
-#> [8 / 8] (11:21:59) Analyze pathways...
+[1 / 8] (11:15:28) Preprocessing...
+[2 / 8] (11:16:13) Mutual information matrix...
+[3 / 8] (11:20:19) Indirect edge-filtered network...
+[4 / 8] (11:20:37) Integrate network...
+[5 / 8] (11:21:44) PCSF...
+[6 / 8] (11:21:56) Determine best signaling network...
+[7 / 8] (11:21:58) Generate network output...
+[8 / 8] (11:21:59) Analyze pathways...
 ```
 
 All we need for a default run (recommended settings) are the selected
@@ -208,11 +208,11 @@ summary(results)
 ```
 
 ``` console
-#>                Length Class  Mode   
-#> pem            163387 -none- numeric
-#> integrated_net      2 -none- list   
-#> pcst                3 -none- list   
-#> pathways            3 -none- list
+               Length Class  Mode   
+pem            163387 -none- numeric
+integrated_net      2 -none- list   
+pcst                3 -none- list   
+pathways            3 -none- list
 ```
 
 In the order of increasing effort, let’s take a look at some of the
