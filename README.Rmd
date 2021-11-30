@@ -96,7 +96,7 @@ devtools::install_github("tanlabcode/CytoTalk")
 Let's assume we have a folder called "scRNAseq-data", filled with single-cell
 RNA sequencing (scRNASeq) datasets. Here's an example directory structure:
 
-``` txt
+``` console
 ── scRNAseq-data
    ├─ scRNAseq_BasalCells.csv
    ├─ scRNAseq_BCells.csv
@@ -119,7 +119,9 @@ with your filenames. Let's try reading in the folder:
 dir_in <- "~/scRNAseq-data"
 lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
 table(lst_scrna$cell_types)
-#> 
+```
+
+``` console
 #>             BasalCells                 BCells       EndothelialCells 
 #>                    392                    743                    251 
 #>            Fibroblasts LuminalEpithelialCells            Macrophages 
@@ -145,7 +147,9 @@ fpath_mat <- "~/scRNAseq-data-cpdb/sample_counts.txt"
 fpath_meta <- "~/scRNAseq-data-cpdb/sample_meta.txt"
 lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
 table(lst_scrna$cell_types)
-#> 
+```
+
+``` console
 #>   Myeloid NKcells_0 NKcells_1    Tcells 
 #>         1         5         3         1
 ```
@@ -161,7 +165,7 @@ lst_scrna <- CytoTalk:::new_named_list(mat, cell_types)
 table(lst_scrna$cell_types)
 ```
 
-```console
+``` console
 #> TypeA TypeB 
 #>     2     1
 ```
@@ -188,7 +192,7 @@ results <- CytoTalk::run_cytotalk(lst_scrna, type_a, type_b,
                                      cutoff_a, cutoff_b)
 ```
 
-```console
+``` console
 #> [1 / 8] (11:15:28) Preprocessing...
 #> [2 / 8] (11:16:13) Mutual information matrix...
 #> [3 / 8] (11:20:19) Indirect edge-filtered network...
@@ -211,7 +215,7 @@ Here is what the resulting output looks like:
 summary(results)
 ```
 
-```console
+``` console
 #>                Length Class  Mode   
 #> pem            163387 -none- numeric
 #> integrated_net      2 -none- list   
