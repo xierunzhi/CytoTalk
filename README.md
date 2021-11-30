@@ -87,7 +87,7 @@ Let’s assume we have a folder called “scRNAseq-data”, filled with
 single-cell RNA sequencing (scRNASeq) datasets. Here’s an example
 directory structure:
 
-``` console
+``` txt
 ── scRNAseq-data
    ├─ scRNAseq_BasalCells.csv
    ├─ scRNAseq_BCells.csv
@@ -216,10 +216,10 @@ pathways            3 -none- list
 ```
 
 In the order of increasing effort, let’s take a look at some of the
-results. Let’s begin with the “pathways” item. This folder contains
-source GV files, which the `dot` executable has also transformed into
-PNG images and SVG vector graphics (also includes hyperlink support).
-Here is an example pathway neighborhood:
+results. Let’s begin with the “pathways” item. This list item contains
+`DiagrammeR` graphs, which are viewable in RStudio, or can be exported
+if the `dir_out` parameter is specified during execution. Here is an
+example pathway neighborhood:
 
 <div align="center">
 
@@ -227,13 +227,15 @@ Here is an example pathway neighborhood:
 
 </div>
 
-Note that the SVG files are interactive, with hyperlinks to GeneCards
-and WikiPI. Green edges are directed from ligand to receptor. This is a
-subset of the overall network, so how do we view the whole thing?
+Note that the exported SVG files (see `dir_out` parameter) are
+interactive, with hyperlinks to GeneCards and WikiPI. Green edges are
+directed from ligand to receptor. This is a subset of the overall
+network, so how do we view the whole thing?
 
-We have the “cytoscape” folder, which includes a SIF file read to import
-and two tables that can be attached to the network and used for styling.
-Here’s an example of a styled Cytoscape network:
+If we specify an output directory, we can see a “cytoscape” sub-folder,
+which includes a SIF file read to import and two tables that can be
+attached to the network and used for styling. Here’s an example of a
+styled Cytoscape network:
 
 <div align="center">
 
@@ -250,14 +252,15 @@ Preferential Expression Measure (intensity of each color), cell type
 type (dashed lines for crosstalk, solid for intracellular).
 
 If we want to be more formal with the pathway analysis, we can look at
-some scores for each neighborhood in the “pathways” folder. This folder
-provides extracted subnetworks, based on the “PCSF\_Network.txt” file.
-Additionally, the “PathwayScores.txt” file in the “analysis” folder
-contains a summary of the neighborhood size for each pathway, along with
-empirical test values that are found by taking random subnetworks from
-the “IntegratedNetwork.cfg” configuration file, which is used as input
-to the PCSF algorithm. p-Values for node prizes (want to maximize) and
-edge costs (want to minimize) are calculated separately.
+some scores for each neighborhood in the “pathways” folder, or list
+item. This folder provides extracted subnetworks, based on the
+“PCSF\_Network.txt” file. Additionally, the “PathwayScores.txt” file in
+the “analysis” folder contains a summary of the neighborhood size for
+each pathway, along with theoretical (Gamma distribution) test values
+that are found by taking random subnetworks from the integrated network
+files, which are used as input to the PCSF algorithm. p-Values for node
+prizes (want to maximize) and edge costs (want to minimize) are
+calculated separately.
 
 Finally, we can take a look at some of the textual output. Most of the
 text files found in the output folder are used for intermediate

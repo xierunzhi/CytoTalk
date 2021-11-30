@@ -8,6 +8,7 @@ run_cytotalk(
   lst_scrna,
   cell_type_a,
   cell_type_b,
+  dir_out = NULL,
   cutoff_a = 0.2,
   cutoff_b = 0.2,
   pcg = CytoTalk::pcg_human,
@@ -18,8 +19,7 @@ run_cytotalk(
   depth = 3,
   ntrial = 1000,
   cores = NULL,
-  echo = TRUE,
-  dir_out = NULL
+  echo = TRUE
 )
 }
 \arguments{
@@ -31,6 +31,9 @@ example, \code{"Fibroblasts"}}
 
 \item{cell_type_b}{Name of cell type B that matches scRNA-seq file; for
 example, \code{"LuminalEpithelialCells"}}
+
+\item{dir_out}{Folder used for output; if not specified, a
+"CytoTalk-output" folder will be generated}
 
 \item{cutoff_a}{Proportional threshold for lowly expressed genes in cell type
 A (range of [0-1]); for example, 0.2 means genes with some expression in
@@ -70,9 +73,6 @@ empirical p-value for node prize and edge cost?}
 \item{cores}{How many cores to use for parallel processing?}
 
 \item{echo}{Should update messages be printed?}
-
-\item{dir_out}{Folder used for output; if not specified, a
-"CytoTalk-output" folder will be generated}
 }
 \description{
 Main CytoTalk Pipeline
