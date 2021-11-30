@@ -150,7 +150,9 @@ mat <- matrix(rpois(90, 5), ncol = 3)
 cell_types <- c("TypeA", "TypeB", "TypeA")
 lst_scrna <- CytoTalk:::new_named_list(mat, cell_types)
 table(lst_scrna$cell_types)
-#> 
+```
+
+``` console
 #> TypeA TypeB 
 #>     2     1
 ```
@@ -175,6 +177,9 @@ cutoff_b <- 0.5
 # run CytoTalk process
 results <- CytoTalk::run_cytotalk(lst_scrna, type_a, type_b,
                                      cutoff_a, cutoff_b)
+```
+
+``` console
 #> [1 / 8] (11:15:28) Preprocessing...
 #> [2 / 8] (11:16:13) Mutual information matrix...
 #> [3 / 8] (11:20:19) Indirect edge-filtered network...
@@ -196,6 +201,9 @@ Here is what the resulting output looks like:
 
 ``` r
 summary(results)
+```
+
+``` console
 #>                Length Class  Mode   
 #> pem            163387 -none- numeric
 #> integrated_net      2 -none- list   
