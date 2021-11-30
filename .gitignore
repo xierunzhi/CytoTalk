@@ -1,10 +1,5 @@
-.Rhistory
-cytotalk.Rproj
-package_guide.R
-
-/inst/doc/
-/scRNAseq-data/
-/CytoTalk-output/
+.Rproj.user
+inst/doc
+test_script.R*
 /doc/
-/dev/
 /Meta/

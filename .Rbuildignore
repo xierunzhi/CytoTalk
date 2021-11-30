@@ -1,12 +1,11 @@
-^cytotalk\.Rproj$
+^CytoTalk\.Rproj$
 ^\.Rproj\.user$
- 
-^README\.Rmd$
-^LICENSE\.md$
 
 ^docs$
-^CytoTalk-output$
-^scRNAseq-data$
-^package_guide.R$
 ^doc$
 ^Meta$
+
+^README\.Rmd$
+^LICENSE\.md$
+^test_script\.R$
+^test_script\.Rmd$

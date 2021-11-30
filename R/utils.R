@@ -1,11 +1,53 @@
 #' @noRd
-now <- function() {
-    format(Sys.time(), "%H:%M:%S")
+cmatch <- function(x, y) {
+    match(toupper(x), toupper(y))
 }
 
 #' @noRd
-tick <- function(step, msg) {
-    cat("[", step, " / 8] (", now(), ") ", msg, "\n", sep = "")
+all_identical <- function(lst) {
+    all(vapply(lst[-1], FUN = identical, logical(1), lst[[1]]))
+}
+
+#' @noRd
+format_message <- function(msg) {
+    sprintf("%s\n", trimws(msg))
+}
+
+#' @noRd
+errorifnot <- function(expr, msg) {
+    if (!expr) stop(format_message(msg))
+}
+
+#' @noRd
+warnifnot <- function(expr, msg) {
+    if (!expr) warning(format_message(msg))
+}
+
+#' @noRd
+is_integer <- function(mat) {
+    identical(mat, round(mat))
+}
+
+#' @noRd
+zero_diag <- function(mat) {
+    diag(mat) <- 0
+    mat
+}
+
+#' @noRd
+dir_full <- function(folder, ...) {
+    fnames <- dir(folder, ...)
+    file.path(folder, fnames)
+}
+
+#' @noRd
+totitle <- function(x) {
+    gsub("^([A-z])", "\\U\\1", tolower(x), perl = TRUE)
+}
+
+#' @noRd
+add_suffix <- function(x, type) {
+    sprintf("%s__%s", totitle(x), type)
 }
 
 #' @noRd
@@ -13,35 +55,17 @@ minmax <- function(x, ...) {
     (x - min(x, ...)) / (max(x, ...) - min(x, ...))
 }
 
-#' Extract Valid Cell Types
-#'
-#' Searches input directory for a particular regular expression pattern,
-#' filtering out invalid filenames, and finally returning a list of valid cell
-#' types.
-#'
-#' @examples {
-#' dir_in <- "~/scRNAseq-data"
-#' check_valid_names(dir_in)
-#' }
-#'
-#' @param dir_in Input directory, contains scRNAseq files
-#' @return A character vector, includes only valid scRNAseq cell types
-#' @export
-check_valid_names <- function(dir_in) {
-    # must have valid data directory
-    if (!dir.exists(dir_in)) {
-        stop("no input directory found")
-    }
+#' @noRd
+zero_na_neg <- function(x) {
+    ifelse(x < 0 | is.na(x), 0, x)
+}
 
-    # get filenames
-    fnames <- dir(dir_in)
+#' @noRd
+now <- function() {
+    format(Sys.time(), "%H:%M:%S")
+}
 
-    # check for validity
-    pattern <- "^scRNAseq_(.+)\\.csv$"
-    index <- grepl(pattern, fnames)
-    fnames_valid <- fnames[index]
-
-    # extract valid type names
-    type_names <- gsub(pattern, "\\1", fnames_valid)
-    type_names
+#' @noRd
+tick <- function(step, msg) {
+    cat("[", step, " / 8] (", now(), ") ", msg, "\n", sep = "")
 }

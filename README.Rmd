@@ -21,7 +21,7 @@ setwd(getwd())
 <!-- badges: end -->
 
 <div align=center>
-<img src="docs/CytoTalk_schematic.png" height="512px" />
+<img src="docs/cytotalk_diagram.png" height="512px" />
 </div>
 
 ## Table of Contents
@@ -93,8 +93,8 @@ devtools::install_github("tanlabcode/CytoTalk")
 
 ### Preparation
 
-Let's assume we have a folder called "scRNAseq-data", filled with single-cell RNA
-sequencing (scRNASeq) datasets. Here's an example directory structure:
+Let's assume we have a folder called "scRNAseq-data", filled with single-cell
+RNA sequencing (scRNASeq) datasets. Here's an example directory structure:
 
 ``` txt
 ── scRNAseq-data
@@ -112,100 +112,113 @@ sequencing (scRNASeq) datasets. Here's an example directory structure:
 ⚠ **IMPORTANT** ⚠
 
 Notice all of these files have the prefix "scRNAseq\_" and the extension ".csv";
-CytoTalk looks for files matching this pattern, so be sure to replicate it with
-your filenames. If you want to make sure your names are valid, use the following
-function:
+CytoTalk looks for files matching this pattern, so be sure to replicate it
+with your filenames. Let's try reading in the folder:
 
-``` {r valid_names}
+``` r
 dir_in <- "~/scRNAseq-data"
-CytoTalk::check_valid_names(dir_in)
+lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
+table(lst_scrna$cell_types)
+#> 
+#>             BasalCells                 BCells       EndothelialCells 
+#>                    392                    743                    251 
+#>            Fibroblasts LuminalEpithelialCells            Macrophages 
+#>                    700                    459                    186 
+#>                 TCells 
+#>                   1750
 ```
 
 The outputted names are all the cell types we can choose to run CytoTalk
-against. We'll come back to this.
+against. Alternatively, we can use CellPhoneDB-style input:
 
-<br />
+``` txt
+── scRNAseq-data-cpdb
+   ├─ sample_counts.txt
+   └─ sample_meta.txt
+ ```
 
-⚠ **IMPORTANT** ⚠
+There is no specific pattern required for this type of input, as both filepaths
+are required for the function:
 
-Each of these datasets should have the same number of rows, the first column
-corresponds to gene names, and the gene names of all these expression matrices
-should be exactly the same. Additionally, the gene expression values should be
-ln-transformed, normalized scRNA-seq data (e.g. Seurat-preprocessed data).
-
-Here is a small excerpt of the "scRNAseq\_BCells.csv", for reference:
-
-``` csv
-,      10X_P7_12_AAACCTGTCGTCACGG,10X_P7_12_AAACGGGCAGTGGGAT
-Xkr4,  0,                         0
-Rp1,   0,                         0
-Sox17, 0,                         0
-Mrpl15,0.71676,                   1.29024
-Lypla1,0,                         0
-Tcea1, 0,                         0
+``` r
+fpath_mat <- "~/scRNAseq-data-cpdb/sample_counts.txt"
+fpath_meta <- "~/scRNAseq-data-cpdb/sample_meta.txt"
+lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
+table(lst_scrna$cell_types)
+#> 
+#>   Myeloid NKcells_0 NKcells_1    Tcells 
+#>         1         5         3         1
 ```
 
-Notice the first column has no header, this is fine.
+Finally, you can compose your own input list quite easily, simply have a matrix
+of either count or transformed data and a vector detailing the cell types of
+each column:
+
+``` r
+mat <- matrix(rpois(90, 5), ncol = 3)
+cell_types <- c("TypeA", "TypeB", "TypeA")
+lst_scrna <- CytoTalk:::new_named_list(mat, cell_types)
+table(lst_scrna$cell_types)
+#> 
+#> TypeA TypeB 
+#>     2     1
+```
 
 ### Running CytoTalk
 
 Without further ado, let's run CytoTalk!
 
-``` {r basic_run, eval = FALSE}
-# set required parameters
+``` r
+# read in data folder
 dir_in <- "~/scRNAseq-data"
-type_a <- "BCells"
-type_b <- "TCells"
+lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
+
+# set required parameters
+type_a <- "Fibroblasts"
+type_b <- "LuminalEpithelialCells"
+
+# set optional parameters
+cutoff_a <- 0.5
+cutoff_b <- 0.5
 
 # run CytoTalk process
-CytoTalk::run_cytotalk(type_a, type_b, dir_in)
+results <- CytoTalk::run_cytotalk(lst_scrna, type_a, type_b,
+                                     cutoff_a, cutoff_b)
+#> [1 / 8] (11:15:28) Preprocessing...
+#> [2 / 8] (11:16:13) Mutual information matrix...
+#> [3 / 8] (11:20:19) Indirect edge-filtered network...
+#> [4 / 8] (11:20:37) Integrate network...
+#> [5 / 8] (11:21:44) PCSF...
+#> [6 / 8] (11:21:56) Determine best signaling network...
+#> [7 / 8] (11:21:58) Generate network output...
+#> [8 / 8] (11:21:59) Analyze pathways...
 ```
 
-We selected cell types "BCells" and "TCells", specified our input directory, and
-that's all we need for a default run (recommended settings). CytoTalk will
-automatically create a new folder called "CytoTalk-output" in our working
-directory, but we can set the `dir_out` parameter to change this behavior. The
-most important optional parameters to look at are `cutoff_a`, `cutoff_b`, and
-`beta_max`; details on these can be found in the help page for the
-`run_cytotalk` function.
+All we need for a default run (recommended settings) are the selected cell types
+"Macrophages" and "LuminalEpithelialCells". The most important optional
+parameters to look at are `cutoff_a`, `cutoff_b`, and `beta_max`; details on
+these can be found in the help page for the `run_cytotalk` function. As the
+process runs, we see messages print to the console for each sub process.
 
-As the process runs, we see messages print to the console for each sub process.
-At the same time, we can view our output directory in a file explorer and watch
-as it propagates with files. The process can be stopped at any time, and it will
-start where it left off. If we would like files re-computed, we can either
-delete them or specify a new output directory.
+Here is what the resulting output looks like:
 
-Here is what the resulting output directory structure looks like (abbreviated):
-
-``` txt
-── CytoTalk-output
-   ├─ analysis
-   │  └─ PathwayScores.txt
-   ├─ cytoscape
-   │  ├─ CytoscapeEdges.txt
-   │  ├─ CytoscapeNetwork.sif
-   │  └─ CytoscapeNodes.txt
-   ├─ graphviz
-   │  ├─ CD48_CD2.gv
-   │  ├─ CD48_CD2.png
-   │  ├─ CD48_CD2.svg
-   │  └─ ...
-   ├─ pathways
-   │  ├─ CD48_CD2.txt
-   │  └─ ...
-   ├─ IntegratedNetwork.cfg
-   ├─ PCSF_Network.txt
-   └─ ...
+``` r
+summary(results)
+#>                Length Class  Mode   
+#> pem            163387 -none- numeric
+#> integrated_net      2 -none- list   
+#> pcst                3 -none- list   
+#> pathways            3 -none- list
 ```
 
 In the order of increasing effort, let's take a look at some of the results.
-Let's begin with the "graphviz" subfolder. This folder contains source GV files,
+Let's begin with the "pathways" item. This folder contains source GV files,
 which the `dot` executable has also transformed into PNG images and SVG vector
 graphics (also includes hyperlink support). Here is an example pathway
 neighborhood:
 
 <div align=center>
-<img src="docs/ICOSL_CTLA4.svg" height="512px" />
+<img src="docs/pathway.svg" height="512px" />
 </div>
 
 Note that the SVG files are interactive, with hyperlinks to GeneCards and
@@ -217,7 +230,7 @@ tables that can be attached to the network and used for styling. Here's an
 example of a styled Cytoscape network:
 
 <div align=center>
-<img src="docs/CytoscapeNetwork.svg" height="512px" />
+<img src="docs/cytoscape_network.svg" height="512px" />
 </div>
 <br />
 

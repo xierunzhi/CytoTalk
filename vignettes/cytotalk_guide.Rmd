@@ -25,7 +25,7 @@ of ligand and receptor genes cannot reliably capture the overall activities of
 signaling pathways and interactions among them.
 
 <div align=center>
-<img src="/Users/Shane/Code/packaging/CytoTalk/docs/CytoTalk_schematic.png" height="480px" />
+<img src="../docs/cytotalk_diagram.png" height="480px" />
 </div>
 
 ### Prerequisites
@@ -157,7 +157,7 @@ graphics (also includes hyperlink support). Here is an example pathway
 neighborhood:
 
 <div align=center>
-<img src="/Users/Shane/Code/packaging/CytoTalk/docs/ICOSL_CTLA4.svg" height="480px" />
+<img src="../docs/pathway.svg" height="512px" />
 </div>
 
 Note that the SVG files are interactive, with hyperlinks to GeneCards and
@@ -169,7 +169,7 @@ tables that can be attached to the network and used for styling. Here's an
 example of a styled Cytoscape network:
 
 <div align=center>
-<img src="/Users/Shane/Code/packaging/CytoTalk/docs/CytoscapeNetwork.svg" height="480px" />
+<img src="../docs/cytoscape_network.svg" height="512px" />
 </div>
 <br />
 

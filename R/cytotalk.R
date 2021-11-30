@@ -1,186 +1,274 @@
-#' CytoTalk: Construct signal transduction networks
+#' Main CytoTalk Pipeline
 #'
-#' The CytoTalk package allows for *de novo* construction of a signaling
-#' network (pathways from ligand-receptor pairs) between two cell types using
-#' single- cell transcriptomics data (scRNA-seq).
+#' @param lst_scrna List containing scRNA-seq data; for example, lists returned
+#'   from `read_matrix_folder` or `read_matrix_with_meta`
 #'
-#' @section Running CytoTalk:
-#' The central wrapper function, `run_cytotalk`, is
-#' the main entry point to the package. Most users should start here. Check out
-#' its MAN page by executing `?run_cytotalk` in your R console.
+#' @param cell_type_a Name of cell type A that matches scRNA-seq file; for
+#'   example, `"Fibroblasts"`
 #'
-#' @section Advanced Users:
-#' If you're willing to do some digging, CytoTalk is
-#' composed of many steps, some of which could be interchangeable with other
-#' computational methods. For example, let's say that you have a different idea
-#' for computing intra- cellular similarity (i.e. not a mutual information
-#' matrix). You could skip steps 1-3 and attempt to run from step 4 onward
-#' (simply execute `run_cytotalk` in your console to view the source code) with
-#' differently integrated data. Currently, doing so is not user-friendly, so
-#' this is recommended for developers only. However, it would be interesting to
-#' make the different components of the overall process more modular to compare
-#' sub processes.
+#' @param cell_type_b Name of cell type B that matches scRNA-seq file; for
+#'   example, `"LuminalEpithelialCells"`
 #'
-#' @docType package
+#' @param dir_out Folder used for output; if not specified, a
+#'   "CytoTalk-output" folder will be generated
 #'
-#' @name cytotalk
-NULL
-
-#' Run CytoTalk Process
-#'
-#' Runs all sub processes of CytoTalk. At minimum, the folder that contains
-#' your scRNA-seq data, `dir_in`, and the two cell types corresponding to that
-#' data, `type_a` and `type_b`, must be specified. It is also recommended you
-#' set the output directory, `dir_out`. If you have data from a species other
-#' that mice, please read the descriptions for the `proteins` and `ligands`
-#' arguments. If you would like a more selective run (i.e. smaller, filters out
-#' more lowly- expressed genes), please increase both cutoff values `cutoff_a`
-#' and `cutoff_b`. Lastly, intermediate results will be reused, so if you want
-#' a fresh run, either output to a new output folder or delete the files in a
-#' particular output folder.
-#'
-#' @examples \dontrun{
-#' # set location of data and output folder
-#' dir_in <- "~/scRNAseq-data"
-#' dir_out <- "~/CytoTalk-output"
-#'
-#' # examine if your filenames are correct
-#' check_valid_names(dir_in)
-#'
-#' # select which cell types to compare
-#' type_a <- "BCells"
-#' type_b <- "TCells"
-#'
-#' # if desired, run a small test with highly-expressed genes
-#' run_cytotalk(type_a, type_b, dir_in, dir_out = "my-test",
-#'              cutoff_a = 0.75, cutoff_b = 0.75)
-#'
-#' # finally, run the full process
-#' run_cytotalk(type_a, type_b, dir_in, dir_out)
-#' }
-#'
-#' @param type_a Name of cell type A that matches scRNA-seq file; for example,
-#' `"BCells"`
-#'
-#' @param type_b Name of cell type B that matches scRNA-seq file; for example,
-#' `"TCells"` 
-#'
-#' @param dir_in Folder containing scRNA-seq data
-#'
-#' @param dir_out Folder used for output; if not specified, a "CytoTalk-output"
-#' folder will be generated 
-#'
-#' @param proteins A character vector, contains the names of protein coding
-#' genes; by default, uses the `pcg_human` data. This package also includes
-#' `pcg_mouse`, but you can also use your own data 
-#'
-#' @param ligands A dataframe or matrix object with two columns, ligands names
-#' and the names of their receptors; by default, uses the `ligands_human` data.
-#' This package also includes `ligands_mouse`, but you can also use your own
-#' data
-#'
-#' @param cutoff_a Proportional threshold for lowly expressed genes in cell
-#' type A (range of \[0-1\]); for example, 0.1 means genes with some expression
-#' in at least 10% of cells are retained 
+#' @param cutoff_a Proportional threshold for lowly expressed genes in cell type
+#'   A (range of \[0-1\]); for example, 0.2 means genes with some expression in
+#'   at least 20% of cells are retained
 #'
 #' @param cutoff_b Proportional expression threshold for cell type B (range of
-#' \[0-1\]) 
+#'   \[0-1\])
 #'
-#' @param beta_max Upper limit of the test values of the PCSF objective
-#' function parameter $I^2$, which is inversely proportional to the total
-#' number of genes in a given cell-type pair; suggested to be 100 (default) if
-#' the total number of genes in a given cell-type pair is above 10,000; if the
-#' total number of genes is below 5,000, increase to 500 
+#' @param pcg A character vector, contains the names of protein coding genes; by
+#'   default, uses the `pcg_human` data. This package also includes `pcg_mouse`,
+#'   but you can also use your own data
+#'
+#' @param lrp A dataframe or matrix object with two columns, ligands names and
+#'   the names of their receptors; by default, uses the `lrp_human` data. This
+#'   package also includes `lrp_mouse`, but you can also use your own data
+#'
+#' @param beta_max Upper limit of the test values of the PCSF objective function
+#'   parameter $I^2$, which is inversely proportional to the total number of
+#'   genes in a given cell-type pair; suggested to be 100 (default) if the total
+#'   number of genes in a given cell-type pair is above 10,000; if the total
+#'   number of genes is below 5,000, increase to 500
 #'
 #' @param omega_min Start point of omega range; omega represents the edge cost
-#' of the artificial network, but has been found to be less significant than
-#' beta. Recommended minimum of `0.5`.
+#'   of the artificial network, but has been found to be less significant than
+#'   beta. Recommended minimum of `0.5`
 #'
-#' @param omega_max End point of range between `omega_min` and `omega_max`,
-#' step size of `0.1`. Recommended maximum of `1.5`. 
+#' @param omega_max End point of range between `omega_min` and `omega_max`, step
+#'   size of `0.1`. Recommended maximum of `1.5`
 #'
 #' @param depth Starting at each ligand-receptor pair in the resultant network,
-#' how many steps out from that pair should be taken to generate each
-#' neighborhood?
+#'   how many steps out from that pair should be taken to generate each
+#'   neighborhood?
 #'
 #' @param ntrial How many random network subsets shall be created to get an
-#' empirical p-value for node prize and edge cost?
+#'   empirical p-value for node prize and edge cost?
 #'
-#' @return None
+#' @param cores How many cores to use for parallel processing?
+#'
+#' @param echo Should update messages be printed?
 #'
 #' @export
 run_cytotalk <- function(
-    type_a, type_b, dir_in,
-    dir_out="CytoTalk-output",
-    proteins=CytoTalk::pcg_human,
-    ligands=CytoTalk::ligands_human,
-    cutoff_a=0.1, cutoff_b=0.1,
+    lst_scrna, cell_type_a, cell_type_b,
+    cutoff_a=0.2, cutoff_b=0.2,
+    pcg=CytoTalk::pcg_human, lrp=CytoTalk::lrp_human,
     beta_max=100, omega_min=0.5, omega_max=0.5,
-    depth=3, ntrial=10000, cores=NULL) {
+    depth=3, ntrial=1000,
+    cores=NULL, echo=TRUE, dir_out=NULL) {
 
-    # must have valid data directory
-    type_names <- check_valid_names(dir_in)
+    # save numeric parameters
+    params <- list(
+        cell_type_a = cell_type_a, cell_type_b = cell_type_b,
+        cutoff_a = cutoff_a, cutoff_b = cutoff_b,
+        beta_max = beta_max, omega_min = omega_min, omega_max = omega_max,
+        depth = depth, ntrial = ntrial
+    )
 
-    # check cell type names as well
-    if (!all(c(type_a, type_b) %in% type_names)) {
-        stop("one of the cell types cannot be found in the input directory")
+    # register parallel backend
+    unregister_parallel()
+    if (is.null(cores) || 1 < cores) {
+        register_parallel(cores)
     }
 
-    # absolute paths to directories
-    dir_in <- suppressWarnings(normalizePath(dir_in))
-    dir_out <- suppressWarnings(normalizePath(dir_out))
-
-    # make sure output directory exists
-    if (!dir.exists(dir_out)) {
-        dir.create(dir_out)
+    # create directory
+    if (!is.null(dir_out) && !dir.exists(dir_out)) {
+        dir.create(dir_out, recursive = TRUE)
     }
 
-    # TODO: could have a more robust check on input directory,
-    # although errors will be determined in step 1 anyways...
-
-    # filter out lowly expressed genes,
-    # compute non-self-talk score (within each cell type),
-    # compute preferential expression measure
-    tick(1, "Preprocessing...")
-    preprocess(proteins, type_a, type_b, cutoff_a, cutoff_b, dir_in, dir_out)
-    compute_non_self_talk(
-        ligands, type_a, type_b, dir_in, dir_out, cores)
-    status <- compute_pem(dir_in, dir_out)
-
-    # exit if bad PEM status
-    if (status != 0) {
-        return()
+    if (echo) {
+        tick(1, "Preprocessing...")
     }
 
-    # compute mutual information (within types)
-    tick(2, "Mutual information matrix...")
-    compute_mutual_information(dir_out, cores)
+    mat_pem <- pem(lst_scrna)
+    mat_a <- extract_group(cell_type_a, lst_scrna)
+    mat_b <- extract_group(cell_type_b, lst_scrna)
+    vec_nst_a <- nonselftalk(mat_a, lrp)
+    vec_nst_b <- nonselftalk(mat_b, lrp)
+    mat_filt_a <- subset_rownames(subset_non_zero_old(mat_a, cutoff_a), pcg)
+    mat_filt_b <- subset_rownames(subset_non_zero_old(mat_b, cutoff_b), pcg)
 
-    # use ARACNE.m to filter out indirect edges
-    tick(3, "Indirect edge-filtered network...")
-    filter_indirect_edges(dir_out)
+    # write out PEM matrix
+    if (!is.null(dir_out)) {
+        fpath <- file.path(dir_out, "PEM.txt")
+        vroom_write_silent(mat_pem, fpath, rownames = TRUE)
+    }
 
-    # integrate nodes and their prizes,
-    # as well as edges and their costs
-    tick(4, "Integrate network...")
-    integrate_network(ligands, type_a, type_b, dir_in, dir_out)
+    if (echo) {
+        tick(2, "Mutual information matrix...")
+    }
 
-    # run prize-collecting Steiner tree algorithm from Python
-    tick(5, "PCSF...")
-    run_pcst(dir_out, beta_max, omega_min, omega_max)
+    mat_disc_a <- discretize_sparse(Matrix::t(mat_filt_a))
+    mat_disc_b <- discretize_sparse(Matrix::t(mat_filt_b))
+    mat_mi_a <- mi_mat_parallel(mat_disc_a, method = "mm")
+    mat_mi_b <- mi_mat_parallel(mat_disc_b, method = "mm")
+    dimnames(mat_mi_a) <- list(colnames(mat_disc_a), colnames(mat_disc_a))
+    dimnames(mat_mi_b) <- list(colnames(mat_disc_b), colnames(mat_disc_b))
 
-    # run Kolmogorov-Smirnov tests
-    tick(6, "Determine best signaling network...")
-    generate_signaling_network(dir_out, cores)
+    if (echo) {
+        tick(3, "Indirect edge-filtered network...")
+    }
 
-    # generate SIF and SVG files
-    tick(7, "Generate network output...")
-    generate_pathways(type_a, type_b, dir_out, depth)
+    mat_intra_a <- Matrix::Matrix(parmigene::aracne.m(zero_diag(mat_mi_a)))
+    mat_intra_b <- Matrix::Matrix(parmigene::aracne.m(zero_diag(mat_mi_b)))
 
-    # generate SIF and SVG files
-    tick(8, "Analyze pathways...")
-    analyze_pathways(type_a, type_b, dir_out, depth, ntrial)
+    if (echo) {
+        tick(4, "Integrate network...")
+    }
 
-    # no output...
-    NULL
+    lst_net <- integrate_network(
+        vec_nst_a, vec_nst_b, mat_intra_a, mat_intra_b,
+        cell_type_a, cell_type_b, mat_pem, mat_a, lrp
+    )
+
+    # write out integrated nodes and edges
+    if (!is.null(dir_out)) {
+        fpath <- file.path(dir_out, "IntegratedNodes.txt")
+        vroom_write_silent(lst_net$nodes, fpath)
+        fpath <- file.path(dir_out, "IntegratedEdges.txt")
+        vroom_write_silent(lst_net$edges, fpath)
+    }
+
+    if (echo) {
+        tick(5, "PCSF...")
+    }
+
+    lst_pcst <- run_pcst(lst_net, beta_max, omega_min, omega_max)
+
+    # write out PCST nodes and edges
+    if (!is.null(dir_out)) {
+        fpath <- file.path(dir_out, "PCSTNodeOccurance.txt")
+        vroom_write_silent(lst_pcst$nodes, fpath)
+        fpath <- file.path(dir_out, "PCSTEdgeOccurance.txt")
+        vroom_write_silent(lst_pcst$edges, fpath)
+    }
+
+    if (echo) {
+        tick(6, "Determine best signaling network...")
+    }
+
+    df_test <- ks_test_pcst(lst_pcst)
+    index <- order(df_test["pval"])[1]
+    beta <- df_test[index, "beta"]
+    omega <- df_test[index, "omega"]
+
+    # write out PCST scores
+    if (!is.null(dir_out)) {
+        vroom_write_silent(df_test, file.path(dir_out, "PCSTScores.txt"))
+    }
+
+    if (echo) {
+        tick(7, "Generate network output...")
+    }
+
+    df_net <- extract_network(lst_net, lst_pcst, mat_pem, beta, omega)
+    lst_path <- extract_pathways(df_net, cell_type_a, depth)
+    lst_graph <- lapply(lst_path, graph_pathway)
+
+    # no pathways found
+    if (is.null(lst_path)) {
+        result <- list(
+            params = params,
+            pem = mat_pem,
+            integrated_net = lst_net,
+            pcst = list(
+                occurances = lst_pcst,
+                ks_test_pval = df_test,
+                final_network = df_net
+            ),
+            pathways = NULL
+        )
+
+        return(result)
+    }
+
+    # write out pathways
+    if (!is.null(dir_out)) {
+        dir_path <- file.path(dir_out, "pathways")
+        if (!dir.exists(dir_path)) {
+            dir.create(dir_path, recursive = TRUE)
+        }
+        fnames <- names(lst_path)
+        for (fn in fnames) {
+            fpath <- file.path(dir_path, sprintf("%s.txt", fn))
+            vroom_write_silent(lst_path[[fn]], fpath)
+        }
+
+        dir_gv <- file.path(dir_out, "graphviz")
+        if (!dir.exists(dir_gv)) {
+            dir.create(dir_gv, recursive = TRUE)
+        }
+        fnames <- names(lst_graph)
+        for (fn in fnames) {
+            fpath <- file.path(dir_gv, sprintf("%s.svg", fn))
+            content <- DiagrammeRsvg::export_svg(lst_graph[[fn]])
+            write(content, fpath)
+        }
+    }
+
+    x <- lst_graph[[fn]]
+
+    # write out final network
+    if (!is.null(dir_out)) {
+        write_network_sif(df_net, cell_type_a, dir_out)
+        vroom_write_silent(df_net, file.path(dir_out, "FinalNetwork.txt"))
+    }
+
+    if (echo) {
+        tick(8, "Analyze pathways...")
+    }
+
+    lst_pval <- lapply(
+        lst_path, analyze_pathway, lst_net,
+        cell_type_a, cell_type_b, beta, ntrial
+    )
+
+    # format the ligand and receptor cell types
+    nodes <- do.call(rbind, strsplit(names(lst_path), "--"))
+    df_pval <- do.call(rbind, apply(nodes, 1, function(x) {
+        t <- ifelse(endsWith(x, "_"), cell_type_b, cell_type_a)
+        x <- gsub("_$", "", x)
+        data.frame(
+            ligand = x[1], receptor = x[2],
+            ligand_type = t[1], receptor_type = t[2]
+        )
+    }))
+
+    # combine with scores and sort
+    df_pval <- cbind(df_pval, do.call(rbind, lst_pval))
+    df_pval <- df_pval[order(df_pval$pval_potential), ]
+
+    # write out analysis
+    if (!is.null(dir_out)) {
+        fpath <- file.path(dir_out, "PathwayAnalysis.txt")
+        vroom_write_silent(df_pval, fpath)
+    }
+
+    # return out
+    result <- list(
+        params = params,
+        pem = mat_pem,
+        integrated_net = lst_net,
+        pcst = list(
+            occurances = lst_pcst,
+            ks_test_pval = df_test,
+            final_network = df_net
+        ),
+        pathways = list(
+            raw = lst_path,
+            graphs = lst_graph,
+            pnorm_pval = df_pval
+        )
+    )
+
+    # write out session
+    if (!is.null(dir_out)) {
+        fpath <- file.path(dir_out, "CytoTalkSession.rda")
+        save(result, file = fpath, version = 2)
+    }
+
+    result
 }
