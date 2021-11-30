@@ -8,13 +8,13 @@
 
 <div align="center">
 
-<img src="docs/cytotalk_diagram.png" height="512px" />
+<img src="docs/cytotalk_diagram.png" height="480px" />
 
 </div>
 
 ## Table of Contents
 
--   [CytoTalk](#cytotalklib)
+-   [CytoTalk](#cytotalk)
     -   [Table of Contents](#table-of-contents)
     -   [Overview](#overview)
         -   [Background](#background)
@@ -22,9 +22,9 @@
         -   [Prerequisites](#prerequisites)
         -   [Installation](#installation)
         -   [Preparation](#preparation)
-        -   [Running CytoTalk](#running-cytotalklib)
+        -   [Running CytoTalk](#running-cytotalk)
     -   [Update Log](#update-log)
-    -   [Citing CytoTalk](#citing-cytotalklib)
+    -   [Citing CytoTalk](#citing-cytotalk)
     -   [References](#references)
     -   [Contact](#contact)
 
@@ -211,7 +211,7 @@ Here is an example pathway neighborhood:
 
 <div align="center">
 
-<img src="docs/pathway.svg" height="512px" />
+<img src="docs/pathway.svg" height="480px" />
 
 </div>
 
@@ -225,7 +225,7 @@ Here’s an example of a styled Cytoscape network:
 
 <div align="center">
 
-<img src="docs/cytoscape_network.svg" height="512px" />
+<img src="docs/cytoscape_network.svg" height="480px" />
 
 </div>
 
