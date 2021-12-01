@@ -93,7 +93,7 @@ devtools::install_github("tanlabcode/CytoTalk")
 ### Preparation
 
 Let's assume we have a folder called "scRNAseq-data", filled with single-cell
-RNA sequencing (scRNASeq) datasets. Here's an example directory structure:
+RNA sequencing datasets. Here's an example directory structure:
 
 ``` txt
 ── scRNAseq-data
@@ -121,16 +121,17 @@ table(lst_scrna$cell_types)
 ```
 
 ``` console
-            BasalCells                 BCells       EndothelialCells 
-                   392                    743                    251 
-           Fibroblasts LuminalEpithelialCells            Macrophages 
-                   700                    459                    186 
-                TCells 
-                  1750
+ BasalCells                 BCells       EndothelialCells 
+        392                    743                    251 
+Fibroblasts LuminalEpithelialCells            Macrophages 
+        700                    459                    186 
+     TCells 
+       1750
 ```
 
 The outputted names are all the cell types we can choose to run CytoTalk
-against. Alternatively, we can use CellPhoneDB-style input:
+against. Alternatively, we can use CellPhoneDB-style input, where one file is
+our data matrix, and another file maps cell types to columns (i.e. metadata):
 
 ``` txt
 ── scRNAseq-data-cpdb
@@ -149,8 +150,8 @@ table(lst_scrna$cell_types)
 ```
 
 ``` console
-  Myeloid NKcells_0 NKcells_1    Tcells 
-        1         5         3         1
+Myeloid NKcells_0 NKcells_1    Tcells 
+      1         5         3         1
 ```
 
 Finally, you can compose your own input list quite easily, simply have a matrix
