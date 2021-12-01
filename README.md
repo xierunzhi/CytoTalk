@@ -31,27 +31,27 @@
 ## Overview
 
 We have developed the CytoTalk algorithm for *de novo* construction of a
-signaling network (union of multiple signaling pathways emanating from
-the ligand- receptor pairs) between two cell types using single-cell
-transcriptomics data. The algorithm constructs an integrated network of
-intracellular and intercellular functional gene interactions. The
-signaling network is identified by solving a prize-collecting Steiner
-forest (PCSF) problem based on appropriately defined node prize
-(i.e. cell-specific gene activity) and edge cost (i.e. functional
-interaction between two genes). The objective of the PCSF problem is to
-find an optimal subnetwork in the integrated network that includes genes
-with high levels of cell-type-specific expression and close connection
-to highly active ligand-receptor pairs.
+signaling network between two cell types using single-cell
+transcriptomics data. This signaling network is the union of multiple
+signaling pathways originating at ligand-receptor pairs. Our algorithm
+constructs an integrated network of intracellular and intercellular
+functional gene interactions. A prize-collecting Steiner tree (PCST)
+algorithm is used to extract the signaling network, based on node prize
+(cell-specific gene activity) and edge cost (functional interaction
+between two genes). The objective of the PCSF problem is to find an
+optimal subnetwork in the integrated network that includes genes with
+high levels of cell-type-specific expression and close connection to
+highly active ligand-receptor pairs.
 
 ### Background
 
-Signal transduction is the primary mechanism for cell-cell
-communication. scRNA- seq technology holds great promise for studying
-cell-cell communication at much higher resolution. Signaling pathways
-are highly dynamic and cross-talk among them is prevalent. Due to these
-two features, simply examining expression levels of ligand and receptor
+Signal transduction is the primary mechanism for cell-cell communication
+and scRNA-seq technology holds great promise for studying this
+communication at high levels of resolution. Signaling pathways are
+highly dynamic and cross-talk among them is prevalent. Due to these two
+features, simply examining expression levels of ligand and receptor
 genes cannot reliably capture the overall activities of signaling
-pathways and interactions among them.
+pathways and the interactions among them.
 
 ## Getting Started
 
@@ -67,10 +67,9 @@ pip install git+https://github.com/fraenkel-lab/pcst_fast.git
 
 CytoTalk outputs a SIF file for use in Cytoscape. Please [install
 Cytoscape](https://cytoscape.org/download.html) to view the whole output
-network. Additionally, if you want the final ligand-receptor pathways to
-render portable SVG files correctly, you’ll have to have Graphviz
-installed and the `dot` executable on your PATH. See the [Cytoscape
-downloads page](https://graphviz.org/download/) for more information.
+network. Additionally, you’ll have to install Graphviz and add the `dot`
+executable to your PATH. See the [Cytoscape downloads
+page](https://graphviz.org/download/) for more information.
 
 ### Installation
 
@@ -84,8 +83,8 @@ devtools::install_github("tanlabcode/CytoTalk")
 ### Preparation
 
 Let’s assume we have a folder called “scRNAseq-data”, filled with
-single-cell RNA sequencing (scRNASeq) datasets. Here’s an example
-directory structure:
+single-cell RNA sequencing datasets. Here’s an example directory
+structure:
 
 ``` txt
 ── scRNAseq-data
@@ -113,16 +112,18 @@ table(lst_scrna$cell_types)
 ```
 
 ``` console
-            BasalCells                 BCells       EndothelialCells 
-                   392                    743                    251 
-           Fibroblasts LuminalEpithelialCells            Macrophages 
-                   700                    459                    186 
-                TCells 
-                  1750
+ BasalCells                 BCells       EndothelialCells 
+        392                    743                    251 
+Fibroblasts LuminalEpithelialCells            Macrophages 
+        700                    459                    186 
+     TCells 
+       1750
 ```
 
 The outputted names are all the cell types we can choose to run CytoTalk
-against. Alternatively, we can use CellPhoneDB-style input:
+against. Alternatively, we can use CellPhoneDB-style input, where one
+file is our data matrix, and another file maps cell types to columns
+(i.e. metadata):
 
 ``` txt
 ── scRNAseq-data-cpdb
@@ -141,8 +142,8 @@ table(lst_scrna$cell_types)
 ```
 
 ``` console
-  Myeloid NKcells_0 NKcells_1    Tcells 
-        1         5         3         1
+Myeloid NKcells_0 NKcells_1    Tcells 
+      1         5         3         1
 ```
 
 Finally, you can compose your own input list quite easily, simply have a
@@ -174,13 +175,8 @@ lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
 type_a <- "Fibroblasts"
 type_b <- "LuminalEpithelialCells"
 
-# set optional parameters
-cutoff_a <- 0.5
-cutoff_b <- 0.5
-
 # run CytoTalk process
-results <- CytoTalk::run_cytotalk(lst_scrna, type_a, type_b,
-                                     cutoff_a, cutoff_b)
+results <- CytoTalk::run_cytotalk(lst_scrna, type_a, type_b)
 ```
 
 ``` console
@@ -194,32 +190,41 @@ results <- CytoTalk::run_cytotalk(lst_scrna, type_a, type_b,
 [8 / 8] (11:21:59) Analyze pathways...
 ```
 
-All we need for a default run (recommended settings) are the selected
-cell types “Macrophages” and “LuminalEpithelialCells”. The most
-important optional parameters to look at are `cutoff_a`, `cutoff_b`, and
+All we need for a default run is the named list and selected cell types
+(“Macrophages” and “LuminalEpithelialCells”). The most important
+optional parameters to look at are `cutoff_a`, `cutoff_b`, and
 `beta_max`; details on these can be found in the help page for the
-`run_cytotalk` function. As the process runs, we see messages print to
-the console for each sub process.
+`run_cytotalk` function (see `?run_cytotalk`). As the process runs, we
+see messages print to the console for each sub process.
 
-Here is what the resulting output looks like:
+Here is what the structure of the output list looks like (abbreviated):
 
 ``` r
-summary(results)
+str(results)
 ```
 
 ``` console
-               Length Class  Mode   
-pem            163387 -none- numeric
-integrated_net      2 -none- list   
-pcst                3 -none- list   
-pathways            3 -none- list
+List of 5
+ $ params
+ $ pem
+ $ integrated_net
+  ..$ nodes
+  ..$ edges
+ $ pcst
+  ..$ occurances
+  ..$ ks_test_pval
+  ..$ final_network
+ $ pathways
+  ..$ raw
+  ..$ graphs
+  ..$ df_pval
 ```
 
 In the order of increasing effort, let’s take a look at some of the
-results. Let’s begin with the “pathways” item. This list item contains
-`DiagrammeR` graphs, which are viewable in RStudio, or can be exported
-if the `dir_out` parameter is specified during execution. Here is an
-example pathway neighborhood:
+results. Let’s begin with the `results$pathways` item. This list item
+contains `DiagrammeR` graphs, which are viewable in RStudio, or can be
+exported if the `dir_out` parameter is specified during execution. Here
+is an example pathway neighborhood:
 
 <div align="center">
 
@@ -229,13 +234,10 @@ example pathway neighborhood:
 
 Note that the exported SVG files (see `dir_out` parameter) are
 interactive, with hyperlinks to GeneCards and WikiPI. Green edges are
-directed from ligand to receptor. This is a subset of the overall
-network, so how do we view the whole thing?
-
-If we specify an output directory, we can see a “cytoscape” sub-folder,
-which includes a SIF file read to import and two tables that can be
-attached to the network and used for styling. Here’s an example of a
-styled Cytoscape network:
+directed from ligand to receptor. Additionally, if we specify an output
+directory, we can see a “cytoscape” sub-folder, which includes a SIF
+file read to import and two tables that can be attached to the network
+and used for styling. Here’s an example of a styled Cytoscape network:
 
 <div align="center">
 
@@ -252,34 +254,28 @@ Preferential Expression Measure (intensity of each color), cell type
 type (dashed lines for crosstalk, solid for intracellular).
 
 If we want to be more formal with the pathway analysis, we can look at
-some scores for each neighborhood in the “pathways” folder, or list
-item. This folder provides extracted subnetworks, based on the
-“PCSF\_Network.txt” file. Additionally, the “PathwayScores.txt” file in
-the “analysis” folder contains a summary of the neighborhood size for
-each pathway, along with theoretical (Gamma distribution) test values
-that are found by taking random subnetworks from the integrated network
-files, which are used as input to the PCSF algorithm. p-Values for node
-prizes (want to maximize) and edge costs (want to minimize) are
+some scores for each neighborhood in the `results$pathways$raw` item.
+This list provides extracted subnetworks, based on the final network
+from the PCST. Additionally, the `results$pathways$df_pval` item
+contains a summary of the neighborhood size for each pathway, along with
+theoretical (Gamma distribution) test values that are found by
+contrsting the found pathway to random pathways from the integrated
+network. *p*-values for node prize, edge cost, and potential are
 calculated separately.
-
-Finally, we can take a look at some of the textual output. Most of the
-text files found in the output folder are used for intermediate
-calculations, but they are provided in case you want to check our work.
-The final network (includes edges and node attributes) generated by the
-prize-collecting Steiner tree (PCST) algorithm can be found in the
-“PCSF\_Network.txt” file. If you would like to see the inputs to the
-PCST algorithm, check out the “PCSF\_Network.txt” file, but note that
-this does not include the artificial node that connects all others
-together.
 
 ## Update Log
 
-2021-10-07: The latest release “CytoTalk\_v4.0.0” is a completely
-re-written R version of the program. Approximately half of the run time
-as been shaved off, the program is now cross-compatible with Windows and
-\*NIX systems, the file space usage is down to roughly a tenth of what
-it was, and graphical outputs have been made easier to import or now
-produce portable SVG files with embedded hyperlinks.
+2021-11-30: The latest release “CytoTalk\_v0.0.99” resets the versioning
+numbers in anticipation for submission to Bioconductor. This newest
+version packages functions in a modular fashion, offering more flexible
+input, usage, and output of the CytoTalk subroutines.
+
+2021-10-07: The release “CytoTalk\_v4.0.0” is a completely re-written R
+version of the program. Approximately half of the run time as been
+shaved off, the program is now cross-compatible with Windows and \*NIX
+systems, the file space usage is down to roughly a tenth of what it was,
+and graphical outputs have been made easier to import or now produce
+portable SVG files with embedded hyperlinks.
 
 2021-06-08: The release “CytoTalk\_v3.1.0” is a major updated R version
 on the basis of v3.0.3. We have added a function to generate Cytoscape
