@@ -43,16 +43,16 @@ setwd(getwd())
 ## Overview
 
 We have developed the CytoTalk algorithm for *de novo* construction of a
-signaling network (union of multiple signaling pathways emanating from the
-ligand- receptor pairs) between two cell types using single-cell transcriptomics
-data. The algorithm constructs an integrated network of intracellular and
-intercellular functional gene interactions. The signaling network is identified
-by solving a prize-collecting Steiner forest (PCSF) problem based on
-appropriately defined node prize (i.e. cell-specific gene activity) and edge
-cost (i.e. functional interaction between two genes). The objective of the PCSF
-problem is to find an optimal subnetwork in the integrated network that includes
-genes with high levels of cell-type-specific expression and close connection to
-highly active ligand-receptor pairs.
+signaling network between two cell types using single-cell transcriptomics
+data. This signaling network is the union of multiple signaling pathways
+originating at ligand-receptor pairs. Our algorithm constructs an integrated
+network of intracellular and intercellular functional gene interactions. A
+prize-collecting Steiner forest (PCSF) algorithm is used to extract the
+signaling network, based on node prize (cell-specific gene activity) and edge
+cost (functional interaction between two genes). The objective of the PCSF
+problem is to find an optimal subnetwork in the integrated network that
+includes genes with high levels of cell-type-specific expression and close
+connection to highly active ligand-receptor pairs.
 
 ### Background
 
