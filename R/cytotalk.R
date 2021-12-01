@@ -260,7 +260,7 @@ run_cytotalk <- function(
         pathways = list(
             raw = lst_path,
             graphs = lst_graph,
-            pnorm_pval = df_pval
+            df_pval = df_pval
         )
     )
 
