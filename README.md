@@ -8,7 +8,7 @@
 
 <div align="center">
 
-<img src="docs/cytotalk_diagram.png" height="480px" />
+<img src="docs/cytotalk_diagram.png" width="480px" />
 
 </div>
 
@@ -228,7 +228,7 @@ is an example pathway neighborhood:
 
 <div align="center">
 
-<img src="docs/pathway.svg" height="480px" />
+<img src="docs/pathway.svg" width="480px" />
 
 </div>
 
@@ -241,7 +241,7 @@ and used for styling. Here’s an example of a styled Cytoscape network:
 
 <div align="center">
 
-<img src="docs/cytoscape_network.svg" height="480px" />
+<img src="docs/cytoscape_network.svg" width="480px" />
 
 </div>
 
