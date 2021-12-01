@@ -189,7 +189,7 @@ parameter is specified during execution. Here is an example pathway
 neighborhood:
 
 <div align=center>
-<img sr../docs/pathway.svg" height="480px" />
+<img src="../docs/pathway.svg" height="480px" />
 </div>
 
 Note that the exported SVG files (see `dir_out` parameter) are interactive,
@@ -200,7 +200,7 @@ that can be attached to the network and used for styling. Here's an example of
 a styled Cytoscape network:
 
 <div align=center>
-<img sr../docs/cytoscape_network.svg" height="480px" />
+<img src="../docs/cytoscape_network.svg" height="480px" />
 </div>
 <br />
 
