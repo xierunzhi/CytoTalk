@@ -15,14 +15,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Background
+### Background
 
-Signal transduction is the primary mechanism for cell-cell communication. scRNA-
-seq technology holds great promise for studying cell-cell communication at much
-higher resolution. Signaling pathways are highly dynamic and cross-talk among
-them is prevalent. Due to these two features, simply examining expression levels
-of ligand and receptor genes cannot reliably capture the overall activities of
-signaling pathways and interactions among them.
+Signal transduction is the primary mechanism for cell-cell communication and
+scRNA-seq technology holds great promise for studying this communication at
+high levels of resolution. Signaling pathways are highly dynamic and cross-talk
+among them is prevalent. Due to these two features, simply examining expression
+levels of ligand and receptor genes cannot reliably capture the overall
+activities of signaling pathways and the interactions among them.
 
 <div align=center>
 <img src="../docs/cytotalk_diagram.png" height="480px" />
