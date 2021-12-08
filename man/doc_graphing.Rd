@@ -11,8 +11,8 @@ write_network_sif(df_net, cell_type_a, dir_out)
 graph_pathway(df_net_sub)
 }
 \arguments{
-\item{df_net}{Final network; for example, the output of the \code{extract_network}
-function}
+\item{df_net}{Final network; for example, the output of the
+\code{extract_network} function}
 
 \item{cell_type_a}{Name of cell type A that matches scRNA-seq file; for
 example, \code{"Fibroblasts"}}

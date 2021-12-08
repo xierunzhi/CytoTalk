@@ -27,7 +27,22 @@ vroom_sparse_with_rownames <- function(..., row_names=1) {
     Matrix::Matrix(Matrix::as.matrix(dat), sparse = TRUE)
 }
 
-#' @rdname doc_fileio
+#' Read Folder with scRNAseq Data
+#'
+#' @param dpath The path of a directory, which contains scRNAseq matrices
+#'
+#' @param pattern A regular expression, matches scRNAseq filenames
+#'
+#' @param auto_transform Should count data be transformed if detected?
+#'
+#' @examples {
+#' dir_in <- "~/scRNAseq-data"
+#' lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
+#' str(lst_scrna$cell_types)
+#' }
+#'
+#' @return A named list containing a sparse data matrix and cell type metadata
+#'
 #' @export
 read_matrix_folder <- function(
     dpath, pattern=".*scRNAseq_(.+?)\\..+", auto_transform=TRUE) {
@@ -66,7 +81,23 @@ read_matrix_folder <- function(
     new_named_list(mat, cell_types)
 }
 
-#' @rdname doc_fileio
+#' Read scRNAseq Data Matrix and Metadata
+#'
+#' @param fpath_mat The path of a file containing a scRNAseq data matrix
+#'
+#' @param fpath_meta The path of a file contianing column metadata (cell types)
+#'
+#' @param auto_transform Should count data be transformed if detected?
+#'
+#' @examples {
+#' fpath_mat <- "~/scRNAseq-data-cpdb/sample_counts.txt"
+#' fpath_meta <- "~/scRNAseq-data-cpdb/sample_meta.txt"
+#' lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
+#' str(lst_scrna$cell_types)
+#' }
+#'
+#' @return A named list containing a sparse data matrix and cell type metadata
+#'
 #' @export
 read_matrix_with_meta <- function(fpath_mat, fpath_meta, auto_transform=TRUE) {
     # read in

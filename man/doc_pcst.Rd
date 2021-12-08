@@ -22,18 +22,18 @@ extract_pathways(df_net, cell_type_a, depth)
 \arguments{
 \item{lst_net}{Integrated network}
 
-\item{beta_max}{Upper limit of the test values of the PCSF objective function
-parameter $I^2$, which is inversely proportional to the total number of
-genes in a given cell-type pair; suggested to be 100 (default) if the total
-number of genes in a given cell-type pair is above 10,000; if the total
-number of genes is below 5,000, increase to 500}
+\item{beta_max}{Upper limit of the test values of the PCSF objective
+function parameter $I^2$, which is inversely proportional to the total
+number of genes in a given cell-type pair; suggested to be 100 (default)
+if the total number of genes in a given cell-type pair is above 10,000; if
+the total number of genes is below 5,000, increase to 500}
 
 \item{omega_min}{Start point of omega range; omega represents the edge cost
 of the artificial network, but has been found to be less significant than
 beta. Recommended minimum of \code{0.5}}
 
-\item{omega_max}{End point of range between \code{omega_min} and \code{omega_max}, step
-size of \code{0.1}. Recommended maximum of \code{1.5}}
+\item{omega_max}{End point of range between \code{omega_min} and \code{omega_max},
+step size of \code{0.1}. Recommended maximum of \code{1.5}}
 
 \item{lst_pcst}{PCST output}
 
@@ -43,8 +43,8 @@ size of \code{0.1}. Recommended maximum of \code{1.5}}
 
 \item{omega}{A single omega value, see \code{omega_min} for more detail}
 
-\item{df_net}{Final network; for example, the output of the \code{extract_network}
-function}
+\item{df_net}{Final network; for example, the output of the
+\code{extract_network} function}
 
 \item{cell_type_a}{Name of cell type A that matches scRNA-seq file; for
 example, \code{"Fibroblasts"}}

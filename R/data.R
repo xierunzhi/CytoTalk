@@ -36,30 +36,6 @@
 #' @format A list
 "scrna_cpdb"
 
-#' File Input and Ouput
-#'
-#' @param dpath The path of a directory, which contains scRNAseq matrices
-#'
-#' @param fpath_mat The path of a file containing a scRNAseq data matrix
-#'
-#' @param fpath_meta The path of a file contianing column metadata (cell types)
-#'
-#' @param pattern A regular expression, matches scRNAseq filenames
-#'
-#' @param auto_transform Should count data be transformed if detected?
-#'
-#' @return A named list containing a sparse data matrix and cell type metadata
-#'
-#' @examples {
-#' dir_in <- "~/scRNAseq-data"
-#' lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
-#' str(lst_scrna$cell_types)
-#' }
-#'
-#' @name doc_fileio
-NULL
-#> NULL
-
 #' Graphing with Cytoscape and Graphviz
 #'
 #' @param df_net Final network; for example, the output of the
