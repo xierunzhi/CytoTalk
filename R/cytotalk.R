@@ -9,36 +9,36 @@
 #' @param cell_type_b Name of cell type B that matches scRNA-seq file; for
 #'   example, `"LuminalEpithelialCells"`
 #'
-#' @param dir_out Folder used for output; if not specified, a
-#'   "CytoTalk-output" folder will be generated
+#' @param dir_out Folder used for output; if not specified, a "CytoTalk-output"
+#'   folder will be generated
 #'
-#' @param cutoff_a Proportional threshold for lowly expressed genes in cell type
-#'   A (range of \[0-1\]); for example, 0.2 means genes with some expression in
-#'   at least 20% of cells are retained
+#' @param cutoff_a Proportional threshold for lowly expressed genes in cell
+#'   type A (range of \[0-1\]); for example, 0.2 means genes with some
+#'   expression in at least 20% of cells are retained
 #'
 #' @param cutoff_b Proportional expression threshold for cell type B (range of
 #'   \[0-1\])
 #'
-#' @param pcg A character vector, contains the names of protein coding genes; by
-#'   default, uses the `pcg_human` data. This package also includes `pcg_mouse`,
-#'   but you can also use your own data
+#' @param pcg A character vector, contains the names of protein coding genes;
+#'   by default, uses the `pcg_human` data. This package also includes
+#'   `pcg_mouse`, but you can also use your own data
 #'
 #' @param lrp A dataframe or matrix object with two columns, ligands names and
 #'   the names of their receptors; by default, uses the `lrp_human` data. This
 #'   package also includes `lrp_mouse`, but you can also use your own data
 #'
-#' @param beta_max Upper limit of the test values of the PCSF objective function
-#'   parameter $I^2$, which is inversely proportional to the total number of
-#'   genes in a given cell-type pair; suggested to be 100 (default) if the total
-#'   number of genes in a given cell-type pair is above 10,000; if the total
-#'   number of genes is below 5,000, increase to 500
+#' @param beta_max Upper limit of the test values of the PCSF objective
+#'   function parameter $I^2$, which is inversely proportional to the total
+#'   number of genes in a given cell-type pair; suggested to be 100 (default)
+#'   if the total number of genes in a given cell-type pair is above 10,000; if
+#'   the total number of genes is below 5,000, increase to 500
 #'
 #' @param omega_min Start point of omega range; omega represents the edge cost
 #'   of the artificial network, but has been found to be less significant than
 #'   beta. Recommended minimum of `0.5`
 #'
-#' @param omega_max End point of range between `omega_min` and `omega_max`, step
-#'   size of `0.1`. Recommended maximum of `1.5`
+#' @param omega_max End point of range between `omega_min` and `omega_max`,
+#'   step size of `0.1`. Recommended maximum of `1.5`
 #'
 #' @param depth Starting at each ligand-receptor pair in the resultant network,
 #'   how many steps out from that pair should be taken to generate each
@@ -50,6 +50,10 @@
 #' @param cores How many cores to use for parallel processing?
 #'
 #' @param echo Should update messages be printed?
+#'
+#' @return A list containing model parameters, prefential expression measure,
+#' the integrated co-expression network, the results of the PCST, and resulting
+#' pathways from the final extracted network
 #'
 #' @export
 run_cytotalk <- function(

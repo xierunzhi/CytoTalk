@@ -44,7 +44,32 @@ convert_names <- function(x, cell_type_a, cell_type_b) {
     gsub(suffix_a, "", gsub(suffix_b, "_", x))
 }
 
-#' @rdname doc_analysis
+#' Final Network Pathway Analysis
+#'
+#' @param df_net_sub A subset of the final network (pathway); for example, the
+#'   output of the `extract_pathways` function
+#'
+#' @param lst_net Integrated network
+#'
+#' @param cell_type_a Name of cell type A that matches scRNA-seq file; for
+#'   example, `"Fibroblasts"`
+#'
+#' @param cell_type_b Name of cell type B that matches scRNA-seq file; for
+#'   example, `"LuminalEpithelialCells"`
+#'
+#' @param beta Upper limit of the test values of the PCSF objective function
+#'   parameter $I^2$, which is inversely proportional to the total number of
+#'   genes in a given cell-type pair; suggested to be 100 (default) if the
+#'   total number of genes in a given cell-type pair is above 10,000; if the
+#'   total number of genes is below 5,000, increase to 500
+#'
+#' @param ntrial How many empirical simulations to run? (Sample used to form
+#'   theoretical Gamma distribution)
+#'
+#' @return A data-frame containing information relating to pathway size, mean
+#' node prize, mean edge cost, potential scores, and p-values from a fitted
+#' Gamma distribution
+#'
 #' @export
 analyze_pathway <- function(
     df_net_sub, lst_net, cell_type_a, cell_type_b, beta, ntrial) {

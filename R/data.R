@@ -31,6 +31,11 @@
 #' @format A dataframe
 "protetta"
 
+#' Example scRNAseq Data
+#'
+#' @format A list
+"scrna_cpdb"
+
 #' File Input and Ouput
 #'
 #' @param dpath The path of a directory, which contains scRNAseq matrices
@@ -55,36 +60,10 @@
 NULL
 #> NULL
 
-#' Final Network Pathway Analysis
-#'
-#' @param df_net_sub A subset of the final network (pathway); for example, the
-#'   output of the `extract_pathways` function
-#'
-#' @param lst_net Integrated network
-#'
-#' @param cell_type_a Name of cell type A that matches scRNA-seq file; for
-#'   example, `"Fibroblasts"`
-#'
-#' @param cell_type_b Name of cell type B that matches scRNA-seq file; for
-#'   example, `"LuminalEpithelialCells"`
-#'
-#' @param beta Upper limit of the test values of the PCSF objective function
-#'   parameter $I^2$, which is inversely proportional to the total number of
-#'   genes in a given cell-type pair; suggested to be 100 (default) if the total
-#'   number of genes in a given cell-type pair is above 10,000; if the total
-#'   number of genes is below 5,000, increase to 500
-#'
-#' @param ntrial How many empirical simulations to run? (Sample used to form
-#'   theoretical Gamma distribution)
-#'
-#' @name doc_analysis
-NULL
-#> NULL
-
 #' Graphing with Cytoscape and Graphviz
 #'
-#' @param df_net Final network; for example, the output of the `extract_network`
-#'   function
+#' @param df_net Final network; for example, the output of the
+#'   `extract_network` function
 #'
 #' @param df_net_sub A subset of the final network (pathway); for example, the
 #'   output of the `extract_pathways` function
@@ -102,18 +81,18 @@ NULL
 #'
 #' @param lst_net Integrated network
 #'
-#' @param beta_max Upper limit of the test values of the PCSF objective function
-#'   parameter $I^2$, which is inversely proportional to the total number of
-#'   genes in a given cell-type pair; suggested to be 100 (default) if the total
-#'   number of genes in a given cell-type pair is above 10,000; if the total
-#'   number of genes is below 5,000, increase to 500
+#' @param beta_max Upper limit of the test values of the PCSF objective
+#'   function parameter $I^2$, which is inversely proportional to the total
+#'   number of genes in a given cell-type pair; suggested to be 100 (default)
+#'   if the total number of genes in a given cell-type pair is above 10,000; if
+#'   the total number of genes is below 5,000, increase to 500
 #'
 #' @param omega_min Start point of omega range; omega represents the edge cost
 #'   of the artificial network, but has been found to be less significant than
 #'   beta. Recommended minimum of `0.5`
 #'
-#' @param omega_max End point of range between `omega_min` and `omega_max`, step
-#'   size of `0.1`. Recommended maximum of `1.5`
+#' @param omega_max End point of range between `omega_min` and `omega_max`,
+#'   step size of `0.1`. Recommended maximum of `1.5`
 #'
 #' @param lst_pcst PCST output
 #'
@@ -123,8 +102,8 @@ NULL
 #'
 #' @param omega A single omega value, see `omega_min` for more detail
 #'
-#' @param df_net Final network; for example, the output of the `extract_network`
-#'   function
+#' @param df_net Final network; for example, the output of the
+#'   `extract_network` function
 #'
 #' @param cell_type_a Name of cell type A that matches scRNA-seq file; for
 #'   example, `"Fibroblasts"`
