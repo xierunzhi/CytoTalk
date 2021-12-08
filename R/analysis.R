@@ -37,6 +37,13 @@ gamma_score <- function(x, inverse=FALSE) {
     stats::pgamma(x1, shape = shape, scale = scale, lower.tail = FALSE)
 }
 
+#' @noRd
+convert_names <- function(x, cell_type_a, cell_type_b) {
+    suffix_a <- sprintf("__%s", cell_type_a)
+    suffix_b <- sprintf("__%s", cell_type_b)
+    gsub(suffix_a, "", gsub(suffix_b, "_", x))
+}
+
 #' @rdname doc_analysis
 #' @export
 analyze_pathway <- function(
@@ -51,15 +58,9 @@ analyze_pathway <- function(
     df_net_edges$cost <- as.numeric(df_net_edges$cost)
 
     # convert names
-    suffix_a <- sprintf("__%s", cell_type_a)
-    suffix_b <- sprintf("__%s", cell_type_b)
-    convert <- function(x) {
-        gsub(suffix_a, "", gsub(suffix_b, "_", x))
-    }
-
-    df_net_nodes$node <- convert(df_net_nodes$node)
-    df_net_edges$node1 <- convert(df_net_edges$node1)
-    df_net_edges$node2 <- convert(df_net_edges$node2)
+    df_net_nodes$node <- convert_names(df_net_nodes$node)
+    df_net_edges$node1 <- convert_names(df_net_edges$node1)
+    df_net_edges$node2 <- convert_names(df_net_edges$node2)
 
     # prepare nodes
     df_node <- data.frame(
@@ -79,18 +80,14 @@ analyze_pathway <- function(
     # simulate random subsets
     for (i in seq_len(ntrial)) {
         lst <- subsample_network_shuffle(
-            df_net_nodes[, 2], df_net_edges[, 3], n_nodes, n_edges
-        )
-        score <- score_subnetwork(lst[[1]], lst[[2]], beta)
-        scores <- rbind(scores, score)
+            df_net_nodes[, 2], df_net_edges[, 3], n_nodes, n_edges)
+        scores <- rbind(scores, score_subnetwork(lst[[1]], lst[[2]], beta))
     }
 
     # new row of data
     data.frame(
-        num_edges = n_edges,
-        num_nodes = nrow(df_node),
-        mean_prize = scores[1, 1],
-        mean_cost = scores[1, 2],
+        num_edges = n_edges, num_nodes = nrow(df_node),
+        mean_prize = scores[1, 1], mean_cost = scores[1, 2],
         potential = scores[1, 3],
         pval_prize = gamma_score(scores[, 1]),
         pval_cost = gamma_score(scores[, 2], inverse = TRUE),

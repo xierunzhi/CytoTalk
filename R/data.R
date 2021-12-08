@@ -43,6 +43,14 @@
 #'
 #' @param auto_transform Should count data be transformed if detected?
 #'
+#' @return A named list containing a sparse data matrix and cell type metadata
+#'
+#' @examples {
+#' dir_in <- "~/scRNAseq-data"
+#' lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
+#' str(lst_scrna$cell_types)
+#' }
+#'
 #' @name doc_fileio
 NULL
 #> NULL

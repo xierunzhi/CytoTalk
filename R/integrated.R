@@ -71,17 +71,14 @@ node_prize <- function(mat_pem, cell_type, vec_relev) {
 #' @rdname doc_integrated
 #' @export
 crosstalk <- function(
-    mat_pem, cell_type_a, cell_type_b,
-    vec_nst_a, vec_nst_b, mat_type, lrp) {
+    mat_pem, cell_type_a, cell_type_b, vec_nst_a, vec_nst_b, mat_type, lrp) {
 
-    # grab relevant PEM scores,
-    # zero out negatives and NaNs
+    # grab relevant PEM scores, zero out negatives and NaNs
     vec_pem_names <- rownames(mat_pem)
     vec_pem_a <- zero_na_neg(mat_pem[, cell_type_a])
     vec_pem_b <- zero_na_neg(mat_pem[, cell_type_b])
 
-    # zero out bad NST scores,
-    # merge the them together
+    # zero out bad NST scores, merge the them together
     df_nst <- match_lr_pairs(mat_type, lrp)
     df_nst[, "mi_a"] <- zero_na_neg(vec_nst_a)
     df_nst[, "mi_b"] <- zero_na_neg(vec_nst_b)
@@ -89,7 +86,6 @@ crosstalk <- function(
     # initialize variables
     df_ct <- data.frame()
 
-    i <- 15
     for (i in seq_len(nrow(df_nst))) {
         # find the LR pair
         lig <- df_nst[i, "ligand"]
@@ -101,11 +97,9 @@ crosstalk <- function(
         # expressed score
         scr_expr <- (vec_pem_a[lig] + vec_pem_b[rec]) / 2
 
-        # new row
         df_ct <- rbind(df_ct, data.frame(
-            ligand = lig, receptor = rec,
-            ligand_type = cell_type_a, receptor_type = cell_type_b,
-            nst = scr_nst, expr = scr_expr
+            ligand = lig, receptor = rec, ligand_type = cell_type_a,
+            receptor_type = cell_type_b, nst = scr_nst, expr = scr_expr
         ))
 
         # from type B to A (sometimes skipped)
@@ -113,11 +107,9 @@ crosstalk <- function(
             # expressed score (notice the difference!)
             scr_expr <- (vec_pem_b[lig] + vec_pem_a[rec]) / 2
 
-            # new row
             df_ct <- rbind(df_ct, data.frame(
-                ligand = lig, receptor = rec,
-                ligand_type = cell_type_b, receptor_type = cell_type_a,
-                nst = scr_nst, expr = scr_expr
+                ligand = lig, receptor = rec, ligand_type = cell_type_b,
+                receptor_type = cell_type_a, nst = scr_nst, expr = scr_expr
             ))
         }
     }

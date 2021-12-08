@@ -25,6 +25,17 @@ read_matrix_with_meta(fpath_mat, fpath_meta, auto_transform = TRUE)
 
 \item{fpath_meta}{The path of a file contianing column metadata (cell types)}
 }
+\value{
+A named list containing a sparse data matrix and cell type metadata
+}
 \description{
 File Input and Ouput
+}
+\examples{
+{
+dir_in <- "~/scRNAseq-data"
+lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
+str(lst_scrna$cell_types)
+}
+
 }
