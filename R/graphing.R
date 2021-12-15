@@ -10,9 +10,9 @@ FORM_NODE = paste0(
     "%s\" width = %s height = %s fillcolor = \"%s\"]"
 )
 FORM_EDGE = paste0(
-    "\"%s\" -> \"%s\" [href = \"",
+    "\"%s\" -> \"%s\" [href=\"",
     URL_WIKIPI,
-    "%s+%s\" penwidth = %s]"
+    "%s+%s\" penwidth=%s style=%s]"
 )
 FORM_GV = trimws("
 digraph {\n

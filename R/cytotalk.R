@@ -213,8 +213,6 @@ run_cytotalk <- function(
         }
     }
 
-    x <- lst_graph[[fn]]
-
     # write out final network
     if (!is.null(dir_out)) {
         write_network_sif(df_net, cell_type_a, dir_out)
