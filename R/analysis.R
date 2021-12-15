@@ -83,9 +83,12 @@ analyze_pathway <- function(
     df_net_edges$cost <- as.numeric(df_net_edges$cost)
 
     # convert names
-    df_net_nodes$node <- convert_names(df_net_nodes$node)
-    df_net_edges$node1 <- convert_names(df_net_edges$node1)
-    df_net_edges$node2 <- convert_names(df_net_edges$node2)
+    df_net_nodes$node <- convert_names(
+        df_net_nodes$node, cell_type_a, cell_type_b)
+    df_net_edges$node1 <- convert_names(
+        df_net_edges$node1, cell_type_a, cell_type_b)
+    df_net_edges$node2 <- convert_names(
+        df_net_edges$node2, cell_type_a, cell_type_b)
 
     # prepare nodes
     df_node <- data.frame(
