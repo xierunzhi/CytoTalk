@@ -115,7 +115,7 @@ CytoTalk looks for files matching this pattern, so be sure to replicate it
 with your filenames. Let's try reading in the folder:
 
 ``` r
-dir_in <- "~/scRNAseq-data"
+dir_in <- "~/Tan-Lab/scRNAseq-data"
 lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
 table(lst_scrna$cell_types)
 ```
@@ -143,8 +143,8 @@ There is no specific pattern required for this type of input, as both filepaths
 are required for the function:
 
 ``` r
-fpath_mat <- "~/scRNAseq-data-cpdb/sample_counts.txt"
-fpath_meta <- "~/scRNAseq-data-cpdb/sample_meta.txt"
+fpath_mat <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_counts.txt"
+fpath_meta <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_meta.txt"
 lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
 table(lst_scrna$cell_types)
 ```
@@ -176,7 +176,7 @@ Without further ado, let's run CytoTalk!
 
 ``` r
 # read in data folder
-dir_in <- "~/scRNAseq-data"
+dir_in <- "~/Tan-Lab/scRNAseq-data"
 lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
 
 # set required parameters

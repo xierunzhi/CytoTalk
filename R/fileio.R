@@ -36,7 +36,7 @@ vroom_sparse_with_rownames <- function(..., row_names=1) {
 #' @param auto_transform Should count data be transformed if detected?
 #'
 #' @examples {
-#' dir_in <- "~/scRNAseq-data"
+#' dir_in <- "~/Tan-Lab/scRNAseq-data"
 #' lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
 #' str(lst_scrna$cell_types)
 #' }
@@ -90,8 +90,8 @@ read_matrix_folder <- function(
 #' @param auto_transform Should count data be transformed if detected?
 #'
 #' @examples {
-#' fpath_mat <- "~/scRNAseq-data-cpdb/sample_counts.txt"
-#' fpath_meta <- "~/scRNAseq-data-cpdb/sample_meta.txt"
+#' fpath_mat <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_counts.txt"
+#' fpath_meta <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_meta.txt"
 #' lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
 #' str(lst_scrna$cell_types)
 #' }
