@@ -48,7 +48,8 @@ biocViews:
 	Software,
 	SingleCell,
 	GeneExpression,
-	Network
+	Network,
+	Pathways
 SystemRequirements:
 	Cytoscape,
 	Graphviz,
