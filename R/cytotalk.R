@@ -51,6 +51,16 @@
 #'
 #' @param echo Should update messages be printed?
 #'
+#' @examples {
+#' cell_type_a <- "Macrophages"
+#' cell_type_b <- "LuminalEpithelialCells"
+#' cutoff_a <- 0.8
+#' cutoff_b <- 0.8
+#' result <- CytoTalk::run_cytotalk(CytoTalk::scrna_cyto,
+#'                                  cell_type_a, cell_type_b,
+#'                                  cutoff_a, cutoff_b)
+#' }
+#'
 #' @return A list containing model parameters, prefential expression measure,
 #' the integrated co-expression network, the results of the PCST, and resulting
 #' pathways from the final extracted network
