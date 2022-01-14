@@ -15,3 +15,13 @@ required to be non-zero}
 \description{
 Subset Rows on Proportion Non-Zero
 }
+\examples{
+{
+lst_scrna <- CytoTalk::scrna_cyto
+cell_type_a <- "Macrophages"
+cutoff_a <- 0.8
+mat_a <- extract_group(cell_type_a, lst_scrna)
+subset_non_zero(mat_a, cutoff_a)
+}
+
+}

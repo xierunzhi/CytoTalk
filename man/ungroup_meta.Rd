@@ -12,3 +12,11 @@ ungroup_meta(lst)
 \description{
 Named List to Meta List
 }
+\examples{
+{
+lst_scrna <- CytoTalk::scrna_cyto
+lst_group <- group_meta(lst_scrna)
+ungroup_meta(lst_group)
+}
+
+}

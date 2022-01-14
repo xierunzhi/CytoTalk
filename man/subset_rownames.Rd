@@ -14,3 +14,13 @@ subset_rownames(mat, labels)
 \description{
 Subset Rows on Rownames
 }
+\examples{
+{
+lst_scrna <- CytoTalk::scrna_cyto
+pcg <- CytoTalk::pcg_human
+cell_type_a <- "Macrophages"
+mat_a <- extract_group(cell_type_a, lst_scrna)
+subset_rownames(mat_a, pcg)
+}
+
+}

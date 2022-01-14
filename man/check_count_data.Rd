@@ -14,3 +14,12 @@ check_count_data(mat, auto_transform = TRUE)
 \description{
 Transform Count Data if Detected
 }
+\examples{
+{
+lst_scrna <- CytoTalk::scrna_cyto
+cell_type_a <- "Macrophages"
+mat_a <- extract_group(cell_type_a, lst_scrna)
+check_count_data(mat_a)
+}
+
+}

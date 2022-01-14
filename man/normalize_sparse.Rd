@@ -15,3 +15,12 @@ transformed data by}
 \description{
 scRNAseq Count Normalization
 }
+\examples{
+{
+lst_scrna <- CytoTalk::scrna_cyto
+cell_type_a <- "Macrophages"
+mat_a <- extract_group(cell_type_a, lst_scrna)
+normalize_sparse(mat_a)
+}
+
+}

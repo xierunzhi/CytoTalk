@@ -15,3 +15,11 @@ extract}
 \description{
 Extract Cell Type from Meta List
 }
+\examples{
+{
+lst_scrna <- CytoTalk::scrna_cyto
+cell_type_a <- "Macrophages"
+extract_group(cell_type_a, lst_scrna)
+}
+
+}

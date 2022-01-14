@@ -29,6 +29,14 @@ proportion_non_zero <- function(mat) {
 #' @param cutoff Threshold value in range \[0, 1\]; proportion of each row
 #'   required to be non-zero
 #'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' cell_type_a <- "Macrophages"
+#' cutoff_a <- 0.8
+#' mat_a <- extract_group(cell_type_a, lst_scrna)
+#' subset_non_zero(mat_a, cutoff_a)
+#' }
+#'
 #' @export
 subset_non_zero <- function(mat, cutoff) {
     index <- (cutoff <= proportion_non_zero(mat))
@@ -47,6 +55,14 @@ subset_non_zero_old <- function(mat, cutoff) {
 #' @param mat A numerical matrix
 #'
 #' @param labels A subset of the matrix's rownames to filter by
+#'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' pcg <- CytoTalk::pcg_human
+#' cell_type_a <- "Macrophages"
+#' mat_a <- extract_group(cell_type_a, lst_scrna)
+#' subset_rownames(mat_a, pcg)
+#' }
 #'
 #' @export
 subset_rownames <- function(mat, labels) {
@@ -75,6 +91,12 @@ extract_group_basic <- function(group, mat, labels) {
 #'
 #' @param lst A meta matrix list (outputted from `doc_fileio` methods)
 #'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' cell_type_a <- "Macrophages"
+#' extract_group(cell_type_a, lst_scrna)
+#' }
+#'
 #' @export
 extract_group <- function(group, lst) {
     extract_group_basic(group, lst[[1]], lst[[2]])
@@ -92,6 +114,11 @@ group_meta_basic <- function(mat, labels) {
 #'
 #' @param lst A meta matrix list (outputted from `doc_fileio` methods)
 #'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' group_meta(lst_scrna)
+#' }
+#'
 #' @export
 group_meta <- function(lst) {
     group_meta_basic(lst[[1]], lst[[2]])
@@ -100,6 +127,12 @@ group_meta <- function(lst) {
 #' Named List to Meta List
 #'
 #' @param lst A meta matrix list (outputted from `doc_fileio` methods)
+#'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' lst_group <- group_meta(lst_scrna)
+#' ungroup_meta(lst_group)
+#' }
 #'
 #' @export
 ungroup_meta <- function(lst) {
@@ -116,6 +149,14 @@ ungroup_meta <- function(lst) {
 #'
 #' @param lrp Ligand-receptor pair data.frame; see `CytoTalk::lrp_human` for
 #'   an example
+#'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' lrp <- CytoTalk::lrp_human
+#' cell_type_a <- "Macrophages"
+#' mat_a <- extract_group(cell_type_a, lst_scrna)
+#' match_lr_pairs(mat_a, lrp)
+#' }
 #'
 #' @export
 match_lr_pairs <- function(mat, lrp) {
@@ -142,6 +183,13 @@ match_lr_pairs <- function(mat, lrp) {
 #' @param scale.factor A single number constant by which to scale the
 #'   transformed data by
 #'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' cell_type_a <- "Macrophages"
+#' mat_a <- extract_group(cell_type_a, lst_scrna)
+#' normalize_sparse(mat_a)
+#' }
+#'
 #' @export
 normalize_sparse <- function(mat, scale.factor=10000) {
     log1p(Matrix::t(Matrix::t(mat) / Matrix::colSums(mat) * scale.factor))
@@ -152,6 +200,13 @@ normalize_sparse <- function(mat, scale.factor=10000) {
 #' @param mat A numerical matrix
 #'
 #' @param auto_transform Should the data be transformed if counts are detected?
+#'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' cell_type_a <- "Macrophages"
+#' mat_a <- extract_group(cell_type_a, lst_scrna)
+#' check_count_data(mat_a)
+#' }
 #'
 #' @export
 check_count_data <- function(mat, auto_transform=TRUE) {
