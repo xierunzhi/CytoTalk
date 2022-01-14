@@ -58,7 +58,8 @@
 #' cutoff_b <- 0.8
 #' result <- CytoTalk::run_cytotalk(CytoTalk::scrna_cyto,
 #'                                  cell_type_a, cell_type_b,
-#'                                  cutoff_a, cutoff_b)
+#'                                  cutoff_a, cutoff_b,
+#'                                  cores = 2)
 #' }
 #'
 #' @return A list containing model parameters, prefential expression measure,

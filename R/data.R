@@ -31,10 +31,15 @@
 #' @format A dataframe
 "protetta"
 
-#' Example scRNAseq Data
+#' Example scRNAseq Data (CellphoneDB)
 #'
 #' @format A list
 "scrna_cpdb"
+
+#' Example scRNAseq Data (CytoTalk)
+#'
+#' @format A list
+"scrna_cyto"
 
 #' Graphing with Cytoscape and Graphviz
 #'

@@ -14,19 +14,19 @@
 
 ## Table of Contents
 
-- [CytoTalk](#cytotalk)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-    - [Background](#background)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-    - [Preparation](#preparation)
-    - [Running CytoTalk](#running-cytotalk)
-  - [Update Log](#update-log)
-  - [Citing CytoTalk](#citing-cytotalk)
-  - [References](#references)
-  - [Contact](#contact)
+-   [CytoTalk](#cytotalk)
+    -   [Table of Contents](#table-of-contents)
+    -   [Overview](#overview)
+        -   [Background](#background)
+    -   [Getting Started](#getting-started)
+        -   [Prerequisites](#prerequisites)
+        -   [Installation](#installation)
+        -   [Preparation](#preparation)
+        -   [Running CytoTalk](#running-cytotalk)
+    -   [Update Log](#update-log)
+    -   [Citing CytoTalk](#citing-cytotalk)
+    -   [References](#references)
+    -   [Contact](#contact)
 
 ## Overview
 
