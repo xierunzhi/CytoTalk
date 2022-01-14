@@ -66,6 +66,16 @@ convert_names <- function(x, cell_type_a, cell_type_b) {
 #' @param ntrial How many empirical simulations to run? (Sample used to form
 #'   theoretical Gamma distribution)
 #'
+#' @examples {
+#' df_net_sub <- result_cyto$pathways$raw[[1]]
+#' lst_net <- result_cyto$integrated_net
+#' cell_type_a <- "Macrophages"
+#' cell_type_b <- "LuminalEpithelialCells"
+#' beta <- 20
+#' ntrial <- 1000
+#' analyze_pathway(df_net_sub, lst_net, cell_type_a, cell_type_b, beta, ntrial)
+#' }
+#'
 #' @return A data-frame containing information relating to pathway size, mean
 #' node prize, mean edge cost, potential scores, and p-values from a fitted
 #' Gamma distribution
