@@ -12,6 +12,9 @@ match_lr_pairs(mat, lrp)
 \item{lrp}{Ligand-receptor pair data.frame; see \code{CytoTalk::lrp_human} for
 an example}
 }
+\value{
+A matrix with two columns (ligand-receptor)
+}
 \description{
 Find Ligand Receptor Pairs in Matrix
 }

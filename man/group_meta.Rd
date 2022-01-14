@@ -9,6 +9,9 @@ group_meta(lst)
 \arguments{
 \item{lst}{A meta matrix list (outputted from \code{doc_fileio} methods)}
 }
+\value{
+A list of matrices
+}
 \description{
 Meta List to Named List
 }

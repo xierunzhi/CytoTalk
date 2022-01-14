@@ -22,6 +22,9 @@ example, \code{"Fibroblasts"}}
 \item{df_net_sub}{A subset of the final network (pathway); for example, the
 output of the \code{extract_pathways} function}
 }
+\value{
+Graphs which represent the subset pathways of the final network
+}
 \description{
 Graphing with Cytoscape and Graphviz
 }

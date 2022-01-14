@@ -31,6 +31,9 @@ discretized; by default the cube root of the number of samples}
 \item{normalize}{Should the entropies be normalized to fall within the range
 [0, 1]?}
 }
+\value{
+Mutual information calculations for filtered matrices
+}
 \description{
 Information Theory
 }

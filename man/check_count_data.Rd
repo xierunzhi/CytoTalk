@@ -11,6 +11,9 @@ check_count_data(mat, auto_transform = TRUE)
 
 \item{auto_transform}{Should the data be transformed if counts are detected?}
 }
+\value{
+A matrix
+}
 \description{
 Transform Count Data if Detected
 }

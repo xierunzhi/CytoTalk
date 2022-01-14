@@ -37,6 +37,8 @@ proportion_non_zero <- function(mat) {
 #' subset_non_zero(mat_a, cutoff_a)
 #' }
 #'
+#' @return A matrix
+#'
 #' @export
 subset_non_zero <- function(mat, cutoff) {
     index <- (cutoff <= proportion_non_zero(mat))
@@ -63,6 +65,8 @@ subset_non_zero_old <- function(mat, cutoff) {
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
 #' subset_rownames(mat_a, pcg)
 #' }
+#'
+#' @return A matrix
 #'
 #' @export
 subset_rownames <- function(mat, labels) {
@@ -97,6 +101,8 @@ extract_group_basic <- function(group, mat, labels) {
 #' extract_group(cell_type_a, lst_scrna)
 #' }
 #'
+#' @return A matrix
+#'
 #' @export
 extract_group <- function(group, lst) {
     extract_group_basic(group, lst[[1]], lst[[2]])
@@ -119,6 +125,8 @@ group_meta_basic <- function(mat, labels) {
 #' group_meta(lst_scrna)
 #' }
 #'
+#' @return A list of matrices
+#'
 #' @export
 group_meta <- function(lst) {
     group_meta_basic(lst[[1]], lst[[2]])
@@ -133,6 +141,8 @@ group_meta <- function(lst) {
 #' lst_group <- group_meta(lst_scrna)
 #' ungroup_meta(lst_group)
 #' }
+#'
+#' @return A list of a matrix and a meta vector
 #'
 #' @export
 ungroup_meta <- function(lst) {
@@ -157,6 +167,8 @@ ungroup_meta <- function(lst) {
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
 #' match_lr_pairs(mat_a, lrp)
 #' }
+#'
+#' @return A matrix with two columns (ligand-receptor)
 #'
 #' @export
 match_lr_pairs <- function(mat, lrp) {
@@ -190,6 +202,8 @@ match_lr_pairs <- function(mat, lrp) {
 #' normalize_sparse(mat_a)
 #' }
 #'
+#' @return A matrix
+#'
 #' @export
 normalize_sparse <- function(mat, scale.factor=10000) {
     log1p(Matrix::t(Matrix::t(mat) / Matrix::colSums(mat) * scale.factor))
@@ -207,6 +221,8 @@ normalize_sparse <- function(mat, scale.factor=10000) {
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
 #' check_count_data(mat_a)
 #' }
+#'
+#' @return A matrix
 #'
 #' @export
 check_count_data <- function(mat, auto_transform=TRUE) {

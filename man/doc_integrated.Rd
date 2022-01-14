@@ -68,6 +68,9 @@ any indirect edges per the data processing inequality}
 
 \item{mat_intra_b}{Intracellular network for cell type B}
 }
+\value{
+Various outputs to build the integrated network
+}
 \description{
 Integrated Co-Expression Network
 }

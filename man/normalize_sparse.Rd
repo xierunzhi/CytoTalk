@@ -12,6 +12,9 @@ normalize_sparse(mat, scale.factor = 10000)
 \item{scale.factor}{A single number constant by which to scale the
 transformed data by}
 }
+\value{
+A matrix
+}
 \description{
 scRNAseq Count Normalization
 }

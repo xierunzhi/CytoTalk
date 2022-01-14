@@ -19,6 +19,9 @@ defines the transformed count data and the associated cell types}
 \item{lst_scrna}{List containing scRNA-seq data; for example, lists returned
 from \code{read_matrix_folder} or \code{read_matrix_with_meta}}
 }
+\value{
+Preferential expression measure scores
+}
 \description{
 Preferential Expression Measure
 }

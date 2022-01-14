@@ -9,6 +9,9 @@ ungroup_meta(lst)
 \arguments{
 \item{lst}{A meta matrix list (outputted from \code{doc_fileio} methods)}
 }
+\value{
+A list of a matrix and a meta vector
+}
 \description{
 Named List to Meta List
 }

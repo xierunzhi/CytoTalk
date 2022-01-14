@@ -12,6 +12,9 @@ subset_non_zero(mat, cutoff)
 \item{cutoff}{Threshold value in range [0, 1]; proportion of each row
 required to be non-zero}
 }
+\value{
+A matrix
+}
 \description{
 Subset Rows on Proportion Non-Zero
 }

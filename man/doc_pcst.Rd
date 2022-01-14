@@ -53,6 +53,9 @@ example, \code{"Fibroblasts"}}
 how many steps out from that pair should be taken to generate each
 neighborhood?}
 }
+\value{
+Scores for the integrated network
+}
 \description{
 Prize-Collecting Steiner Tree and Pathway Extraction
 }

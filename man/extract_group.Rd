@@ -12,6 +12,9 @@ extract}
 
 \item{lst}{A meta matrix list (outputted from \code{doc_fileio} methods)}
 }
+\value{
+A matrix
+}
 \description{
 Extract Cell Type from Meta List
 }

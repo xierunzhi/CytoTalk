@@ -64,6 +64,8 @@
 #' graph_pathway(pathways[[1]])
 #' }
 #'
+#' @return Graphs which represent the subset pathways of the final network
+#'
 #' @name doc_graphing
 NULL
 #> NULL
@@ -111,6 +113,8 @@ NULL
 #' run_pcst(lst_net, beta_max, omega_min, omega_max)
 #' }
 #'
+#' @return Scores for the integrated network
+#'
 #' @name doc_pcst
 NULL
 #> NULL
@@ -155,6 +159,8 @@ NULL
 #' nonselftalk(mat_a, lrp)
 #' }
 #'
+#' @return Various outputs to build the integrated network
+#'
 #' @name doc_integrated
 NULL
 #> NULL
@@ -189,6 +195,8 @@ NULL
 #' mi_mat_parallel(mat_disc_a, method = "mm")
 #' }
 #'
+#' @return Mutual information calculations for filtered matrices
+#'
 #' @name doc_mutinfo
 NULL
 #> NULL
@@ -201,6 +209,8 @@ NULL
 #' unregister_parallel()
 #' register_parallel()
 #' }
+#'
+#' @return Nothing
 #'
 #' @name doc_parallel
 NULL
@@ -220,6 +230,8 @@ NULL
 #' lst_scrna <- CytoTalk::scrna_cyto
 #' pem(lst_scrna)
 #' }
+#'
+#' @return Preferential expression measure scores
 #'
 #' @name doc_pem
 NULL

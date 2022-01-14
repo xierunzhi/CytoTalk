@@ -13,6 +13,9 @@ register_parallel(cores = NULL)
 \arguments{
 \item{cores}{How many cores to use for parallel processing?}
 }
+\value{
+Nothing
+}
 \description{
 Registering Parallel Backend
 }

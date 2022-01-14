@@ -11,6 +11,9 @@ subset_rownames(mat, labels)
 
 \item{labels}{A subset of the matrix's rownames to filter by}
 }
+\value{
+A matrix
+}
 \description{
 Subset Rows on Rownames
 }
