@@ -35,3 +35,15 @@ Gamma distribution
 \description{
 Final Network Pathway Analysis
 }
+\examples{
+{
+df_net_sub <- result_cyto$pathways$raw[[1]]
+lst_net <- result_cyto$integrated_net
+cell_type_a <- "Macrophages"
+cell_type_b <- "LuminalEpithelialCells"
+beta <- 20
+ntrial <- 1000
+analyze_pathway(df_net_sub, lst_net, cell_type_a, cell_type_b, beta, ntrial)
+}
+
+}

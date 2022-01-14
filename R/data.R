@@ -139,6 +139,14 @@ NULL
 
 #' @param vec_nst_b Vector containing nonselftalk-scores for cell type B
 #'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' cell_type_a <- "Macrophages"
+#' lrp <- CytoTalk::lrp_human
+#' mat_a <- extract_group(cell_type_a, lst_scrna)
+#' nonselftalk(mat_a, lrp)
+#' }
+#'
 #' @name doc_integrated
 NULL
 #> NULL
