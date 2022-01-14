@@ -22,3 +22,10 @@ from \code{read_matrix_folder} or \code{read_matrix_with_meta}}
 \description{
 Preferential Expression Measure
 }
+\examples{
+{
+lst_scrna <- CytoTalk::scrna_cyto
+pem(lst_scrna)
+}
+
+}

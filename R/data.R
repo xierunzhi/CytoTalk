@@ -103,6 +103,14 @@ NULL
 #'   how many steps out from that pair should be taken to generate each
 #'   neighborhood?
 #'
+#' @examples {
+#' lst_net <- CytoTalk::result_cyto$integrated_net
+#' beta_max <- 100
+#' omega_min <- 0.5
+#' omega_max <- 0.5
+#' run_pcst(lst_net, beta_max, omega_min, omega_max)
+#' }
+#'
 #' @name doc_pcst
 NULL
 #> NULL
@@ -170,6 +178,17 @@ NULL
 #' @param normalize Should the entropies be normalized to fall within the range
 #'   \[0, 1\]?
 #'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' pcg <- CytoTalk::pcg_human
+#' cell_type_a <- "Macrophages"
+#' cutoff_a <- 0.8
+#' mat_a <- extract_group(cell_type_a, lst_scrna)
+#' mat_filt_a <- subset_rownames(subset_non_zero(mat_a, cutoff_a), pcg)
+#' mat_disc_a <- discretize_sparse(Matrix::t(mat_filt_a))
+#' mi_mat_parallel(mat_disc_a, method = "mm")
+#' }
+#'
 #' @name doc_mutinfo
 NULL
 #> NULL
@@ -177,6 +196,11 @@ NULL
 #' Registering Parallel Backend
 #'
 #' @param cores How many cores to use for parallel processing?
+#'
+#' @examples {
+#' unregister_parallel()
+#' register_parallel()
+#' }
 #'
 #' @name doc_parallel
 NULL
@@ -191,6 +215,11 @@ NULL
 #'
 #' @param lst_scrna List containing scRNA-seq data; for example, lists returned
 #'   from `read_matrix_folder` or `read_matrix_with_meta`
+#'
+#' @examples {
+#' lst_scrna <- CytoTalk::scrna_cyto
+#' pem(lst_scrna)
+#' }
 #'
 #' @name doc_pem
 NULL

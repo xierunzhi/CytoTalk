@@ -16,3 +16,10 @@ register_parallel(cores = NULL)
 \description{
 Registering Parallel Backend
 }
+\examples{
+{
+unregister_parallel()
+register_parallel()
+}
+
+}
