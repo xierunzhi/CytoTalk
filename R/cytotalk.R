@@ -84,8 +84,8 @@ run_cytotalk <- function(
     )
 
     # register parallel backend
-    unregister_parallel()
     if (is.null(cores) || 1 < cores) {
+        unregister_parallel()
         register_parallel(cores)
     }
 
@@ -197,6 +197,11 @@ run_cytotalk <- function(
             pathways = NULL
         )
 
+        # unregister parallel backend
+        if (is.null(cores) || 1 < cores) {
+            unregister_parallel()
+        }
+
         tick(8, "NOTE: No pathways found, analysis skipped!")
         return(result)
     }
@@ -282,6 +287,11 @@ run_cytotalk <- function(
     if (!is.null(dir_out)) {
         fpath <- file.path(dir_out, "CytoTalkSession.rda")
         save(result, file = fpath, version = 2)
+    }
+
+    # unregister parallel backend
+    if (is.null(cores) || 1 < cores) {
+        unregister_parallel()
     }
 
     result

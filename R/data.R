@@ -59,6 +59,11 @@
 #'
 #' @param dir_out Folder used for output
 #'
+#' @examples {
+#' pathways <- CytoTalk::result_cyto$pathways$raw
+#' graph_pathway(pathways[[1]])
+#' }
+#'
 #' @name doc_graphing
 NULL
 #> NULL

@@ -25,3 +25,10 @@ output of the \code{extract_pathways} function}
 \description{
 Graphing with Cytoscape and Graphviz
 }
+\examples{
+{
+pathways <- CytoTalk::result_cyto$pathways$raw
+graph_pathway(pathways[[1]])
+}
+
+}
