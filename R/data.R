@@ -41,6 +41,11 @@
 #' @format A list
 "scrna_cyto"
 
+#' Example Pipeline Result (CytoTalk)
+#'
+#' @format A list
+"result_cyto"
+
 #' Graphing with Cytoscape and Graphviz
 #'
 #' @param df_net Final network; for example, the output of the
