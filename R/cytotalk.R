@@ -186,6 +186,7 @@ run_cytotalk <- function(
             pathways = NULL
         )
 
+        tick(8, "NOTE: No pathways found, analysis skipped!")
         return(result)
     }
 
