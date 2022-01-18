@@ -69,7 +69,7 @@ CytoTalk looks for files matching this pattern, so be sure to replicate it
 with your filenames. Let's try reading in the folder:
 
 ```{r}
-dir_in <- "~/Tan-Lab/scRNAseq-data"
+dir_in <- "~/../Tan-Lab/scRNAseq-data"
 lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
 table(lst_scrna$cell_types)
 ```
