@@ -265,7 +265,7 @@ calculated separately.
 
 ## Update Log
 
-2021-11-30: The latest release “CytoTalk\_v0.0.99” resets the versioning
+2021-11-30: The latest release “CytoTalk\_v0.99.0” resets the versioning
 numbers in anticipation for submission to Bioconductor. This newest
 version packages functions in a modular fashion, offering more flexible
 input, usage, and output of the CytoTalk subroutines.
