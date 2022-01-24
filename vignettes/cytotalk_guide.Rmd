@@ -25,7 +25,7 @@ levels of ligand and receptor genes cannot reliably capture the overall
 activities of signaling pathways and the interactions among them.
 
 <div align=center>
-<img src="../extdata/cytotalk_diagram.png" width="480px" />
+<img src="extdata/cytotalk_diagram.png" width="480px" />
 </div>
 
 ### Prerequisites
@@ -188,7 +188,7 @@ parameter is specified during execution. Here is an example pathway
 neighborhood:
 
 <div align=center>
-<img src="../extdata/pathway.svg" width="480px" />
+<img src="extdata/pathway.svg" width="480px" />
 </div>
 
 Note that the exported SVG files (see `dir_out` parameter) are interactive,
@@ -199,7 +199,7 @@ that can be attached to the network and used for styling. Here's an example of
 a styled Cytoscape network:
 
 <div align=center>
-<img src="../extdata/cytoscape_network.svg" width="480px" />
+<img src="extdata/cytoscape_network.svg" width="480px" />
 </div>
 <br />
 
