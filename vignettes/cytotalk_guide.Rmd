@@ -25,7 +25,7 @@ levels of ligand and receptor genes cannot reliably capture the overall
 activities of signaling pathways and the interactions among them.
 
 <div align=center>
-<img src="../docs/cytotalk_diagram.png" width="480px" />
+<img src="../extdata/cytotalk_diagram.png" width="480px" />
 </div>
 
 ### Prerequisites
@@ -86,7 +86,7 @@ Fibroblasts LuminalEpithelialCells            Macrophages
 The outputted names are all the cell types we can choose to run CytoTalk
 against. Alternatively, we can use CellPhoneDB-style input, where one
 file is our data matrix, and another file maps cell types to columns
-(i.e. metadata):
+(i.e. metadata):
 
 ``` txt
 ── scRNAseq-data-cpdb
@@ -188,7 +188,7 @@ parameter is specified during execution. Here is an example pathway
 neighborhood:
 
 <div align=center>
-<img src="../docs/pathway.svg" width="480px" />
+<img src="../extdata/pathway.svg" width="480px" />
 </div>
 
 Note that the exported SVG files (see `dir_out` parameter) are interactive,
@@ -199,7 +199,7 @@ that can be attached to the network and used for styling. Here's an example of
 a styled Cytoscape network:
 
 <div align=center>
-<img src="../docs/cytoscape_network.svg" width="480px" />
+<img src="../extdata/cytoscape_network.svg" width="480px" />
 </div>
 <br />
 
