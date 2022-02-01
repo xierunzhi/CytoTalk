@@ -86,8 +86,8 @@ Main CytoTalk Pipeline
 {
 cell_type_a <- "Macrophages"
 cell_type_b <- "LuminalEpithelialCells"
-cutoff_a <- 0.8
-cutoff_b <- 0.8
+cutoff_a <- 0.6
+cutoff_b <- 0.6
 result <- CytoTalk::run_cytotalk(CytoTalk::scrna_cyto,
                                  cell_type_a, cell_type_b,
                                  cutoff_a, cutoff_b,
