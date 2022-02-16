@@ -27,6 +27,15 @@ vroom_sparse_with_rownames <- function(..., row_names=1) {
     Matrix::Matrix(Matrix::as.matrix(dat), sparse = TRUE)
 }
 
+#' Convert SingleCellExperiment to Named List
+#'
+#' @export
+from_single_cell_experiment <- function(sce) {
+    count <- SingleCellExperiment::logcounts(sce)
+    names <- colnames(sce)
+    new_named_list(count, names)
+}
+
 #' Read Folder with scRNAseq Data
 #'
 #' @param dpath The path of a directory, which contains scRNAseq matrices
