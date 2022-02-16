@@ -6,10 +6,11 @@ Authors@R: c(
 		   role = c("aut"),
 		   comment = c(ORCID = "0000-0002-8830-6893")),
     person("Shane", "Drabing",
-		   role = c("aut")),
+		   role = c("aut"),
+           comment = c(ORCID = "0000-0001-9521-6610")),
     person("Kai", "Tai",
 		   role = c("cre"),
-	       email = "tank1@chop.edu",
+	       email = "tanlab4generegulation@gmail.com",
 		   comment = c(ORCID = "0000-0002-9104-5567")))
 Description: Perform de novo construction of signal transduction networks using
 	single-cell transcriptomic data (scRNA-seq). The CytoTalk process
@@ -36,6 +37,7 @@ Imports:
     infotheo,
     parmigene,
     reticulate,
+    SingleCellExperiment,
     tibble,
     vroom
 Suggests: 
