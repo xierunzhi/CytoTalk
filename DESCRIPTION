@@ -1,6 +1,6 @@
 Package: CytoTalk
 Title: Signal Transduction Networks from scRNA-seq
-Version: 0.99.4
+Version: 0.99.5
 Authors@R: c(
     person("Yuxuan", "Hu",
 		   role = c("aut"),
