@@ -258,7 +258,7 @@ run_cytotalk <- function(
 
     # combine with scores and sort
     df_pval <- cbind(df_pval, do.call(rbind, lst_pval))
-    df_pval <- df_pval[order(df_pval$pval_potential), ]
+    df_pval <- df_pval[order(as.numeric(df_pval$pval_potential)), ]
 
     # write out analysis
     if (!is.null(dir_out)) {
