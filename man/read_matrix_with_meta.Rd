@@ -21,10 +21,10 @@ Read scRNAseq Data Matrix and Metadata
 }
 \examples{
 {
-fpath_mat <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_counts.txt"
-fpath_meta <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_meta.txt"
-lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
-result <- str(lst_scrna$cell_types)
+# fpath_mat <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_counts.txt"
+# fpath_meta <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_meta.txt"
+# lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
+# result <- str(lst_scrna$cell_types)
 }
 
 }

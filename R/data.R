@@ -110,7 +110,7 @@ NULL
 #' beta_max <- 100
 #' omega_min <- 0.5
 #' omega_max <- 0.5
-#' result <- run_pcst(lst_net, beta_max, omega_min, omega_max)
+#' # result <- run_pcst(lst_net, beta_max, omega_min, omega_max)
 #' }
 #'
 #' @return Scores for the integrated network

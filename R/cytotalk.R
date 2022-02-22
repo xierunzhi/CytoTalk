@@ -56,10 +56,10 @@
 #' cell_type_b <- "LuminalEpithelialCells"
 #' cutoff_a <- 0.6
 #' cutoff_b <- 0.6
-#' result <- CytoTalk::run_cytotalk(CytoTalk::scrna_cyto,
-#'                                  cell_type_a, cell_type_b,
-#'                                  cutoff_a, cutoff_b,
-#'                                  cores = 2)
+#' # result <- CytoTalk::run_cytotalk(CytoTalk::scrna_cyto,
+#' #                                  cell_type_a, cell_type_b,
+#' #                                  cutoff_a, cutoff_b,
+#' #                                  cores = 2)
 #' }
 #'
 #' @return A list containing model parameters, prefential expression measure,
