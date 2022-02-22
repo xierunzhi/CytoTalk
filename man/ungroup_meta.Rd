@@ -19,7 +19,7 @@ Named List to Meta List
 {
 lst_scrna <- CytoTalk::scrna_cyto
 lst_group <- group_meta(lst_scrna)
-ungroup_meta(lst_group)
+result <- ungroup_meta(lst_group)
 }
 
 }

@@ -73,7 +73,7 @@ convert_names <- function(x, cell_type_a, cell_type_b) {
 #' cell_type_b <- "LuminalEpithelialCells"
 #' beta <- 20
 #' ntrial <- 1000
-#' analyze_pathway(df_net_sub, lst_net, cell_type_a, cell_type_b, beta, ntrial)
+#' result <- analyze_pathway(df_net_sub, lst_net, cell_type_a, cell_type_b, beta, ntrial)
 #' }
 #'
 #' @return A data-frame containing information relating to pathway size, mean

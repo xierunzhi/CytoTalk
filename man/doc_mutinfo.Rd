@@ -46,7 +46,7 @@ cutoff_a <- 0.8
 mat_a <- extract_group(cell_type_a, lst_scrna)
 mat_filt_a <- subset_rownames(subset_non_zero(mat_a, cutoff_a), pcg)
 mat_disc_a <- discretize_sparse(Matrix::t(mat_filt_a))
-mi_mat_parallel(mat_disc_a, method = "mm")
+result <- mi_mat_parallel(mat_disc_a, method = "mm")
 }
 
 }

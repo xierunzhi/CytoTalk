@@ -31,7 +31,7 @@ Graphing with Cytoscape and Graphviz
 \examples{
 {
 pathways <- CytoTalk::result_cyto$pathways$raw
-graph_pathway(pathways[[1]])
+result <- graph_pathway(pathways[[1]])
 }
 
 }

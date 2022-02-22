@@ -47,7 +47,7 @@ from_single_cell_experiment <- function(sce) {
 #' @examples {
 #' dir_in <- "~/Tan-Lab/scRNAseq-data"
 #' lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
-#' str(lst_scrna$cell_types)
+#' result <- str(lst_scrna$cell_types)
 #' }
 #'
 #' @return A named list containing a sparse data matrix and cell type metadata
@@ -102,7 +102,7 @@ read_matrix_folder <- function(
 #' fpath_mat <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_counts.txt"
 #' fpath_meta <- "~/Tan-Lab/scRNAseq-data-cpdb/sample_meta.txt"
 #' lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
-#' str(lst_scrna$cell_types)
+#' result <- str(lst_scrna$cell_types)
 #' }
 #'
 #' @return A named list containing a sparse data matrix and cell type metadata

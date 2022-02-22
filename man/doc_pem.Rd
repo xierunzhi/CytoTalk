@@ -28,7 +28,7 @@ Preferential Expression Measure
 \examples{
 {
 lst_scrna <- CytoTalk::scrna_cyto
-pem(lst_scrna)
+result <- pem(lst_scrna)
 }
 
 }

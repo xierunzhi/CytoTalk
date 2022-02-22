@@ -61,7 +61,7 @@
 #'
 #' @examples {
 #' pathways <- CytoTalk::result_cyto$pathways$raw
-#' graph_pathway(pathways[[1]])
+#' result <- graph_pathway(pathways[[1]])
 #' }
 #'
 #' @return Graphs which represent the subset pathways of the final network
@@ -110,7 +110,7 @@ NULL
 #' beta_max <- 100
 #' omega_min <- 0.5
 #' omega_max <- 0.5
-#' run_pcst(lst_net, beta_max, omega_min, omega_max)
+#' result <- run_pcst(lst_net, beta_max, omega_min, omega_max)
 #' }
 #'
 #' @return Scores for the integrated network
@@ -156,7 +156,7 @@ NULL
 #' cell_type_a <- "Macrophages"
 #' lrp <- CytoTalk::lrp_human
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
-#' nonselftalk(mat_a, lrp)
+#' result <- nonselftalk(mat_a, lrp)
 #' }
 #'
 #' @return Various outputs to build the integrated network
@@ -192,7 +192,7 @@ NULL
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
 #' mat_filt_a <- subset_rownames(subset_non_zero(mat_a, cutoff_a), pcg)
 #' mat_disc_a <- discretize_sparse(Matrix::t(mat_filt_a))
-#' mi_mat_parallel(mat_disc_a, method = "mm")
+#' result <- mi_mat_parallel(mat_disc_a, method = "mm")
 #' }
 #'
 #' @return Mutual information calculations for filtered matrices
@@ -228,7 +228,7 @@ NULL
 #'
 #' @examples {
 #' lst_scrna <- CytoTalk::scrna_cyto
-#' pem(lst_scrna)
+#' result <- pem(lst_scrna)
 #' }
 #'
 #' @return Preferential expression measure scores

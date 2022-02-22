@@ -22,7 +22,7 @@ Transform Count Data if Detected
 lst_scrna <- CytoTalk::scrna_cyto
 cell_type_a <- "Macrophages"
 mat_a <- extract_group(cell_type_a, lst_scrna)
-check_count_data(mat_a)
+result <- check_count_data(mat_a)
 }
 
 }

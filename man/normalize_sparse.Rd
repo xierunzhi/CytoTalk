@@ -23,7 +23,7 @@ scRNAseq Count Normalization
 lst_scrna <- CytoTalk::scrna_cyto
 cell_type_a <- "Macrophages"
 mat_a <- extract_group(cell_type_a, lst_scrna)
-normalize_sparse(mat_a)
+result <- normalize_sparse(mat_a)
 }
 
 }

@@ -80,7 +80,7 @@ lst_scrna <- CytoTalk::scrna_cyto
 cell_type_a <- "Macrophages"
 lrp <- CytoTalk::lrp_human
 mat_a <- extract_group(cell_type_a, lst_scrna)
-nonselftalk(mat_a, lrp)
+result <- nonselftalk(mat_a, lrp)
 }
 
 }

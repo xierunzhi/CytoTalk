@@ -34,7 +34,7 @@ proportion_non_zero <- function(mat) {
 #' cell_type_a <- "Macrophages"
 #' cutoff_a <- 0.8
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
-#' subset_non_zero(mat_a, cutoff_a)
+#' result <- subset_non_zero(mat_a, cutoff_a)
 #' }
 #'
 #' @return A matrix
@@ -63,7 +63,7 @@ subset_non_zero_old <- function(mat, cutoff) {
 #' pcg <- CytoTalk::pcg_human
 #' cell_type_a <- "Macrophages"
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
-#' subset_rownames(mat_a, pcg)
+#' result <- subset_rownames(mat_a, pcg)
 #' }
 #'
 #' @return A matrix
@@ -98,7 +98,7 @@ extract_group_basic <- function(group, mat, labels) {
 #' @examples {
 #' lst_scrna <- CytoTalk::scrna_cyto
 #' cell_type_a <- "Macrophages"
-#' extract_group(cell_type_a, lst_scrna)
+#' result <- extract_group(cell_type_a, lst_scrna)
 #' }
 #'
 #' @return A matrix
@@ -122,7 +122,7 @@ group_meta_basic <- function(mat, labels) {
 #'
 #' @examples {
 #' lst_scrna <- CytoTalk::scrna_cyto
-#' group_meta(lst_scrna)
+#' result <- group_meta(lst_scrna)
 #' }
 #'
 #' @return A list of matrices
@@ -139,7 +139,7 @@ group_meta <- function(lst) {
 #' @examples {
 #' lst_scrna <- CytoTalk::scrna_cyto
 #' lst_group <- group_meta(lst_scrna)
-#' ungroup_meta(lst_group)
+#' result <- ungroup_meta(lst_group)
 #' }
 #'
 #' @return A list of a matrix and a meta vector
@@ -165,7 +165,7 @@ ungroup_meta <- function(lst) {
 #' lrp <- CytoTalk::lrp_human
 #' cell_type_a <- "Macrophages"
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
-#' match_lr_pairs(mat_a, lrp)
+#' result <- match_lr_pairs(mat_a, lrp)
 #' }
 #'
 #' @return A matrix with two columns (ligand-receptor)
@@ -199,7 +199,7 @@ match_lr_pairs <- function(mat, lrp) {
 #' lst_scrna <- CytoTalk::scrna_cyto
 #' cell_type_a <- "Macrophages"
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
-#' normalize_sparse(mat_a)
+#' result <- normalize_sparse(mat_a)
 #' }
 #'
 #' @return A matrix
@@ -219,7 +219,7 @@ normalize_sparse <- function(mat, scale.factor=10000) {
 #' lst_scrna <- CytoTalk::scrna_cyto
 #' cell_type_a <- "Macrophages"
 #' mat_a <- extract_group(cell_type_a, lst_scrna)
-#' check_count_data(mat_a)
+#' result <- check_count_data(mat_a)
 #' }
 #'
 #' @return A matrix

@@ -24,7 +24,7 @@ lst_scrna <- CytoTalk::scrna_cyto
 lrp <- CytoTalk::lrp_human
 cell_type_a <- "Macrophages"
 mat_a <- extract_group(cell_type_a, lst_scrna)
-match_lr_pairs(mat_a, lrp)
+result <- match_lr_pairs(mat_a, lrp)
 }
 
 }

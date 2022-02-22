@@ -22,7 +22,7 @@ Extract Cell Type from Meta List
 {
 lst_scrna <- CytoTalk::scrna_cyto
 cell_type_a <- "Macrophages"
-extract_group(cell_type_a, lst_scrna)
+result <- extract_group(cell_type_a, lst_scrna)
 }
 
 }
