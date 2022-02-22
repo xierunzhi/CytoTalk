@@ -206,8 +206,8 @@ NULL
 #' @param cores How many cores to use for parallel processing?
 #'
 #' @examples {
-#' unregister_parallel()
 #' register_parallel(cores=2)
+#' unregister_parallel()
 #' }
 #'
 #' @return Nothing

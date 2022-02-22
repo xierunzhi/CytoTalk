@@ -22,7 +22,8 @@ Registering Parallel Backend
 \examples{
 {
 unregister_parallel()
-register_parallel()
+register_parallel(cores=2)
+unregister_parallel()
 }
 
 }

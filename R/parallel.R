@@ -10,5 +10,8 @@ register_parallel <- function(cores=NULL) {
     if (is.null(cores)) {
         cores <- parallel::detectCores()
     }
-    doParallel::registerDoParallel(cores = max(1, cores))
+    cores <- max(1, cores)
+    if (cores != 1) {
+        doParallel::registerDoParallel(cores = cores)
+    }
 }
