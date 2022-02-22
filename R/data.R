@@ -207,7 +207,7 @@ NULL
 #'
 #' @examples {
 #' unregister_parallel()
-#' register_parallel()
+#' register_parallel(cores=2)
 #' }
 #'
 #' @return Nothing

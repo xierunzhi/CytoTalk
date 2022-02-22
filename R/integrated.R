@@ -1,6 +1,9 @@
 #' @rdname doc_integrated
 #' @export
 nonselftalk <- function(mat_type, lrp) {
+    # make sure function takes in a Matrix type
+    mat_type <- Matrix::Matrix(mat_type)
+
     lrp_index <- match_lr_pairs(mat_type, lrp)
     errorifnot(0 < nrow(lrp_index), "no ligand-receptor pairs found")
 
