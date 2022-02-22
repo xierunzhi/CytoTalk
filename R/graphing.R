@@ -2,19 +2,19 @@
 
 
 HEX <- c(0:9, LETTERS[seq_len(6)])
-URL_GENECARDS = "https://www.genecards.org/cgi-bin/carddisp.pl?gene="
-URL_WIKIPI = "https://hagrid.dbmi.pitt.edu/wiki-pi/index.php/search?q="
-FORM_NODE = paste0(
+URL_GENECARDS <- "https://www.genecards.org/cgi-bin/carddisp.pl?gene="
+URL_WIKIPI <- "https://hagrid.dbmi.pitt.edu/wiki-pi/index.php/search?q="
+FORM_NODE <- paste0(
     "\"%s\" [label = \"%s\" href = \"",
     URL_GENECARDS,
     "%s\" width = %s height = %s fillcolor = \"%s\"]"
 )
-FORM_EDGE = paste0(
+FORM_EDGE <- paste0(
     "\"%s\" -> \"%s\" [href=\"",
     URL_WIKIPI,
     "%s+%s\" penwidth=%s style=%s]"
 )
-FORM_GV = trimws("
+FORM_GV <- trimws("
 digraph {\n
 pad=0.25
 layout=dot
