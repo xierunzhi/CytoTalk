@@ -121,7 +121,7 @@ graph_pathway <- function(df_net_sub) {
     }
 
     # reorder edges
-    df_net_sub <- df_net_sub[order(df_net_sub$cost), ]
+    df_net_sub <- df_net_sub[order(as.numeric(df_net_sub$cost)), ]
 
     # normalize PEM
     index <- c("node1_pem", "node2_pem")

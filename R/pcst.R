@@ -134,7 +134,7 @@ ks_test_pcst <- function(lst_pcst) {
     })
 
     # order by low to hight p-values
-    index <- order(vec_pval)
+    index <- order(as.numeric(vec_pval))
     mat_param <- do.call(rbind, strsplit(names(lst_counts)[index], " "))
 
     # test dataframe
