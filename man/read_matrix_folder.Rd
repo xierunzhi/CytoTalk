@@ -25,7 +25,7 @@ Read Folder with scRNAseq Data
 }
 \examples{
 {
-# dir_in <- "~/Tan-Lab/scRNAseq-data"
+dir_in <- "~/Tan-Lab/scRNAseq-data"
 # lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
 # result <- str(lst_scrna$cell_types)
 }
