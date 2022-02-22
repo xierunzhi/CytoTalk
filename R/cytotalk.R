@@ -166,7 +166,7 @@ run_cytotalk <- function(
     }
 
     df_test <- ks_test_pcst(lst_pcst)
-    index <- order(as.numeric(df_test["pval"]))[1]
+    index <- order(as.numeric(df_test[, "pval"]))[1]
     beta <- df_test[index, "beta"]
     omega <- df_test[index, "omega"]
 
