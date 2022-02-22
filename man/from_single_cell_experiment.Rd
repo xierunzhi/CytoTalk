@@ -6,6 +6,9 @@
 \usage{
 from_single_cell_experiment(sce)
 }
+\arguments{
+\item{sce}{SingleCellExperiment object}
+}
 \description{
 Convert SingleCellExperiment to Named List
 }

@@ -29,6 +29,8 @@ vroom_sparse_with_rownames <- function(..., row_names=1) {
 
 #' Convert SingleCellExperiment to Named List
 #'
+#' @param sce SingleCellExperiment object
+#'
 #' @export
 from_single_cell_experiment <- function(sce) {
     count <- SingleCellExperiment::logcounts(sce)
