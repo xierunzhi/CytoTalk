@@ -31,6 +31,8 @@ vroom_sparse_with_rownames <- function(..., row_names=1) {
 #'
 #' @param sce SingleCellExperiment object
 #'
+#' @return A named list containing a sparse data matrix and cell type metadata
+#'
 #' @export
 from_single_cell_experiment <- function(sce) {
     count <- SingleCellExperiment::logcounts(sce)

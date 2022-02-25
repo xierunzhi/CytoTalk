@@ -74,13 +74,13 @@ lst_scrna <- CytoTalk::read_matrix_folder(dir_in)
 table(lst_scrna$cell_types)
 ```
 
-``` console
- BasalCells                 BCells       EndothelialCells 
-        392                    743                    251 
-Fibroblasts LuminalEpithelialCells            Macrophages 
-        700                    459                    186 
-     TCells 
-       1750
+```{r}
+#>  BasalCells                 BCells       EndothelialCells 
+#>         392                    743                    251 
+#> Fibroblasts LuminalEpithelialCells            Macrophages 
+#>         700                    459                    186 
+#>      TCells 
+#>        1750
 ```
 
 The outputted names are all the cell types we can choose to run CytoTalk
@@ -88,10 +88,10 @@ against. Alternatively, we can use CellPhoneDB-style input, where one
 file is our data matrix, and another file maps cell types to columns
 (i.e. metadata):
 
-``` txt
-── scRNAseq-data-cpdb
-   ├─ sample_counts.txt
-   └─ sample_meta.txt
+```{r}
+#> ── scRNAseq-data-cpdb
+#>    ├─ sample_counts.txt
+#>    └─ sample_meta.txt
 ```
 
 There is no specific pattern required for this type of input, as both
@@ -104,9 +104,9 @@ lst_scrna <- CytoTalk::read_matrix_with_meta(fpath_mat, fpath_meta)
 table(lst_scrna$cell_types)
 ```
 
-``` console
-Myeloid NKcells_0 NKcells_1    Tcells 
-      1         5         3         1
+```{r}
+#> Myeloid NKcells_0 NKcells_1    Tcells 
+#>       1         5         3         1
 ```
 
 Finally, you can compose your own input list quite easily, simply have a
@@ -120,9 +120,9 @@ lst_scrna <- CytoTalk:::new_named_list(mat, cell_types)
 table(lst_scrna$cell_types)
 ```
 
-``` console
-TypeA TypeB 
-    2     1
+```{r}
+#> TypeA TypeB 
+#>     2     1
 ```
 
 ### Running CytoTalk
@@ -140,8 +140,9 @@ type_b <- "LuminalEpithelialCells"
 
 # run CytoTalk process
 results <- CytoTalk::run_cytotalk(lst_scrna, type_a, type_b)
+```
 
-#>
+```{r}
 #> [1 / 8] (11:15:28) Preprocessing...
 #> [2 / 8] (11:16:13) Mutual information matrix...
 #> [3 / 8] (11:20:19) Indirect edge-filtered network...
@@ -161,8 +162,8 @@ each sub process.
 
 Here is what the structure of the output list looks like (abbreviated):
 
-``` r
-str(results)
+```{r}
+#> str(CytoTalk::result_cyto)
 
 #>
 #> List of 5
@@ -217,6 +218,12 @@ neighborhood size for each pathway, along with theoretical (Gamma distribution)
 test values that are found by contrsting the found pathway to random pathways
 from the integrated network. $p$-values for node prize, edge cost, and
 potential are calculated separately.
+
+## Session Info
+
+```{r}
+sessionInfo()
+```
 
 ## Citing CytoTalk
 

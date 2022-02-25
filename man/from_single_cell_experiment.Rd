@@ -9,6 +9,9 @@ from_single_cell_experiment(sce)
 \arguments{
 \item{sce}{SingleCellExperiment object}
 }
+\value{
+A named list containing a sparse data matrix and cell type metadata
+}
 \description{
 Convert SingleCellExperiment to Named List
 }
