@@ -45,7 +45,7 @@ fillcolor=\"#EEEEEE\"\n
 // cluster external horizontal order
 %s
 // cluster external
-edge [color=limegreen arrowhead=normal dir=back]
+edge [color=limegreen arrowhead=normal arrowtail=normal dir=back]
 %s\n
 }")
 
