@@ -146,6 +146,13 @@ Myeloid NKcells_0 NKcells_1    Tcells
       1         5         3         1
 ```
 
+If you have a `SingleCellExperiment` object with `logcounts` and
+`colnames` loaded onto it, you can create an input list like so:
+
+``` r
+lst_scrna <- CytoTalk::from_single_cell_experiment(sce)
+```
+
 Finally, you can compose your own input list quite easily, simply have a
 matrix of either count or transformed data and a vector detailing the
 cell types of each column:
