@@ -67,27 +67,38 @@ activities of signaling pathways and the interactions among them.
 
 ### Prerequisites
 
+Please [install Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) 
+at the very beginning for all of Windows, Linux and macOS users and make sure
+to have [Microsoft Visual C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) 
+and [Rtools 4.0](https://cran.r-project.org/bin/windows/Rtools/rtools40.html) 
+correctly installed for Windows users only.
+
 CytoTalk requires a Python module to operate correctly. To install the
 [`pcst_fast` module](https://github.com/fraenkel-lab/pcst_fast), please run
-this command *before* using CytoTalk:
+the commands below in the *R* (version 4.1.3) console if you have `reticulate` 
+installed.
 
-``` console
-pip install git+https://github.com/fraenkel-lab/pcst_fast.git
+```{r eval=FALSE}
+library(reticulate)  # To install and call Python modules from R.
+conda_create(envname = "r_reticulate_CytoTalk", python_version = "3.7.3")  # Create a new Conda environment to facilitate the Python module installation.
+conda_install(envname = "r_reticulate_CytoTalk", "pybind11")  # Install two necessary Python modules for correctly compiling and using the "pcst_fast" Python module.
+conda_install(envname = "r_reticulate_CytoTalk", "numpy")
+conda_install(envname = "r_reticulate_CytoTalk", "git+https://github.com/fraenkel-lab/pcst_fast.git", pip = TRUE) # To install the "pcst_fast" module.
 ```
 
 CytoTalk outputs a SIF file for use in Cytoscape. Please [install
 Cytoscape](https://cytoscape.org/download.html) to view the whole output
 network. Additionally, you'll have to install Graphviz and add the `dot`
-executable to your PATH. See the [Cytoscape downloads
+executable to your PATH. See the [Graphviz downloads
 page](https://graphviz.org/download/) for more information.
 
 ### Installation
 
 If you have `devtools` installed, you can use the `install_github` function
-directly on this repository:
+directly on this repository (under development):
 
 ``` {r install, eval=FALSE}
-devtools::install_github("tanlabcode/CytoTalk")
+devtools::install_github("tanlabcode/CytoTalk", ref = "feature_RcallPy")
 ```
 
 ### Preparation
@@ -274,6 +285,11 @@ potential are calculated separately.
 
 ## Update Log
 
+2022-05-05: We have updated the installation and usage of the 
+[`pcst_fast` module](https://github.com/fraenkel-lab/pcst_fast) for running the 
+CytoTalk package completely in the *R* console as a new under-development branch 
+"feature_RcallPy", which has been tested on both Windows and macOS.
+
 2021-11-30: The latest release "CytoTalk_v0.99.0" resets the versioning numbers
 in anticipation for submission to Bioconductor. This newest version packages
 functions in a modular fashion, offering more flexible input, usage, and output
@@ -322,11 +338,6 @@ user manual inside the package.
 
   <https://advances.sciencemag.org/content/7/16/eabf1356>
 
-- Hu Y, Peng T, Gao L, Tan K. CytoTalk: *De novo* construction of signal
-  transduction networks using single-cell RNA-Seq data. *bioRxiv*, 2020.
-
-  <https://www.biorxiv.org/content/10.1101/2020.03.29.014464v1>
-
 ## References
 
 - Shannon P, et al. Cytoscape: a software environment for integrated models of
@@ -335,5 +346,7 @@ user manual inside the package.
 ## Contact  
 
 Kai Tan, tank1@chop.edu
+
+Yuxuan Hu, huyuxuan@xidian.edu.cn
 
 <br />

@@ -57,27 +57,41 @@ pathways and the interactions among them.
 
 ### Prerequisites
 
+Please [install
+Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
+at the very beginning for all of Windows, Linux and macOS users and make
+sure to have [Microsoft Visual C++ Build
+Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) and
+[Rtools
+4.0](https://cran.r-project.org/bin/windows/Rtools/rtools40.html)
+correctly installed for Windows users only.
+
 CytoTalk requires a Python module to operate correctly. To install the
 [`pcst_fast` module](https://github.com/fraenkel-lab/pcst_fast), please
-run this command *before* using CytoTalk:
+run the commands below in the *R* (version 4.1.3) console if you have
+`reticulate` installed.
 
-``` console
-pip install git+https://github.com/fraenkel-lab/pcst_fast.git
+``` r
+library(reticulate)  # To install and call Python modules from R.
+conda_create(envname = "r_reticulate_CytoTalk", python_version = "3.7.3")  # Create a new Conda environment to facilitate the Python module installation.
+conda_install(envname = "r_reticulate_CytoTalk", "pybind11")  # Install two necessary Python modules for correctly compiling and using the "pcst_fast" Python module.
+conda_install(envname = "r_reticulate_CytoTalk", "numpy")
+conda_install(envname = "r_reticulate_CytoTalk", "git+https://github.com/fraenkel-lab/pcst_fast.git", pip = TRUE) # To install the "pcst_fast" module.
 ```
 
 CytoTalk outputs a SIF file for use in Cytoscape. Please [install
 Cytoscape](https://cytoscape.org/download.html) to view the whole output
 network. Additionally, you’ll have to install Graphviz and add the `dot`
-executable to your PATH. See the [Cytoscape downloads
+executable to your PATH. See the [Graphviz downloads
 page](https://graphviz.org/download/) for more information.
 
 ### Installation
 
 If you have `devtools` installed, you can use the `install_github`
-function directly on this repository:
+function directly on this repository (under development):
 
 ``` r
-devtools::install_github("tanlabcode/CytoTalk")
+devtools::install_github("tanlabcode/CytoTalk", ref = "feature_RcallPy")
 ```
 
 ### Preparation
@@ -267,24 +281,31 @@ from the PCST. Additionally, the `results$pathways$df_pval` item
 contains a summary of the neighborhood size for each pathway, along with
 theoretical (Gamma distribution) test values that are found by
 contrsting the found pathway to random pathways from the integrated
-network. *p*-values for node prize, edge cost, and potential are
-calculated separately.
+network.
+![p](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;p "p")-values
+for node prize, edge cost, and potential are calculated separately.
 
 ## Update Log
 
-2021-11-30: The latest release “CytoTalk\_v0.99.0” resets the versioning
+2022-05-05: We have updated the installation and usage of the
+[`pcst_fast` module](https://github.com/fraenkel-lab/pcst_fast) for
+running the CytoTalk package completely in the *R* console as a new
+under-development branch “feature_RcallPy”, which has been tested on
+both Windows and macOS.
+
+2021-11-30: The latest release “CytoTalk_v0.99.0” resets the versioning
 numbers in anticipation for submission to Bioconductor. This newest
 version packages functions in a modular fashion, offering more flexible
 input, usage, and output of the CytoTalk subroutines.
 
-2021-10-07: The release “CytoTalk\_v4.0.0” is a completely re-written R
+2021-10-07: The release “CytoTalk_v4.0.0” is a completely re-written R
 version of the program. Approximately half of the run time as been
 shaved off, the program is now cross-compatible with Windows and \*NIX
 systems, the file space usage is down to roughly a tenth of what it was,
 and graphical outputs have been made easier to import or now produce
 portable SVG files with embedded hyperlinks.
 
-2021-06-08: The release “CytoTalk\_v3.1.0” is a major updated R version
+2021-06-08: The release “CytoTalk_v3.1.0” is a major updated R version
 on the basis of v3.0.3. We have added a function to generate Cytoscape
 files for visualization of each ligand-receptor-associated pathway
 extracted from the predicted signaling network between the two given
@@ -292,24 +313,24 @@ cell types. For each predicted ligand-receptor pair, its associated
 pathway is defined as the user-specified order of the neighborhood of
 the ligand and receptor in the two cell types.
 
-2021-05-31: The release “CytoTalk\_v3.0.3” is a revised R version on the
+2021-05-31: The release “CytoTalk_v3.0.3” is a revised R version on the
 basis of v3.0.2. A bug has been fixed in this version to avoid errors
 occurred in some special cases. We also provided a new example
-“RunCytoTalk\_Example\_StepByStep.R” to run the CytoTalk algorithm in a
-step-by-step fashion. Please download “CytoTalk\_package\_v3.0.3.zip”
-from the Releases page
+“RunCytoTalk_Example_StepByStep.R” to run the CytoTalk algorithm in a
+step-by-step fashion. Please download “CytoTalk_package_v3.0.3.zip” from
+the Releases page
 (<https://github.com/huBioinfo/CytoTalk/releases/tag/v3.0.3>) and refer
 to the user manual inside the package.
 
-2021-05-19: The release “CytoTalk\_v3.0.2” is a revised R version on the
+2021-05-19: The release “CytoTalk_v3.0.2” is a revised R version on the
 basis of v3.0.1. A bug has been fixed in this version to avoid running
 errors in some extreme cases. Final prediction results will be the same
 as v3.0.1. Please download the package from the Releases page
 (<https://github.com/huBioinfo/CytoTalk/releases/tag/v3.0.2>) and refer
 to the user manual inside the package.
 
-2021-05-12: The release “CytoTalk\_v3.0.1” is an R version, which is
-more easily and friendly to use!! Please download the package from the
+2021-05-12: The release “CytoTalk_v3.0.1” is an R version, which is more
+easily and friendly to use!! Please download the package from the
 Releases page
 (<https://github.com/huBioinfo/CytoTalk/releases/tag/v3.0.1>) and refer
 to the user manual inside the package.
@@ -322,12 +343,6 @@ to the user manual inside the package.
 
     <https://advances.sciencemag.org/content/7/16/eabf1356>
 
--   Hu Y, Peng T, Gao L, Tan K. CytoTalk: *De novo* construction of
-    signal transduction networks using single-cell RNA-Seq data.
-    *bioRxiv*, 2020.
-
-    <https://www.biorxiv.org/content/10.1101/2020.03.29.014464v1>
-
 ## References
 
 -   Shannon P, et al. Cytoscape: a software environment for integrated
@@ -337,5 +352,7 @@ to the user manual inside the package.
 ## Contact
 
 Kai Tan, <tank1@chop.edu>
+
+Yuxuan Hu, <huyuxuan@xidian.edu.cn>
 
 <br />
