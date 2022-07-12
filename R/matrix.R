@@ -47,7 +47,7 @@ subset_non_zero <- function(mat, cutoff) {
 
 #' @noRd
 subset_non_zero_old <- function(mat, cutoff) {
-    thresh <- floor(ncol(mat) * cutoff)
+    thresh <- max(3,floor(ncol(mat) * cutoff))
     index <- thresh <= Matrix::rowSums(mat != 0)
     mat[index, ]
 }
