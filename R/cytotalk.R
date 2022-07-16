@@ -222,12 +222,12 @@ run_cytotalk <- function(
         if (!dir.exists(dir_gv)) {
             dir.create(dir_gv, recursive = TRUE)
         }
-        fnames <- names(lst_graph)
-        for (fn in fnames) {
-            fpath <- file.path(dir_gv, sprintf("%s.svg", fn))
-            content <- DiagrammeRsvg::export_svg(lst_graph[[fn]])
-            write(content, fpath)
-        }
+        #fnames <- names(lst_graph)
+        #for (fn in fnames) {
+            #fpath <- file.path(dir_gv, sprintf("%s.svg", fn))
+            #content <- DiagrammeRsvg::export_svg(lst_graph[[fn]])
+            #write(content, fpath)
+        #}
     }
 
     # write out final network
