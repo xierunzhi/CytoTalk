@@ -101,11 +101,10 @@ run_cytotalk <- function(
     mat_pem <- pem(lst_scrna)
     mat_a <- extract_group(cell_type_a, lst_scrna)
     mat_b <- extract_group(cell_type_b, lst_scrna)
-    vec_nst_a <- nonselftalk(mat_a, lrp)
-    vec_nst_b <- nonselftalk(mat_b, lrp)
     mat_filt_a <- subset_rownames(subset_non_zero_old(mat_a, cutoff_a), pcg)
     mat_filt_b <- subset_rownames(subset_non_zero_old(mat_b, cutoff_b), pcg)
-
+    print(paste('mat a after filtering genes:',nrow(mat_filt_a)))
+    print(paste('mat b after filtering genes:',nrow(mat_filt_b)))
     # write out PEM matrix
     if (!is.null(dir_out)) {
         fpath <- file.path(dir_out, "PEM.txt")
@@ -115,7 +114,7 @@ run_cytotalk <- function(
     if (echo) {
         tick(2, "Mutual information matrix...")
     }
-
+  
     mat_disc_a <- discretize_sparse(Matrix::t(mat_filt_a))
     mat_disc_b <- discretize_sparse(Matrix::t(mat_filt_b))
     mat_mi_a <- mi_mat_parallel(mat_disc_a, method = "mm")
@@ -129,11 +128,21 @@ run_cytotalk <- function(
 
     mat_intra_a <- Matrix::Matrix(parmigene::aracne.m(zero_diag(mat_mi_a)))
     mat_intra_b <- Matrix::Matrix(parmigene::aracne.m(zero_diag(mat_mi_b)))
-
+    
+    # remove some independent genes
+    
+    inde_gene_id_a = which(Matrix::rowSums(mat_intra_a)<=0)
+    if(length(inde_gene_id_a)>0){
+      mat_intra_a = mat_intra_a[-inde_gene_id_a,-inde_gene_id_a]
+    }
+    inde_gene_id_b = which(Matrix::rowSums(mat_intra_b)<=0)
+    if(length(inde_gene_id_b)>0){
+      mat_intra_b = mat_intra_b[-inde_gene_id_b,-inde_gene_id_b]
+    }
+    
     if (echo) {
         tick(4, "Integrate network...")
     }
-
     lst_net <- integrate_network(
         vec_nst_a, vec_nst_b, mat_intra_a, mat_intra_b,
         cell_type_a, cell_type_b, mat_pem, mat_a, lrp
@@ -181,7 +190,7 @@ run_cytotalk <- function(
 
     df_net <- extract_network(lst_net, lst_pcst, mat_pem, beta, omega)
     lst_path <- extract_pathways(df_net, cell_type_a, depth)
-    lst_graph <- lapply(lst_path, graph_pathway)
+    lst_graph <- NA#lapply(lst_path, graph_pathway)
 
     # no pathways found
     if (is.null(lst_path)) {

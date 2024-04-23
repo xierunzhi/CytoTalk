@@ -3,13 +3,15 @@
 nonselftalk <- function(mat_type, lrp) {
     # make sure function takes in a Matrix type
     mat_type <- Matrix::Matrix(mat_type)
-
+  
     lrp_index <- match_lr_pairs(mat_type, lrp)
     errorifnot(0 < nrow(lrp_index), "no ligand-receptor pairs found")
-
+    
     index <- which(Matrix::rowSums(mat_type != 0) == 0)
-
-    mat_type[index, ] <- add_noise(mat_type[index, ])
+    if (length(index)!=0){
+      mat_type[index, ] <- add_noise(mat_type[index, ])
+    }
+    
     mat_disc <- discretize_sparse(
         Matrix::t(mat_type), "equalwidth", max(2, ncol(mat_type)^(1/2)))
 
@@ -27,12 +29,22 @@ nonselftalk <- function(mat_type, lrp) {
 #' @rdname doc_integrated
 #' @export
 gene_relevance <- function(mat_intra, lrp) {
+    #browser()
     # create a new matrix, same size
     mat_nsq <- as.matrix(mat_intra) * 0
     # set the diagonal as the network rowsums
     diag(mat_nsq) <- Matrix::rowSums(mat_intra)
 
     # negative square root
+    # since the corpcor::mpower will assume that mat_nsq is a symmertic matrix
+    # so when the zero appear in diag of mat_nsq, it will make all mat_nsq to be
+    # nan, which may cause the following step wrong
+    # when gene is zero in mat_nsq, which imply that the gene is not correlated to 
+    # any other gene in our filtered gene, that is nearly impossible in original 
+    # scRNA-seq data
+    # 
+    #inde_gene_id = which(Matrix::rowSums(mat_intra)<=0)
+    #browser()
     mat_nsq <- corpcor::mpower(mat_nsq, -0.5)
     # symmetric matrix
     mat_wnorm <- mat_nsq %*% as.matrix(mat_intra) %*% mat_nsq
@@ -139,9 +151,11 @@ integrate_network <- function(
     vec_nst_a, vec_nst_b, mat_intra_a, mat_intra_b,
     cell_type_a, cell_type_b, mat_pem, mat_type, lrp) {
 
+    #browser()  
     # gene relevance
-    vec_gr_a <- gene_relevance(mat_intra_a, lrp)
     vec_gr_b <- gene_relevance(mat_intra_b, lrp)
+    vec_gr_a <- gene_relevance(mat_intra_a, lrp)
+    
 
     # node prize
     vec_np_a <- node_prize(mat_pem, cell_type_a, vec_gr_a)
